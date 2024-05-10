@@ -22,6 +22,10 @@ export default defineConfig((): UserConfig => {
       open: true,
       proxy,
     },
+    build: {
+      target: 'es2015', // 输出ES6代码
+      minify: false, // 不进行代码压缩
+    },
     plugins: createVitePlugins(isBuild),
   };
 });

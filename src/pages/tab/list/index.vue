@@ -1,63 +1,121 @@
 <template>
-  <z-paging ref="pagingRef" v-model="dataList" @query="queryList">
-    <view v-for="(item, index) in dataList" :key="index">
-      <u-cell :title="`列表长度-${index + 1}`">
-        <template #icon>
-          <u-avatar
-            shape="square"
-            size="35"
-            :src="item"
-            custom-style="margin: -3px 5px -3px 0"
-          />
-        </template>
-      </u-cell>
+  <uni-fab ref="fab" :pattern="pattern" :horizontal="horizontal" :vertical="vertical" :popMenu="false"
+    @trigger="trigger" @fabClick="fabClick" />
+  <up-popup mode="right" :show="show" @close="close" @open="open">
+    <view>
+      <text>出淤泥而不染，濯清涟而不妖</text>
     </view>
-  </z-paging>
+  </up-popup>
+  <view class="flex items-center">
+    <u-dropdown @open="onClickDropHandler">
+      <u-dropdown-item v-model="value1" title="排序" :options="options1"></u-dropdown-item>
+      <u-dropdown-item v-model="value2" title="年龄" :options="options2"></u-dropdown-item>
+      <u-dropdown-item v-model="value3" title="身高" :options="options3"></u-dropdown-item>
+    </u-dropdown>
+    <text @click="onClickDropHandler">更多</text>
+  </view>
+
+  <up-list @scrolltolower="scrolltolower" :lowerThreshold="100" :preLoadScreen="1.5">
+    <up-list-item v-for="(item, index) in dataList" :key="index">
+      <user-card :item="item">
+      </user-card>
+    </up-list-item>
+  </up-list>
 </template>
 
 <script setup lang="ts">
-import zPaging from 'z-paging/components/z-paging/z-paging.vue';
+import { getUserInfoListByTag } from '@/api/mock';
 
-const pagingRef = ref<InstanceType<typeof zPaging> | null>(null);
-const dataList = ref<string[]>([]);
+const horizontal = ref('right');
+const vertical = ref('top');
+const pattern = reactive({
+  color: '#7A7E83',
+  backgroundColor: '#fff',
+  selectedColor: '#007AFF',
+  buttonColor: '#007AFF',
+  iconColor: '#fff'
+});
 
-const urls: string[] = [
-  'https://cdn.uviewui.com/uview/album/1.jpg',
-  'https://cdn.uviewui.com/uview/album/2.jpg',
-  'https://cdn.uviewui.com/uview/album/3.jpg',
-  'https://cdn.uviewui.com/uview/album/4.jpg',
-  'https://cdn.uviewui.com/uview/album/5.jpg',
-  'https://cdn.uviewui.com/uview/album/6.jpg',
-  'https://cdn.uviewui.com/uview/album/7.jpg',
-  'https://cdn.uviewui.com/uview/album/8.jpg',
-  'https://cdn.uviewui.com/uview/album/9.jpg',
-  'https://cdn.uviewui.com/uview/album/10.jpg',
-];
+const trigger = (e: any) => {
+  console.log(e);
+  uni.showModal({
+    title: '提示',
+    content: `aaa${e.index}`,
+    success: function (res) {
+      if (res.confirm) {
+        console.log('用户点击确定');
+      } else if (res.cancel) {
+        console.log('用户点击取消');
+      }
+    }
+  });
+};
 
-function queryList(pageNo: number, pageSize: number) {
-  console.log('[ pageNo ] >', pageNo);
-  console.log('[ pageSize ] >', pageSize);
-  // 这里的pageNo和pageSize会自动计算好，直接传给服务器即可
-  // 这里的请求只是演示，请替换成自己的项目的网络请求，并在网络请求回调中通过pagingRef.value.complete(请求回来的数组)将请求结果传给z-paging
-  setTimeout(() => {
-    // 1秒之后停止刷新动画
-    const list = [];
-    for (let i = 0; i < 30; i++)
-      list.push(urls[uni.$u.random(0, urls.length - 1)]);
+const fabClick = () => {
+  uni.showToast({
+    title: '点击了悬浮按钮',
+    icon: 'none'
+  });
+};
 
-    pagingRef.value?.complete(list);
-  }, 1000);
-  // this.$request
-  //   .queryList({ pageNo, pageSize })
-  //   .then(res => {
-  //     // 请勿在网络请求回调中给dataList赋值！！只需要调用complete就可以了
-  //     pagingRef.value.complete(res.data.list);
-  //   })
-  //   .catch(res => {
-  //     // 如果请求失败写pagingRef.value.complete(false)，会自动展示错误页面
-  //     // 注意，每次都需要在catch中写这句话很麻烦，z-paging提供了方案可以全局统一处理
-  //     // 在底层的网络请求抛出异常时，写uni.$emit('z-paging-error-emit');即可
-  //     pagingRef.value.complete(false);
-  //   });
+
+const onClickDropHandler = (e: any) => {
+  console.log('onClickDropHandler', e);
+  show.value = true;
+};
+
+// 创建响应式数据
+const show = ref(false);
+
+// 定义方法
+function open() {
+  // 打开逻辑，比如设置 show 为 true
+  show.value = true;
+  // console.log('open');
 }
+
+function close() {
+  // 关闭逻辑，设置 show 为 false
+  show.value = false;
+  // console.log('close');
+}
+
+const value1 = ref('1');
+const value2 = ref('1');
+const value3 = ref('1');
+
+const options1 = ref([
+  { label: '登陆日期', value: '1' },
+  { label: '房车', value: '2' },
+  { label: '是否离异', value: '3' },
+]);
+const options2 = ref([
+  { label: '20-25', value: '1' },
+  { label: '25-35', value: '2' },
+  { label: '35-45', value: '3' },
+]);
+const options3 = ref([
+  { label: '140-150', value: '1' },
+  { label: '150-155', value: '2' },
+  { label: '155-160', value: '3' },
+  { label: '160-170', value: '4' },
+  { label: '170-175', value: '5' },
+]);
+let pageNo = 1;
+const pageSize = 10;
+const dataList = ref(getUserInfoListByTag(pageNo, pageSize));
+
+onLoad(() => {
+  loadmore();
+})
+
+const scrolltolower = (e: any) => {
+  console.log('scrolltolower', e);
+  loadmore();
+};
+
+const loadmore = () => {
+  pageNo++;
+  dataList.value = dataList.value.concat(getUserInfoListByTag(pageNo, pageSize));
+};
 </script>

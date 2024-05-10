@@ -16,6 +16,7 @@
     "eslint": "eslint --fix"
   },
   "dependencies": {
+    "@climblee/uv-ui": "^1.1.20",
     "@dcloudio/uni-app": "3.0.0-4000820240401001",
     "@dcloudio/uni-app-plus": "3.0.0-4000820240401001",
     "@dcloudio/uni-components": "3.0.0-4000820240401001",
@@ -30,11 +31,12 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4000820240401001",
     "@dcloudio/uni-mp-xhs": "3.0.0-4000820240401001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4000820240401001",
+    "@dcloudio/uni-ui": "^1.5.5",
     "pinia": "2.0.36",
-    "uview-plus": "^3.1.52",
+    "uview-plus": "^3.2.13",
     "vue": "3.3.11",
     "vue-i18n": "^9.10.2",
-    "z-paging": "^2.7.7"
+    "wot-design-uni": "^1.2.18"
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.13.2",

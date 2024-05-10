@@ -4,7 +4,10 @@
     "baseUrl": ".",
     "module": "ESNext",
     "target": "es2016",
-    "lib": ["DOM", "ESNext"],
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "strict": true,
     "jsx": "preserve",
     "esModuleInterop": true,
@@ -14,11 +17,19 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "allowJs": true,
+    "checkJs": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
-    "types": ["@dcloudio/types", "@uni-helper/uni-app-types", "miniprogram-api-typings"]
+    "types": [
+      "@dcloudio/types",
+      "wot-design-uni/global.d.ts",
+      "@uni-helper/uni-app-types",
+      "miniprogram-api-typings"
+    ]
   },
   "include": [
     "src/**/*.ts",
@@ -28,10 +39,18 @@
     "types/**/*.d.ts",
     "types/**/*.ts"
   ],
-  "exclude": ["dist", "node_modules", "uni_modules"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "uni_modules"
+  ],
   // uni-app Component type prompt
   "vueCompilerOptions": {
-    "nativeTags": ["block", "component", "template", "slot"]
+    "nativeTags": [
+      "block",
+      "component",
+      "template",
+      "slot"
+    ]
   }
 }
-
