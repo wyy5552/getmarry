@@ -2,37 +2,43 @@
   "easycom": {
     "custom": {
       "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue",
-      "^uv-(.*)": "@climblee/uv-ui/components/uv-$1/uv-$1.vue",
-      "^u--(.*)": "uview-plus/components/u-$1/u-$1.vue",
-      "^up-(.*)": "uview-plus/components/u-$1/u-$1.vue",
-      "^u-([^-].*)": "uview-plus/components/u-$1/u-$1.vue",
-      "^(?!z-paging-refresh|z-paging-load-more)z-paging(.*)": "z-paging/components/z-paging$1/z-paging$1.vue",
-      "^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue",
     }
   },
   "pages": [
     {
-      "path": "pages/register/index",
+      "path": "pages/tab/user/index",
       "style": {
-        "navigationBarTitleText": "个人信息"
+        "navigationBarTitleText": "我的"
       }
     },
     {
-      "path": "pages/tab/home/index",
+      "path": "pages/tab/user/my-collection",
       "style": {
-        "navigationBarTitleText": "首页"
+        "navigationBarTitleText": "我的收藏"
+      }
+    },
+    {
+      "path": "pages/tab/user-info/user-info",
+      "style": {
+        "navigationBarTitleText": "用户信息"
       }
     },
     {
       "path": "pages/tab/list/index",
       "style": {
-        "navigationBarTitleText": "列表"
+        "navigationBarTitleText": "搜索"
       }
     },
     {
-      "path": "pages/tab/user/index",
+      "path": "pages/tab/home/index",
       "style": {
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "广场"
+      }
+    },
+    {
+      "path": "pages/register/index",
+      "style": {
+        "navigationBarTitleText": "信息录入"
       }
     }
   ],
@@ -72,16 +78,12 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/register/index",
-        "text": "注册"
-      },
-      {
         "pagePath": "pages/tab/home/index",
-        "text": "首页"
+        "text": "广场"
       },
       {
         "pagePath": "pages/tab/list/index",
-        "text": "列表"
+        "text": "搜索"
       },
       {
         "pagePath": "pages/tab/user/index",

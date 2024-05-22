@@ -24,5 +24,8 @@
   "files.associations": {
     "manifest.json": "jsonc",
     "pages.json": "jsonc"
-  }
+  },
+  "cSpell.words": [
+    "wechat"
+  ]
 }

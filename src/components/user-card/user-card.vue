@@ -1,5 +1,5 @@
 <template>
-    <div class="user-card" @click="clickUser">
+    <div class="user-card" >
         <up-image :show-loading="true" :src="item.photoAlbum[0]" width="80px" height="80px"></up-image>
         <div class="user-info">
             <h2 class="user-name">{{ item.nickname }}</h2>
@@ -17,7 +17,6 @@
 
 <script setup lang="ts">
 import { getUserInfo } from '@/api/mock';
-import { route } from 'uview-plus';
 
 const ItemTemp = getUserInfo();
 type UserCardProps = typeof ItemTemp;
@@ -26,10 +25,6 @@ const props = defineProps<{
     item: UserCardProps,
 }>()
 
-const clickUser = () => {
-    console.log(props.item)
-    route(`/pages/common/user-info/user-info?item=${encodeURIComponent(JSON.stringify(props.item))}`);
-};
 
 
 </script>
