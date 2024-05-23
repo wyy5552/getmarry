@@ -12,7 +12,7 @@
       }
     },
     {
-      "path": "pages/tab/user/my-collection",
+      "path": "pages/tab/user/collection",
       "style": {
         "navigationBarTitleText": "我的收藏"
       }
@@ -36,9 +36,21 @@
       }
     },
     {
-      "path": "pages/register/index",
+      "path": "pages/tab/user/register",
       "style": {
-        "navigationBarTitleText": "信息录入"
+        "navigationBarTitleText": "修改信息"
+      }
+    },
+    {
+      "path": "pages/tab/user/login",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/tab/user/edit",
+      "style": {
+        "navigationBarTitleText": "注册"
       }
     }
   ],

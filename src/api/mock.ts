@@ -13,6 +13,7 @@ export const getVipList = () => {
   * 相册
 + 基本信息
   * 昵称
+  * 姓名
   * 年龄
   * 性别
   * 身高
@@ -32,7 +33,6 @@ export const getVipList = () => {
   * 兴趣爱好
   * 工作行业
   * 单位类型
-
  */
 export type UserInfoType = {
     /** 用户的唯一标识 */
@@ -43,6 +43,7 @@ export type UserInfoType = {
     introduction: string;
     /** 用户的昵称 */
     nickname: string;
+    name: string;
     /** 用户的性别，0 代表女性，1 代表男性 */
     gender: number;
     /** 用户的身高 */
@@ -138,7 +139,8 @@ export const getUserInfo = () => {
         matchmakerComment: "人不错，可以考虑",
         isPersonalInfo: false,
         otherInfo: "这是其他信息",
-        matchmakerWechat: "红娘微信"
+        matchmakerWechat: "红娘微信",
+        name: "韦颜雨"
     };
     return userInfo;
 }
@@ -162,3 +164,49 @@ export const getCollectionList = () => {
         }
     });
 }
+
+export const ageConfig = [
+    { text: '18-25岁', value: '18-25' },
+    { text: '26-30岁', value: '26-30' },
+    { text: '31-35岁', value: '31-35' },
+    { text: '36-40岁', value: '36-40' },
+    { text: '41-45岁', value: '41-45' },
+    { text: '46-50岁', value: '46-50' },
+    { text: '51-55岁', value: '51-55' },
+    { text: '56岁以上', value: '56' },
+]
+/** 身高配置 */
+export const heightConfig = [
+    { text: '150cm以下', value: '150' },
+    { text: '150-155cm', value: '150-155' },
+    { text: '156-160cm', value: '156-160' },
+    { text: '161-165cm', value: '161-165' },
+    { text: '166-170cm', value: '166-170' },
+    { text: '171-175cm', value: '171-175' },
+    { text: '176-180cm', value: '176-180' },
+    { text: '181-185cm', value: '181-185' },
+    { text: '186-190cm', value: '186-190' },
+    { text: '190cm以上', value: '190' },
+]
+export const sex = [{
+    text: '男',
+    value: 0
+}, {
+    text: '女',
+    value: 1
+}]
+export const educationConfig = [
+    { text: '初中及以下', value: '初中及以下' },
+    { text: '高中', value: '高中' },
+    { text: '中专', value: '中专' },
+    { text: '大专', value: '大专' },
+    { text: '本科', value: '本科' },
+    { text: '硕士', value: '硕士' },
+    { text: '博士', value: '博士' },
+]
+// 婚姻状况
+export const maritalStatusConfig = [
+    { text: '未婚', value: '未婚' },
+    { text: '离异', value: '离异' },
+    { text: '丧偶', value: '丧偶' },
+]

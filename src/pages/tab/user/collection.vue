@@ -1,4 +1,3 @@
-/** 我的收藏列表 */
 <template>
     <uni-list>
         <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
@@ -10,6 +9,7 @@
         <uni-load-more @clickLoadMore="loadMore" :status="loadMoreStatus"></uni-load-more>
     </uni-list>
 </template>
+
 <script setup lang="ts">
 import { getUserInfoListByTag } from '@/api/mock';
 
