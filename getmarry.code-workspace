@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../getmarry-server"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"manifest.json": "jsonc",
+			"pages.json": "jsonc"
+		}
+	}
+}

@@ -43,6 +43,7 @@ export type UserInfoType = {
     introduction: string;
     /** 用户的昵称 */
     nickname: string;
+    passwordHash?: string;
     name: string;
     /** 用户的性别，0 代表女性，1 代表男性 */
     gender: number;
