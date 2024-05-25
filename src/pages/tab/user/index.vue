@@ -33,7 +33,7 @@
   </view>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, getCurrentInstance } from 'vue';
 import { getUserInfoListByTag } from '@/api/mock';
 
 const userInfo = ref(getUserInfoListByTag(1, 1)[0]);
@@ -56,13 +56,19 @@ onMounted(() => {
     // 显示登录or注册页面
     loginStatus.value = 0;
   }
-
   // 登录成功后，显示用户信息
 });
-
 const onClickLoginHandler = () => {
   uni.navigateTo({
-    url: '/pages/tab/user/login'
+    url: '/pages/tab/user/login',
+    events: {
+      // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+      acceptDataFromOpenedPage: function (data) {
+        if (data == 'success') {
+          loginStatus.value = 1;
+        }
+      },
+    }
   });
 }
 

@@ -94,7 +94,7 @@
                 </uni-forms-item>
             </uni-forms>
         </view>
-        <button type="primary" @click="submit('customForm')">提交</button>
+        <button type="primary" @click="submitHandler">提交</button>
     </view>
 </template>
 <script setup lang="ts">
@@ -123,7 +123,7 @@ const failImg = (e) => {
 
 const baseFormData = ref<UserInfoType>(getUserInfo());
 const formRef = ref();
-const submit = () => {
+const submitHandler = () => {
     console.log(baseFormData.value);
     formRef.value.validate().then(res => {
         if (passwordHash.value !== baseFormData.value.passwordHash) {

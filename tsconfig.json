@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "module": "ESNext",
     "target": "es2016",
+    "noImplicitAny": false,
     "lib": [
       "DOM",
       "ESNext"

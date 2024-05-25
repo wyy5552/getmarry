@@ -5,7 +5,7 @@
                 <uni-easyinput v-model="loginForm.phone" placeholder="账号" />
             </uni-forms-item>
             <uni-forms-item label="密码" required>
-                <uni-easyinput v-model="loginForm.password" placeholder="密码" />
+                <uni-easyinput v-model="loginForm.passwordHash" placeholder="密码" />
             </uni-forms-item>
         </uni-forms>
         <button type="primary" @click="onLoginHandler">登陆</button>
@@ -16,12 +16,15 @@ import { ref } from 'vue';
 
 const loginForm = ref<{
     phone: string;
-    password: string;
-    password2: string;
+    passwordHash: string;
 }>({
     phone: '',
-    password: '',
-    password2: ''
+    passwordHash: '',
+});
+let instance;
+onLoad(() => {
+    instance = getCurrentInstance()?.proxy;
+    console.log('instance', instance);
 });
 const loginRef = ref();
 const onLoginHandler = () => {
@@ -30,6 +33,30 @@ const onLoginHandler = () => {
         uni.showToast({
             title: `校验通过`
         })
+        // 登陆
+        return uni.request({
+            url: 'http://localhost:3000/login',
+            method: 'POST',
+            data: {
+                phone: loginForm.value.phone,
+                passwordHash: loginForm.value.passwordHash
+            }
+        })
+    }).then(res => {
+        console.log('res', res);
+        if (res.data.code === 200) {
+            uni.showToast({
+                title: `登陆成功`
+            })
+            uni.setStorageSync('token', res.data.data.token);
+            const eventChannel = instance.getOpenerEventChannel();
+            eventChannel.emit('acceptDataFromOpenedPage', "success");
+            uni.navigateBack();
+        } else {
+            uni.showToast({
+                title: `登陆失败`
+            })
+        }
     }).catch(err => {
         console.log('err', err);
     })

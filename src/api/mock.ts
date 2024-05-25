@@ -191,10 +191,10 @@ export const heightConfig = [
 ]
 export const sex = [{
     text: '男',
-    value: 0
+    value: 1
 }, {
     text: '女',
-    value: 1
+    value: 2
 }]
 export const educationConfig = [
     { text: '初中及以下', value: '初中及以下' },
