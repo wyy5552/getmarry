@@ -53,9 +53,18 @@ const onLoginHandler = () => {
             eventChannel.emit('acceptDataFromOpenedPage', "success");
             uni.navigateBack();
         } else {
-            uni.showToast({
-                title: `登陆失败`
-            })
+            if (res.statusCode === 400) {
+                uni.showToast({
+                    title: `账号不存在`
+                })
+                setTimeout(() => {
+                    uni.navigateBack();
+                }, 1000);
+            } else {
+                uni.showToast({
+                    title: `登陆失败`
+                })
+            }
         }
     }).catch(err => {
         console.log('err', err);

@@ -1,72 +1,117 @@
 <template>
-    <div class="user-card" >
-        <up-image :show-loading="true" :src="item.photoAlbum[0]" width="80px" height="80px"></up-image>
-        <div class="user-info">
-            <h2 class="user-name">{{ item.nickname }}</h2>
-            <ul class="user-infos">
-                <li v-for="(info, index) in [item.birthday, item.carOwnership, item.height, item.maritalStatus]"
-                    :key="index">{{ info }}</li>
-            </ul>
-            <div class="user-tags">
-                <span v-for="(tag, index) in [item.industry, item.companyType, item.carOwnership]" :key="index"
-                    class="tag">{{ tag }}</span>
-            </div>
-        </div>
-    </div>
+    <view class="user-card">
+        <view class="img">
+            <image mode="aspectFill" src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg">
+            </image>
+            <view class="user-name">{{ item.nickname }}</view>
+        </view>
+
+        <view class="user-info-base">
+            <view class="user-info">
+                <view>{{ birthday + " · " + item.height + "cm · " + item.education }}</view>
+            </view>
+            <view class="user-tags">
+                <view class="item">{{ item.workArea }}</view>
+                <view class="item">{{ item.industry }}</view>
+            </view>
+        </view>
+    </view>
 </template>
 
 <script setup lang="ts">
-import { getUserInfo } from '@/api/mock';
-
-const ItemTemp = getUserInfo();
-type UserCardProps = typeof ItemTemp;
 
 const props = defineProps<{
-    item: UserCardProps,
+    item: any,
 }>()
+const birthday = computed(() => {
+    const birthDate = new Date(props.item.birthday);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age + "岁";
+})
 
 
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .user-card {
-    display: flex;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
+    flex: 1 1 calc(50% - 0.5rem);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
 
-.user-image {
-    width: 120px;
-    height: 120px;
-    border-radius: 10px;
-}
+    .img {
+        width: 100%;
+        position: relative;
 
-.user-info {
-    margin-left: 10px;
-}
+        image {
+            width: 100%;
+        }
 
-.user-name {
-    font-size: 20px;
-    font-weight: bold;
-}
+        .user-name {
+            width: 100%;
+            line-height: 6rem;
+            height: 5rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            color: #fff;
+            font-size: 1.4rem;
+        }
 
-.user-infos {
-    list-style-type: none;
-    padding: 0;
-}
+    }
 
-.user-tags {
-    margin-top: 10px;
-}
+    .user-info-base {
+        width: 100%;
+        background-color: #fff;
+        text-align: left;
+        border-top: 0;
+        box-sizing: border-box;
+        border: #fff .1rem solid;
+        box-shadow: 0 .1rem 1rem rgba(0, 0, 0, .03);
+        line-height: 2rem;
+        text-align: center;
 
-.tag {
-    display: inline-block;
-    background-color: #eee;
-    padding: 2px 5px;
-    margin-right: 5px;
-    border-radius: 5px;
+        .user-info {
+            width: 100%;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-tags {
+            width: 100%;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            .item {
+                background-color: rgba(255, 111, 111, .1);
+                color: #FF6F6F;
+                font-weight: normal;
+                display: inline-block;
+                margin-right: 1rem;
+                margin-top: .6rem;
+                line-height: 2.2rem;
+                height: 2.2rem;
+                padding: 0 .8rem;
+                font-size: 1.2rem;
+                border-radius: .3rem;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                max-width: 50%;
+                overflow: hidden;
+            }
+        }
+    }
 }
 </style>

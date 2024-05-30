@@ -33,6 +33,15 @@ export const getVipList = () => {
   * 兴趣爱好
   * 工作行业
   * 单位类型
+  * ==========
+  * 择偶要求
+  * ==========
+  * 未婚、离异、离异带娃
+  * 年龄身高
+  * 学历
+  * 收入
+  * 区域
+  * 其他
  */
 export type UserInfoType = {
     /** 用户的唯一标识 */
@@ -101,6 +110,22 @@ export type UserInfoType = {
     matchmakerWechat: string;
     /**机构id */
     organizationId: string;
+
+    // 择偶要求
+    /** 婚姻状况,未婚、离异无娃、离异带娃 */
+    maritalStatusRequirement?: string;
+    /** 年龄要求 */
+    ageRequirement?: string;
+    /** 身高要求 */
+    heightRequirement?: string;
+    /** 学历要求 */
+    educationRequirement?: string;
+    /** 收入要求 */
+    incomeRequirement?: string;
+    /** 区域要求 */
+    areaRequirement?: string;
+    /** 其他要求 */
+    otherRequirement?: string;
 };
 /** 获取单个用户信息 */
 export const getUserInfo = () => {

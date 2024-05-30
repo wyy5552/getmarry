@@ -1,173 +1,173 @@
 <template>
-    <view>
-        <view class="title">相册列表</view>
-        <view>
-            <image v-for="item in userInfo.photoAlbum" style="width: 100%;  background-color: #eeeeee;" mode="aspectFit"
-                :src="item" :key="item"></image>
-        </view>
-        <view class="title">自我介绍</view>
-        <view class="section">
-            <view>{{ userInfo.introduction }}</view>
-        </view>
-        <view class="title">用户基本信息</view>
-        <view class="section">
-            <view class="item">
-                <view>昵称</view>
-                <view>{{ userInfo.nickname }}</view>
+    <view class="bg-white">
+        <image class="img" src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg" mode="aspectFill" />
+        <view class="user-card">
+            <view>
+                <view class="text-1.4rem font-bold">{{ userInfo.nickname + ' · ' + userInfo.gender }}</view>
+                <view>{{ userInfo.registeredArea + " · " + userInfo.education }}</view>
+                <view class="flex gap-1rem">
+                    <uni-tag type="warning" :text="birthday"></uni-tag>
+                    <uni-tag type="warning" :text="userInfo.height + 'cm'"></uni-tag>
+                    <uni-tag type="warning" :text="userInfo.industry"></uni-tag>
+                    <uni-tag type="warning" :text="userInfo.monthlyIncome"></uni-tag>
+                </view>
             </view>
-            <view class="item">
-                <view>性别</view>
-                <view>{{ userInfo.gender }}</view>
-            </view>
-            <view class="item">
-                <view>身高</view>
-                <view>{{ userInfo.height }}</view>
-            </view>
-            <view class="item">
-                <view>体重</view>
-                <view>{{ userInfo.weight }}</view>
-            </view>
-            <view class="item">
-                <view>生日</view>
-                <view>{{ userInfo.birthday }}</view>
-            </view>
-            <view class="item">
-                <view>房子</view>
-                <view>{{ userInfo.housing }}</view>
-            </view>
-            <view class="item">
-                <view>车子</view>
-                <view>{{ userInfo.carOwnership }}</view>
-            </view>
-            <view class="item">
-                <view>婚姻状况</view>
-                <view>{{ userInfo.maritalStatus }}</view>
-            </view>
-            <view class="item">
-                <view>子女情况</view>
-                <view>{{ userInfo.children }}</view>
-            </view>
-            <view class="item">
-                <view>月收入</view>
-                <view>{{ userInfo.monthlyIncome }}</view>
-            </view>
-            <view class="item">
-                <view>学历</view>
-                <view>{{ userInfo.education }}</view>
+            <view>
+                <view>收藏</view>
             </view>
         </view>
-        <view class="title">其他信息</view>
-        <view class="section">
-            <view class="item">
-                <view>其他</view>
-                <view>{{ userInfo.otherInfo }}</view>
-            </view>
-            <view class="item">
-                <view>是否是个人填写信息</view>
-                <view>{{ userInfo.isPersonalInfo }}</view>
-            </view>
-            <view class="item">
-                <view>工作地区</view>
-                <view>{{ userInfo.workArea }}</view>
-            </view>
-            <view class="item">
-                <view>户籍地区</view>
-                <view>{{ userInfo.registeredArea }}</view>
-            </view>
-            <view class="item">
-                <view>职业</view>
-                <view>{{ userInfo.profession }}</view>
-            </view>
-            <view class="item">
-                <view>房产位置</view>
-                <view>{{ userInfo.propertyLocation }}</view>
-            </view>
-            <view class="item">
-                <view>期望结婚时间</view>
-                <view>{{ userInfo.expectedMarriageTime }}</view>
-            </view>
-            <view class="item">
-                <view>兄弟姐妹</view>
-                <view>{{ userInfo.siblings }}</view>
-            </view>
-            <view class="item">
-                <view>兴趣爱好</view>
-                <view>{{ userInfo.hobbies }}</view>
-            </view>
-            <view class="item">
-                <view>工作行业</view>
-                <view>{{ userInfo.industry }}</view>
-            </view>
-            <view class="item">
-                <view>单位类型</view>
-                <view>{{ userInfo.companyType }}</view>
-            </view>
-            <view class="item">
-                <view>红娘点评</view>
-                <view>{{ userInfo.matchmakerComment }}</view>
+        <view class="text-center m-auto text-[#FF6F6F] text-1.2rem w-full">
+            我的资料</view>
+        <view class="card">
+            <view class="title">基本资料</view>
+            <view class="content">
+                <uni-tag :text="userInfo.gender" inverted></uni-tag>
+                <uni-tag :text="userInfo.height" inverted></uni-tag>
+                <uni-tag :text="userInfo.weight" inverted></uni-tag>
+                <uni-tag :text="userInfo.birthday" inverted></uni-tag>
+                <uni-tag :text="userInfo.housing" inverted></uni-tag>
+                <uni-tag :text="userInfo.carOwnership" inverted></uni-tag>
+                <uni-tag :text="userInfo.monthlyIncome" inverted></uni-tag>
+                <uni-tag :text="userInfo.education" inverted></uni-tag>
+                <uni-tag :text="userInfo.registeredArea" inverted></uni-tag>
+                <uni-tag :text="userInfo.expectedMarriageTime" inverted></uni-tag>
+                <view>查看更多</view>
             </view>
         </view>
-        <view class="title">红娘点评</view>
-        <view class="section">
-            <view>{{ userInfo.matchmakerComment }}</view>
-        </view>
-        <view class="title">联系方式 </view>
-        <view class="section">
-            <view class="item">
-                <view>手机号</view>
-                <view>{{ userInfo.phone }}</view>
-            </view>
-            <view class="item">
-                <view>微信号</view>
-                <view>{{ userInfo.wechat }}</view>
-            </view>
-            <view class="item">
-                <view>联系红娘</view>
-                <view>{{ userInfo.matchmakerPhone }}</view>
-            </view>
-            <view class="item">
-                <view>红娘微信</view>
-                <view>{{ userInfo.matchmakerWechat }}</view>
-            </view>
-            <view class="item">
-                <view>机构</view>
-                <view>{{ userInfo.organizationId }}</view>
+        <view class="card">
+            <view class="title">择偶要求</view>
+
+            <view class="content">
+                <uni-tag :text="userInfo.birthday" inverted></uni-tag>
+                <uni-tag :text="userInfo.housing" inverted></uni-tag>
+                <uni-tag :text="userInfo.carOwnership" inverted></uni-tag>
+                <uni-tag :text="userInfo.monthlyIncome" inverted></uni-tag>
+                <uni-tag :text="userInfo.education" inverted></uni-tag>
+                <uni-tag :text="userInfo.registeredArea" inverted></uni-tag>
+                <uni-tag :text="userInfo.expectedMarriageTime" inverted></uni-tag>
+
+                <uni-tag type="warning" :text="userInfo.maritalStatusRequirement" inverted></uni-tag>
+                <uni-tag type="warning" :text="userInfo.ageRequirement" inverted></uni-tag>
+                <uni-tag type="warning" :text="userInfo.heightRequirement" inverted></uni-tag>
+                <uni-tag type="warning" :text="userInfo.incomeRequirement" inverted></uni-tag>
+                <uni-tag type="warning" :text="userInfo.areaRequirement" inverted></uni-tag>
+                <uni-tag type="warning" :text="userInfo.otherRequirement" inverted></uni-tag>
             </view>
         </view>
+        <view class="card">
+            <view class="title">自我介绍</view>
+            <view class="content"> {{ userInfo.introduction }}</view>
+        </view>
+        <view class="card">
+            <view class="title">红娘点评</view>
+            <view class="content"> {{ userInfo.matchmakerComment }}</view>
+        </view>
+        <view class="goods-carts">
+            <uni-goods-nav :fill="true" :options="options" :button-group="customButtonGroup" @click="buttonClick"
+                @buttonClick="buttonClick" />
+        </view>
+
     </view>
 </template>
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
-import { UserInfoType, getUserInfo } from '../../../api/mock';
+import { UserInfoType } from '../../../api/mock';
 
-const userInfo = ref<UserInfoType>(getUserInfo() as UserInfoType);
+const userInfo = ref<UserInfoType>({} as unknown as UserInfoType);
 onLoad((options: any) => {
-    console.log('User Info Page Loaded', options);
     userInfo.value = JSON.parse(decodeURIComponent(options.item));;
-    console.log('User Info:', userInfo.value);
 });
 
-
+const birthday = computed(() => {
+    const birthDate = new Date(userInfo.value.birthday);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age + "岁";
+})
+const options = [{
+    icon: 'chat',
+    text: '客服'
+}, {
+    icon: 'shop',
+    text: '店铺',
+    info: 2,
+    infoBackgroundColor: '#007aff',
+    infoColor: "#f5f5f5"
+}, {
+    icon: 'cart',
+    text: '购物车',
+    info: 2
+}];
+const buttonClick = (e) => {
+    console.log(e)
+};
+const customButtonGroup = [{
+    text: '加入购物车',
+    backgroundColor: 'linear-gradient(90deg, #1E83FF, #0053B8)',
+    color: '#fff'
+},
+{
+    text: '立即购买',
+    backgroundColor: 'linear-gradient(90deg, #60F3FF, #088FEB)',
+    color: '#fff'
+}
+]
 </script>
 
-<style scoped>
-.section {
-    background: #fff;
-    border-radius: 10px;
-    border: 1px solid #e5e5e5;
-    margin: 4px 8px;
+<style scoped lang="scss">
+.img {
+    width: 100%;
+    height: 300px;
 }
 
-.title {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.item {
+.user-card {
+    position: relative;
+    height: 5rem;
     display: flex;
     justify-content: space-between;
-    margin: 0 4px;
-    border-bottom: 1px solid #e5e5e5;
+    margin: 0.5rem;
+    background-color: white;
+}
+
+.card {
+    margin: 0 0.5rem;
+    margin-bottom: 1rem;
+
+    .title {
+        font-size: 1rem;
+        font-weight: bold;
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
+
+    }
+
+    .content {
+        border-left: rgba(255, 111, 111, .1) 1px solid;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        gap: 0.3rem;
+    }
+}
+
+.goods-carts {
+    /* #ifndef APP-NVUE */
+    display: flex;
+    /* #endif */
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    right: 0;
+    /* #ifdef H5 */
+    left: var(--window-left);
+    right: var(--window-right);
+    /* #endif */
+    bottom: 0;
 }
 </style>

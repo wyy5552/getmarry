@@ -1,38 +1,35 @@
 <template>
-  <view class="flex flex-col ">
+  <view class="home">
     <!--广告栏-->
-    <up-swiper :list="swiperList" @click="clickSwiper"></up-swiper>
     <swiper class="swiper" circular :indicator-dots="true" :autoplay="true" :interval="2000" :duration="500">
       <swiper-item v-for="(item, index) in swiperList" :key="index">
         <image style="width: 100%; height: 200px; background-color: #eeeeee;" mode="scaleToFill" :src="item"></image>
       </swiper-item>
     </swiper>
     <!--上榜人员-->
-    <view>
-      <view class="flex justify-between">
-        <text>置顶嘉宾</text>
-        <view @click="clickAddVip" class="flex items-center">我要上榜<up-icon name="plus-circle"></up-icon></view>
+    <view class="vip-box">
+      <view class="title">
+        <view class="right">置顶嘉宾</view>
+        <view class="left flex items-center justify-between" @click="clickAddVip">我要上榜<uni-icons type="plusempty"
+            size="30" color="white"></uni-icons></view>
       </view>
-      <uni-grid :showBorder="false" :square="false" :column="3">
-        <uni-grid-item @tap="clickGridHandler(item)" :key="index" v-for="(item, index) in vipUserList">
-          <user-card :item="item">
-          </user-card>
-        </uni-grid-item>
-      </uni-grid>
+      <view class="flex items-center justify-between px-1.5rem">
+        <user-vip-card @tap="clickGridHandler(item)" v-for="item in vipUserList" :item="item" :key="item.id">
+        </user-vip-card>
+      </view>
     </view>
     <!--推荐异性-->
-    <view>
-      <view class="flex justify-between">
-        <text>推荐异性</text>
-        <view flex items-center>刷新<up-icon name="reload"></up-icon></view>
+    <view class="vip-box">
+      <view class="title">
+        <view class="right">推荐异性</view>
+        <view class="left flex items-center justify-between" @click="clickAddVip">刷新<uni-icons type="refreshempty"
+            size="30" color="white"></uni-icons>
+        </view>
       </view>
-      <uni-grid :showBorder="false" :square="false" :column="3">
-        <uni-grid-item @tap="clickGridHandler(item)" v-for="(item, baseListIndex) in girlList"
-          :key="baseListIndex">
-          <user-card :item="item">
-          </user-card>
-        </uni-grid-item>
-      </uni-grid>
+      <view class="girl-list-2 mt-1rem">
+        <user-card @tap="clickGridHandler(item)" v-for="item in girlList" :item="item" :key="item.id">
+        </user-card>
+      </view>
     </view>
     <uni-popup ref="uToastRef" type="message">
       <uni-popup-message type="success" message="成功消息" :duration="2000"></uni-popup-message>
@@ -43,7 +40,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { ref } from 'vue';
-import { getVipList } from '@/api/mock';
 
 // 使用 reactive 创建响应式数组  
 const swiperList = reactive([
@@ -52,35 +48,114 @@ const swiperList = reactive([
   'https://cdn.uviewui.com/uview/swiper/swiper3.png',
 ]);
 
-const clickSwiper = (e: any) => {
-  console.log(e);
-}
-
 //==================vip==================================
 
 const clickAddVip = (e: any) => {
   console.log(e);
 }
-const vipUserList = ref(getVipList().slice(0, 2));
-
+const vipUserList = ref<any[]>([]);
 
 // 创建对子组件的引用  
 const uToastRef = ref(null);
 //==================异性==================================
 const clickGridHandler = (e: any) => {
-  console.log(e);
   uni.navigateTo({
     url: '/pages/tab/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
   });
 }
-const girlList = ref(getVipList());
+const girlList = ref([]);
 
 const title = ref<string>();
 title.value = import.meta.env.VITE_APP_TITLE;
 
-const showAgreePrivacy = ref(false);
-// 同意隐私协议
-function handleAgree() {
-  console.log('同意隐私政策');
+onMounted(() => {
+  uni.request({
+    url: 'http://localhost:3000/getVipList',
+    method: 'GET',
+    success: (res) => {
+      console.log(res);
+      if (res.data.code === 200) {
+        vipUserList.value = res.data.data;
+      }
+    },
+    fail: (fail) => {
+      console.log(fail);
+    },
+  });
+  uni.request({
+    url: 'http://localhost:3000/getGirlList',
+    method: 'GET',
+    success: (res) => {
+      console.log(res);
+      if (res.data.code === 200) {
+        girlList.value = res.data.data;
+      }
+    },
+    fail: (fail) => {
+      console.log(fail);
+    },
+  });
 }
+);
 </script>
+<style scoped lang="scss">
+.vip-box {
+  margin-top: 1rem;
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
+  border-radius: 1.6rem 1.6rem 0 0;
+  background-image: -webkit-linear-gradient(top, #fff, #f2f2f200);
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    position: relative;
+    padding: 1rem 1.5rem 0 1.5rem;
+    height: 3rem;
+
+    .right {
+      display: inline-block;
+      font-size: 1.8rem;
+      line-height: 2.4rem;
+      font-weight: bold;
+      color: #333;
+      position: relative;
+
+      &::after {
+        background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, 1) 0%, rgba(255, 111, 111, .01) 100%);
+        content: '';
+        position: absolute;
+        height: .7rem;
+        width: 2rem;
+        display: block;
+        border-radius: 2rem;
+      }
+    }
+
+    .left {
+      background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, .4) 0%, rgba(255, 111, 111, .8) 100%);
+      line-height: 2.4rem;
+      padding: 0 .5rem 0 .9rem;
+      border-radius: 1.4rem;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+  }
+
+  .girl-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .girl-list-2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+}
+</style>

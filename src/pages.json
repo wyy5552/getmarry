@@ -6,6 +6,12 @@
   },
   "pages": [
     {
+      "path": "pages/tab/home/index",
+      "style": {
+        "navigationBarTitleText": "广场"
+      }
+    },
+    {
       "path": "pages/tab/user/index",
       "style": {
         "navigationBarTitleText": "我的"
@@ -27,12 +33,6 @@
       "path": "pages/tab/list/index",
       "style": {
         "navigationBarTitleText": "搜索"
-      }
-    },
-    {
-      "path": "pages/tab/home/index",
-      "style": {
-        "navigationBarTitleText": "广场"
       }
     },
     {
@@ -105,8 +105,7 @@
   },
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#f29f9c"
   }
 }
