@@ -1,10 +1,11 @@
 <template>
-    <view>
+    <view class="login-container">
+        <view class="font-bold text-1.4rem mt-10% mb-20% text-#333333 flex justify-center">登陆</view>
         <uni-forms ref="loginRef" :modelValue="loginForm">
-            <uni-forms-item label="姓名" required>
+            <uni-forms-item label="姓名">
                 <uni-easyinput v-model="loginForm.phone" placeholder="账号" />
             </uni-forms-item>
-            <uni-forms-item label="密码" required>
+            <uni-forms-item label="密码">
                 <uni-easyinput v-model="loginForm.passwordHash" placeholder="密码" />
             </uni-forms-item>
         </uni-forms>
@@ -25,7 +26,12 @@ let instance;
 onLoad(() => {
     instance = getCurrentInstance()?.proxy;
     console.log('instance', instance);
+    uni.hideTabBar();
 });
+onBackPress((options: any) => {
+    console.log('from:' + options.from)
+    uni.showTabBar();
+})
 const loginRef = ref();
 const onLoginHandler = () => {
     loginRef.value.validate().then(res => {
@@ -71,3 +77,19 @@ const onLoginHandler = () => {
     })
 }
 </script>
+<style lang="scss" scoped>
+.login-container{
+    color:#333333;
+    padding: 1rem 2rem;
+    button{
+        width: 100%;
+        height: 3rem;
+        line-height: 3rem;
+        background-color: #FF4D4Fbb;
+        color: #fff;
+        border-radius:6rem;
+        margin-top: 1rem;
+        vertical-align: middle;
+    }
+}
+</style>

@@ -1,6 +1,11 @@
 # 主题色
-
+基本粉
 #f29f9c
+微红
+#FF6F6F
+
+黑字
+#333333
 
 box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
 background-color: #e18e8ec9;
@@ -17,6 +22,11 @@ opacity-80
 
 间距
 margin:0.5rem 1rem;
+
+13381700000
+
+
+
 
 ### 使用 uniapp+vite+vue3+uview-plus3.0 搭建的微信小程序快速开发模版
 

@@ -1,5 +1,5 @@
 <template>
-    <view class="bg-white">
+    <view class="bg-white min-h-100vh">
         <image class="img" src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg" mode="aspectFill" />
         <view class="user-card">
             <view>
@@ -13,7 +13,8 @@
                 </view>
             </view>
             <view>
-                <view>收藏</view>
+                <uni-fav :checked="isSelect" :circle="true" bg-color="#dd524d" bg-color-checked="#007aff"
+                    fg-color="#ffffff" fg-color-checked="#ffffff" @click="favClick" />
             </view>
         </view>
         <view class="text-center m-auto text-[#FF6F6F] text-1.2rem w-full">
@@ -31,7 +32,7 @@
                 <uni-tag :text="userInfo.education" inverted></uni-tag>
                 <uni-tag :text="userInfo.registeredArea" inverted></uni-tag>
                 <uni-tag :text="userInfo.expectedMarriageTime" inverted></uni-tag>
-                <view>查看更多</view>
+                <view class="border-red border opacity-80 text-red-5" @click="onShowMoreHandler">查看更多></view>
             </view>
         </view>
         <view class="card">
@@ -62,9 +63,15 @@
             <view class="title">红娘点评</view>
             <view class="content"> {{ userInfo.matchmakerComment }}</view>
         </view>
-        <view class="goods-carts">
-            <uni-goods-nav :fill="true" :options="options" :button-group="customButtonGroup" @click="buttonClick"
-                @buttonClick="buttonClick" />
+        <view class="contact">
+            <view class="item">
+                <uni-icons type="phone" size="30"></uni-icons>
+                红娘电话
+            </view>
+            <view class="item">
+                <uni-icons type="weixin" size="30"></uni-icons>
+                红娘微信
+            </view>
         </view>
 
     </view>
@@ -89,34 +96,17 @@ const birthday = computed(() => {
     }
     return age + "岁";
 })
-const options = [{
-    icon: 'chat',
-    text: '客服'
-}, {
-    icon: 'shop',
-    text: '店铺',
-    info: 2,
-    infoBackgroundColor: '#007aff',
-    infoColor: "#f5f5f5"
-}, {
-    icon: 'cart',
-    text: '购物车',
-    info: 2
-}];
-const buttonClick = (e) => {
-    console.log(e)
-};
-const customButtonGroup = [{
-    text: '加入购物车',
-    backgroundColor: 'linear-gradient(90deg, #1E83FF, #0053B8)',
-    color: '#fff'
-},
-{
-    text: '立即购买',
-    backgroundColor: 'linear-gradient(90deg, #60F3FF, #088FEB)',
-    color: '#fff'
+const isSelect = ref(false);
+const favClick = () => {
+    isSelect.value = !isSelect.value;
+    console.log(isSelect.value);
 }
-]
+
+const onShowMoreHandler = () => {
+    uni.navigateTo({
+        url: '/pages/tab/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(userInfo.value))
+    });
+}
 </script>
 
 <style scoped lang="scss">
@@ -156,18 +146,25 @@ const customButtonGroup = [{
     }
 }
 
-.goods-carts {
-    /* #ifndef APP-NVUE */
+.contact {
     display: flex;
-    /* #endif */
-    flex-direction: column;
+    justify-content: space-around;
     position: fixed;
-    left: 0;
-    right: 0;
     /* #ifdef H5 */
     left: var(--window-left);
     right: var(--window-right);
     /* #endif */
     bottom: 0;
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+        background-color: white;
+        border-top: 1px solid #f29f9c;
+        width: 50%;
+    }
+
 }
 </style>

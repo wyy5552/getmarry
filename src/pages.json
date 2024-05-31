@@ -30,6 +30,12 @@
       }
     },
     {
+      "path": "pages/tab/user-info/user-info-more",
+      "style": {
+        "navigationBarTitleText": "更多信息"
+      }
+    },
+    {
       "path": "pages/tab/list/index",
       "style": {
         "navigationBarTitleText": "搜索"

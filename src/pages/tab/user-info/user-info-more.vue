@@ -1,15 +1,5 @@
 <template>
-    <view>
-        <view class="title">相册列表</view>
-        <view>
-            <image v-for="item in userInfo.photoAlbum" style="width: 100%;  background-color: #eeeeee;" mode="aspectFit"
-                :src="item" :key="item"></image>
-        </view>
-        <view class="title">自我介绍</view>
-        <view class="section">
-            <view>{{ userInfo.introduction }}</view>
-        </view>
-        <view class="title">用户基本信息</view>
+    <view class="user-info">
         <view class="section">
             <view class="item">
                 <view>昵称</view>
@@ -56,7 +46,6 @@
                 <view>{{ userInfo.education }}</view>
             </view>
         </view>
-        <view class="title">其他信息</view>
         <view class="section">
             <view class="item">
                 <view>其他</view>
@@ -107,33 +96,6 @@
                 <view>{{ userInfo.matchmakerComment }}</view>
             </view>
         </view>
-        <view class="title">红娘点评</view>
-        <view class="section">
-            <view>{{ userInfo.matchmakerComment }}</view>
-        </view>
-        <view class="title">联系方式 </view>
-        <view class="section">
-            <view class="item">
-                <view>手机号</view>
-                <view>{{ userInfo.phone }}</view>
-            </view>
-            <view class="item">
-                <view>微信号</view>
-                <view>{{ userInfo.wechat }}</view>
-            </view>
-            <view class="item">
-                <view>联系红娘</view>
-                <view>{{ userInfo.matchmakerPhone }}</view>
-            </view>
-            <view class="item">
-                <view>红娘微信</view>
-                <view>{{ userInfo.matchmakerWechat }}</view>
-            </view>
-            <view class="item">
-                <view>机构</view>
-                <view>{{ userInfo.organizationId }}</view>
-            </view>
-        </view>
     </view>
 </template>
 <script setup lang="ts">
@@ -151,23 +113,31 @@ onLoad((options: any) => {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.user-info {
+    width: 100%;
+    margin: 1rem 0;
+}
+
 .section {
-    background: #fff;
-    border-radius: 10px;
-    border: 1px solid #e5e5e5;
-    margin: 4px 8px;
-}
+    margin: 0 0.5rem 1rem 0.5rem;
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
 
-.title {
-    font-size: 16px;
-    font-weight: bold;
-}
+    .item {
+        display: flex;
+        justify-content: space-between;
+        height: 2rem;
+        line-height: 3rem;
+        border-bottom: 0.1rem solid #f2f2f2;
+        align-items: center;
 
-.item {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 4px;
-    border-bottom: 1px solid #e5e5e5;
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
 }
 </style>

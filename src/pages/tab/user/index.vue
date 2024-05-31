@@ -37,9 +37,9 @@
       <button type="primary" @click="submit('customForm')">退出登录</button>
       <button type="primary" @click="submit('customForm')">注销账号</button>
     </view>
-    <view v-if="loginStatus == 0">
-      <button type="primary" @click="onClickLoginHandler">登录</button>
-      <button type="primary" @click="onClickRegisterHandler">注册</button>
+    <view v-if="loginStatus == 0" class="btn-container">
+      <button class="mt-8rem" type="primary" @click="onClickRegisterHandler">注册</button>
+      <button class="mt-1rem" type="primary" @click="onClickLoginHandler">登录</button>
     </view>
 
   </view>
@@ -166,9 +166,24 @@ const clickEditHandler = (e: any) => {
 <style scoped lang="scss">
 .user-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
   .has-user-info {
+    button {
+      box-shadow: 0 .3rem .8rem rgba(255, 111, 111, .4);
+      background-color: #fff;
+      background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, .6) 0%, #FF6F6F 100%);
+      width: 80%;
+      border-radius: 10rem;
+      height: 3rem;
+      line-height: 3rem;
+      padding: 0 2.5rem;
+      font-size: 1.8rem;
+      vertical-align: middle;
+      margin: 1rem auto;
+      opacity: 0.3;
+    }
+
     .user-info-header {
       position: relative;
       width: 100%;
@@ -216,11 +231,29 @@ const clickEditHandler = (e: any) => {
 
     }
   }
-  button{
-    margin: 1rem 0.5rem;
-    background-color: #e18e8ec9;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.2rem 0.2rem rgba(255, 255, 255, 0.1);
+
+  .btn-container {
+    background-color: #FF6F6F00;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    button {
+      box-shadow: 0 .3rem .8rem rgba(255, 111, 111, .4);
+      background-color: #fff;
+      background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, .6) 0%, #FF6F6F 100%);
+      width: 80%;
+      border-radius: 10rem;
+      height: 5rem;
+      line-height: 5rem;
+      padding: 0 2.5rem;
+      font-size: 1.8rem;
+      vertical-align: middle;
+    }
   }
+
 }
 </style>
