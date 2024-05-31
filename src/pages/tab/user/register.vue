@@ -56,9 +56,17 @@ const submitHandler = () => {
             },
             success: (res) => {
                 console.log(res.data);
-                uni.showToast({
-                    title: `注册成功`
-                })
+                if (res.data.code == 200) {
+                    uni.showToast({
+                        title: `注册成功`
+                    })
+                    uni.navigateBack();
+                } else {
+                    uni.showToast({
+                        title: res.data.message
+                    });
+                }
+
             }
         });
 

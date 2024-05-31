@@ -30,11 +30,21 @@
         </view>
       </view>
       <view class="card">
+        <view class="one-line">
+          <view>是否展示给异性</view>
+          <switch checked />
+        </view>
+        <view class="one-line">
+          <view>是否红娘认证</view>
+          <switch />
+        </view>
+      </view>
+      <view class="card">
         <view class="one-line">我的红娘</view>
         <view class="one-line">手机号：1333333</view>
         <view class="one-line">微信：</view>
       </view>
-      <button type="primary" @click="submit('customForm')">退出登录</button>
+      <button type="primary" @click="onLogoutHandler">退出登录</button>
       <button type="primary" @click="submit('customForm')">注销账号</button>
     </view>
     <view v-if="loginStatus == 0" class="btn-container">
@@ -130,6 +140,23 @@ const getUserInfo = async () => {
   });
 }
 
+const onLogoutHandler = () => {
+  uni.removeStorageSync('token');
+  loginStatus.value = 0;
+  uni.request({
+    url: 'http://localhost:3000/logout',
+    method: 'POST',
+    header: {
+      'token': uni.getStorageSync('token') //自定义请求头信息
+    },
+    success: (res) => {
+      console.log(res.data);
+    },
+    fail: (fail) => {
+      console.log(fail);
+    },
+  });
+}
 
 const birthday = computed(() => {
   const birthDate = new Date(userInfo.value.birthday);

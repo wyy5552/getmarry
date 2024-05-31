@@ -59,18 +59,10 @@ const onLoginHandler = () => {
             eventChannel.emit('acceptDataFromOpenedPage', "success");
             uni.navigateBack();
         } else {
-            if (res.statusCode === 400) {
-                uni.showToast({
-                    title: `账号不存在`
-                })
-                setTimeout(() => {
-                    uni.navigateBack();
-                }, 1000);
-            } else {
-                uni.showToast({
-                    title: `登陆失败`
-                })
-            }
+            uni.showToast({
+                title: res.data.message
+            })
+
         }
     }).catch(err => {
         console.log('err', err);
@@ -78,16 +70,17 @@ const onLoginHandler = () => {
 }
 </script>
 <style lang="scss" scoped>
-.login-container{
-    color:#333333;
+.login-container {
+    color: #333333;
     padding: 1rem 2rem;
-    button{
+
+    button {
         width: 100%;
         height: 3rem;
         line-height: 3rem;
         background-color: #FF4D4Fbb;
         color: #fff;
-        border-radius:6rem;
+        border-radius: 6rem;
         margin-top: 1rem;
         vertical-align: middle;
     }
