@@ -32,6 +32,7 @@
     "@dcloudio/uni-quickapp-webview": "3.0.0-4000820240401001",
     "@dcloudio/uni-ui": "^1.5.5",
     "@types/express": "^4.17.21",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.7",
     "pinia": "2.0.36",
     "vue": "3.3.11",

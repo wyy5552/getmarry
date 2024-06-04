@@ -13,6 +13,7 @@
     </view>
 </template>
 <script setup lang="ts">
+import request from '@/api/request';
 import { ref } from 'vue';
 
 const loginForm = ref<{
@@ -33,40 +34,25 @@ onBackPress((options: any) => {
     uni.showTabBar();
 })
 const loginRef = ref();
-const onLoginHandler = () => {
-    loginRef.value.validate().then(res => {
-        console.log('success', res);
+const onLoginHandler = async () => {
+    try {
+        await loginRef.value.validate();
         uni.showToast({
             title: `校验通过`
         })
         // 登陆
-        return uni.request({
-            url: 'http://localhost:3000/login',
-            method: 'POST',
-            data: {
-                phone: loginForm.value.phone,
-                passwordHash: loginForm.value.passwordHash
-            }
-        })
-    }).then(res => {
-        console.log('res', res);
-        if (res.data.code === 200) {
-            uni.showToast({
-                title: `登陆成功`
-            })
-            uni.setStorageSync('token', res.data.data.token);
-            const eventChannel = instance.getOpenerEventChannel();
-            eventChannel.emit('acceptDataFromOpenedPage', "success");
-            uni.navigateBack();
-        } else {
-            uni.showToast({
-                title: res.data.message
-            })
+        const res = await request.post<any>('user/login', {
+            phone: loginForm.value.phone,
+            passwordHash: loginForm.value.passwordHash
+        });
+        uni.setStorageSync('token', res.data.token);
+        const eventChannel = instance.getOpenerEventChannel();
+        eventChannel.emit('acceptDataFromOpenedPage', "success");
+        uni.navigateBack();
+    } catch (err) {
+        console.log(err);
+    }
 
-        }
-    }).catch(err => {
-        console.log('err', err);
-    })
 }
 </script>
 <style lang="scss" scoped>

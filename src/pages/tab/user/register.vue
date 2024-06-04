@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import config from '@/store/config';
+import request from '@/api/request';
 
 const baseFormData = ref<{
     phone: string;
@@ -34,46 +35,29 @@ const baseFormData = ref<{
     gender: 1,
 } as any);
 const formRef = ref();
-const submitHandler = () => {
-    console.log(baseFormData.value);
-    formRef.value.validate().then(res => {
+const submitHandler = async () => {
+    try {
+        await formRef.value.validate();
         if (passwordHash.value !== baseFormData.value.passwordHash) {
             uni.showToast({
                 title: `两次密码输入不一致`
             })
             return;
         }
-        console.log('success', res);
-        uni.showToast({
-            title: `校验通过`
-        })
+        console.log(baseFormData.value);
         // 请求注册接口
-        uni.request({
-            url: 'http://localhost:3000/register', //仅为示例，并非真实接口地址。
-            method: 'POST',
-            data: {
-                ...baseFormData.value
-            },
-            success: (res) => {
-                console.log(res.data);
-                if (res.data.code == 200) {
-                    uni.showToast({
-                        title: `注册成功`
-                    })
-                    uni.navigateBack();
-                } else {
-                    uni.showToast({
-                        title: res.data.message
-                    });
-                }
+        const res = await request.post<any>('user/register', baseFormData.value);
+        console.log(res);
+        uni.showToast({
+            title: `注册成功`
+        })
+        uni.navigateBack();
+    } catch (err) {
+        console.log(err);
+    }
 
-            }
-        });
 
-    }).catch(err => {
-        console.log('err', err);
-    })
-}
+};
 const customRules = {
     phone: {
         rules: [

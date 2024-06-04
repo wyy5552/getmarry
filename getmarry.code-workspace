@@ -13,7 +13,8 @@
 			"pages.json": "jsonc"
 		},
 		"cSpell.words": [
-			"mydatabase"
+			"mydatabase",
+			"VITE"
 		]
 	}
 }

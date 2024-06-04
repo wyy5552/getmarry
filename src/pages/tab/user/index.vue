@@ -55,90 +55,57 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
+import { UserInfoType } from '@/api/mock';
+import request from "@/api/request";
 
-const userInfo = ref<any>({});
+const userInfo = ref<UserInfoType>({} as UserInfoType);
 // 登陆状态 0 未登录 1 登录
 const loginStatus = ref(0);
 
-onMounted(() => {
+onMounted(async () => {
   loginStatus.value = 1;
   // 获取token
-  // const token = uni.getStorageSync('token');
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjEzMzgxNzAwMDAwIiwiaWF0IjoxNzE2OTA0MTkxLCJleHAiOjE3MTY5OTA1OTF9.PHc6PttpRzxIPLPn_dFovO2GxqTv3MThhLcUqagebd4";
+  const token = uni.getStorageSync('token');
+  // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjEzMzgxNzAwMDAwIiwiaWF0IjoxNzE2OTA0MTkxLCJleHAiOjE3MTY5OTA1OTF9.PHc6PttpRzxIPLPn_dFovO2GxqTv3MThhLcUqagebd4";
   uni.setStorageSync('token', token);
   console.log('token', token);
-  // 判断是否有token
-  if (token) {
-    // 判断token是否过期
-    uni.request({
-      url: 'http://localhost:3000/isTokenValid',
-      method: 'GET',
-      data: {
-        token
-      },
-      success: (res) => {
-        console.log(res);
-        if (res.data.code === 200) {
-          // 保存token
-          uni.setStorageSync('token', res.data.data.token);
-          // 获取用户信息
-          getUserInfo().then(res => {
-            userInfo.value = res as any;
-
-          });
-        }
-        else {
-          uni.removeStorageSync('token');
-          loginStatus.value = 0;
-        }
-      },
-      fail: (fail) => {
-        loginStatus.value = 0;
-        // 清除token
-        uni.removeStorageSync('token');
-      },
-    });
-  }
-  else {
+  try {
+    // 判断是否有token
+    if (token) {
+      // 判断token是否过期
+      let res = await request.get<any>('user/isTokenValid', { token })
+      console.log(res);
+      // 保存token
+      uni.setStorageSync('token', res.data.token);
+      // 获取用户信息
+      let res2 = await request.post<UserInfoType>('user/userInfo', null);
+      uni.setStorageSync('userInfo', JSON.stringify(res2.data));
+      userInfo.value = res2.data;
+    } else {
+      // 清除token
+      uni.removeStorageSync('token');
+      loginStatus.value = 0;
+    }
+  } catch (err: any) {
     uni.removeStorageSync('token');
+    console.log(err);
     loginStatus.value = 0;
   }
-
 });
+
 const onClickLoginHandler = () => {
   uni.navigateTo({
     url: '/pages/tab/user/login',
     events: {
       // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-      acceptDataFromOpenedPage: function (data) {
+      acceptDataFromOpenedPage: async function (data) {
         if (data == 'success') {
           loginStatus.value = 1;
-          getUserInfo().then(res => {
-            userInfo.value = res as any;
-          });
+          let res2 = await request.post<UserInfoType>('user/userInfo', null);
+          uni.setStorageSync('userInfo', JSON.stringify(res2.data));
         }
       },
     }
-  });
-}
-const getUserInfo = async () => {
-  return new Promise((resolve, reject) => {
-    uni.request({
-      url: 'http://localhost:3000/userInfo',
-      method: 'POST',
-      header: {
-        'token': uni.getStorageSync('token') //自定义请求头信息
-      },
-      success: (res) => {
-        console.log(res.data);
-        // 将个人信息存在本地
-        uni.setStorageSync('userInfo', JSON.stringify(res.data.data));
-        resolve(res.data.data);
-      },
-      fail: (fail) => {
-        reject(fail);
-      },
-    });
   });
 }
 

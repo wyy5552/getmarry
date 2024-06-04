@@ -131,7 +131,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { UserInfoType } from '../../../api/mock';
+import { UserInfoType } from '@/api/mock';
+import request from "@/api/request";
 
 // 定义枚举数据
 const sexOptions = [
@@ -154,14 +155,6 @@ const educationOptions = [
     { text: '研究生', value: 4 },
     { text: '博士', value: 5 },
     { text: '博士后', value: 6 }
-];
-
-const industryOptions = [
-    { text: '公务员', value: 0 },
-    { text: '教师', value: 1 },
-    { text: '医生', value: 2 },
-    { text: '央国企', value: 3 },
-    { text: '其他', value: 4 }
 ];
 
 const professionOptions = [
@@ -256,66 +249,30 @@ let instance;
 onLoad(() => {
     instance = getCurrentInstance()?.proxy;
 });
-const submit = () => {
-    formRef.value.validate().then(res => {
+const submit = async () => {
+    try {
+        let res = await formRef.value.validate();
         console.log('success', res);
         uni.showToast({
             title: '校验通过'
         });
-        uni.request({
-            url: 'http://localhost:3000/updateUserInfo',
-            method: 'POST',
-            header: {
-                token: uni.getStorageSync('token')
-            },
-            data: baseFormData.value,
-            success: async (res) => {
-                console.log('res', res);
-                uni.showToast({
-                    title: '更新成功'
-                });
-                // 更新本地用户信息
-                await getUserInfo();
-                const eventChannel = instance.getOpenerEventChannel();
-                eventChannel.emit('acceptDataFromOpenedPage', "success");
-                // uni.navigateBack();
-            },
-            fail: (err) => {
-                console.log('err', err);
-                uni.showToast({
-                    title: '更新失败',
-                    icon: 'error'
-                });
-            }
-
-        })
-    }).catch(err => {
-        console.log('err', err);
+        let res1 = await request.post<UserInfoType>('user/updateUserInfo', baseFormData.value);
+        console.log('res', res1);
         uni.showToast({
-            title: '校验失败',
+            title: '更新成功'
+        });
+        // 更新本地用户信息
+        let res2 = await request.post<UserInfoType>('user/userInfo', null);
+        uni.setStorageSync('userInfo', JSON.stringify(res2.data));
+        const eventChannel = instance.getOpenerEventChannel();
+        eventChannel.emit('acceptDataFromOpenedPage', "success");
+    }
+    catch (error) {
+        uni.showToast({
+            title: '请求失败',
             icon: 'error'
         });
-    });
-}
-const getUserInfo = async () => {
-    return new Promise((resolve, reject) => {
-        uni.request({
-            url: 'http://localhost:3000/userInfo',
-            method: 'POST',
-            header: {
-                'token': uni.getStorageSync('token') //自定义请求头信息
-            },
-            success: (res) => {
-                console.log(res.data);
-                // 将个人信息存在本地
-                uni.setStorageSync('userInfo', JSON.stringify(res.data.data));
-                resolve(res.data.data);
-            },
-            fail: (fail) => {
-                reject(fail);
-            },
-        });
-    });
+    }
 }
 </script>
 

@@ -40,6 +40,8 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { ref } from 'vue';
+import { UserInfoType } from '@/api/mock';
+import request from "@/api/request";
 
 // 使用 reactive 创建响应式数组  
 const swiperList = reactive([
@@ -53,7 +55,7 @@ const swiperList = reactive([
 const clickAddVip = (e: any) => {
   console.log(e);
 }
-const vipUserList = ref<any[]>([]);
+const vipUserList = ref<UserInfoType[]>([]);
 
 // 创建对子组件的引用  
 const uToastRef = ref(null);
@@ -63,37 +65,26 @@ const clickGridHandler = (e: any) => {
     url: '/pages/tab/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
   });
 }
-const girlList = ref([]);
+const girlList = ref<UserInfoType[]>([]);
 
 const title = ref<string>();
 title.value = import.meta.env.VITE_APP_TITLE;
 
 onMounted(() => {
-  uni.request({
-    url: 'http://localhost:3000/getVipList',
-    method: 'GET',
-    success: (res) => {
-      console.log(res);
-      if (res.data.code === 200) {
-        vipUserList.value = res.data.data;
-      }
-    },
-    fail: (fail) => {
-      console.log(fail);
-    },
-  });
-  uni.request({
-    url: 'http://localhost:3000/getGirlList',
-    method: 'GET',
-    success: (res) => {
-      console.log(res);
-      if (res.data.code === 200) {
-        girlList.value = res.data.data;
-      }
-    },
-    fail: (fail) => {
-      console.log(fail);
-    },
+  request.get<any>('user/getVipList', null).then((res) => {
+    if (res.code === 200) {
+      vipUserList.value = res.data;
+    }
+  }).then(res => {
+    console.log(res);
+  })
+
+  request.get<any>('user/getGirlList', null).then((res) => {
+    if (res.code === 200) {
+      girlList.value = res.data;
+    }
+  }).then(res => {
+    console.log(res);
   });
 }
 );

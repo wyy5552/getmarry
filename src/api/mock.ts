@@ -73,7 +73,7 @@ export type UserInfoType = {
     /** 用户的月收入 */
     monthlyIncome: string;
     /** 用户的学历 */
-    education: string;
+    education: number;
 
     /** 其他说明 */
     otherInfo: string;
@@ -141,7 +141,7 @@ export const getUserInfo = () => {
         "carOwnership": "奥迪", // 购车情况
         "workArea": "上海", // 工作地区
         "registeredArea": "周口", // 户籍地区
-        "education": "本科", // 学历
+        "education": 2, // 学历
 
         "photoAlbum": [
             "https://cdn.uviewui.com/uview/album/1.jpg"
