@@ -19,8 +19,8 @@
   <uni-list>
     <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
       <template v-slot:body>
-        <user-card :item="item">
-        </user-card>
+        <user-list-card :item="item">
+        </user-list-card>
       </template>
     </uni-list-item>
     <uni-load-more @clickLoadMore="loadMore" :status="loadMoreStatus"></uni-load-more>

@@ -4,10 +4,10 @@
         </image>
         <div class="user-info">
             <view class="name">
-                {{ item.name }}
+                {{ item.nickname }}
             </view>
             <view class="desc">
-                {{ birthday + "/" + item.housing }}
+                {{ birthday + "/" + item.registeredArea }}
             </view>
         </div>
     </div>
@@ -43,7 +43,7 @@ const birthday = computed(() => {
     box-sizing: border-box;
     background-color: #fff;
     border-radius: 1rem;
-    padding: 1rem 1.5rem;
+    padding: 1rem;
     box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 4%);
 
     .img {
@@ -55,7 +55,7 @@ const birthday = computed(() => {
 
     .user-info {
         width: 100%;
-        font-size: 1.5rem;
+        font-size: 1rem;
 
         .name {
             width: 90%;
@@ -71,7 +71,7 @@ const birthday = computed(() => {
             display: block;
             margin-top: .5rem;
             color: #999;
-            font-size: 1.2rem;
+            font-size: 0.8rem;
         }
     }
 

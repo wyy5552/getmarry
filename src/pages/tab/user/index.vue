@@ -5,12 +5,11 @@
         <view class="flex">
           <image src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg" mode="scaleToFill" />
           <view class="h-full my-auto ml-1rem">
-            <view class="flex font-bold text-1rem">
-              <view>{{ userInfo.name + " " }}</view>
-              <view>——{{ userInfo.nickname + " " }}</view>
-              <view>——{{ userInfo.gender == 0 ? "男" : "女" }}</view>
-            </view>
-            <view class="mt-1rem opacity-90">{{ birthday + " · " + userInfo.height + "cm · " + userInfo.education }}
+            <view class="font-bold text-1rem">{{ userInfo.name + " " }}<text class="text-#f29f9c"
+                v-if="userInfo.gender == 0">♀</text><text class="text-#007aff" v-else>♂</text></view>
+            <view class="mt-0.5rem font-bold text-1rem">{{ userInfo.nickname + " " }}</view>
+            <view class="mt-0.5rem opacity-90">{{ birthday + " · " + userInfo.height + "cm · " +
+      getEducationText(userInfo.education) }}
             </view>
           </view>
         </view>
@@ -45,7 +44,7 @@
         <view class="one-line">微信：</view>
       </view>
       <button type="primary" @click="onLogoutHandler">退出登录</button>
-      <button type="primary" @click="submit('customForm')">注销账号</button>
+      <button type="primary" @click="onLogoutHandler">注销账号</button>
     </view>
     <view v-if="loginStatus == 0" class="btn-container">
       <button class="mt-8rem" type="primary" @click="onClickRegisterHandler">注册</button>
@@ -85,6 +84,7 @@ onMounted(() => {
           // 获取用户信息
           getUserInfo().then(res => {
             userInfo.value = res as any;
+
           });
         }
         else {
@@ -131,6 +131,8 @@ const getUserInfo = async () => {
       },
       success: (res) => {
         console.log(res.data);
+        // 将个人信息存在本地
+        uni.setStorageSync('userInfo', JSON.stringify(res.data.data));
         resolve(res.data.data);
       },
       fail: (fail) => {
@@ -175,7 +177,19 @@ const onClickRegisterHandler = () => {
     url: '/pages/tab/user/register'
   });
 }
-
+const educationOptions = [
+  { text: '初中', value: 0 },
+  { text: '高中', value: 1 },
+  { text: '大专', value: 2 },
+  { text: '本科', value: 3 },
+  { text: '研究生', value: 4 },
+  { text: '博士', value: 5 },
+  { text: '博士后', value: 6 }
+];
+// 根据value获取对应的学历
+const getEducationText = (value: number) => {
+  return educationOptions.find(item => item.value === value)?.text;
+}
 
 const clickMyCollectionHandler = (e: any) => {
   console.log(e);
@@ -186,7 +200,15 @@ const clickMyCollectionHandler = (e: any) => {
 const clickEditHandler = (e: any) => {
   console.log(e);
   uni.navigateTo({
-    url: '/pages/tab/user/edit'
+    url: '/pages/tab/user/edit',
+    events: {
+      // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+      acceptDataFromOpenedPage: function (data) {
+        if (data == 'success') {
+          userInfo.value = JSON.parse(uni.getStorageSync('userInfo'));
+        }
+      },
+    }
   });
 }
 </script>
