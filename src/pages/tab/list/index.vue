@@ -1,19 +1,20 @@
 <template>
-  <uni-fab ref="fab" :pattern="pattern" :horizontal="horizontal" :vertical="vertical" :popMenu="false"
-    @trigger="trigger" @fabClick="fabClick" />
   <uni-drawer ref="leftDrawer" mask maskClick mode="left" :width="320">
     <view class="close">
       我爱中国
     </view>
   </uni-drawer>
-  <view class="sticky z-100 top-0 bg-white flex items-center justify-between w-full">
-    <uni-data-select v-model="value1" placeholder="排序" :localdata="options1" @change="onClickDropHandler"
-      :clear="false"></uni-data-select>
-    <uni-data-select v-model="value2" placeholder="年龄" :localdata="options2" @change="onClickDropHandler"
-      :clear="false"></uni-data-select>
-    <uni-data-select v-model="value3" placeholder="身高" :localdata="options3" @change="onClickDropHandler"
-      :clear="false"></uni-data-select>
-    <text @click="onClickDropHandler">更多</text>
+  <view class="header">
+    <view class="header-left">
+      <uni-data-select v-model="form.height" placeholder="身高" :localdata="options.height" @change="onClickDropHandler"
+        :clear="false"></uni-data-select>
+      <uni-data-select v-model="form.age" placeholder="年龄" :localdata="options.age" @change="onClickDropHandler"
+        :clear="false"></uni-data-select>
+      <uni-data-select v-model="form.housing" placeholder="房子" :localdata="options.housing" @change="onClickDropHandler"
+        :clear="false"></uni-data-select>
+    </view>
+
+    <view class="header-right" @click="fabClick">更多</view>
   </view>
 
   <uni-list>
@@ -23,38 +24,15 @@
         </user-list-card>
       </template>
     </uni-list-item>
-    <uni-load-more @clickLoadMore="loadMore" :status="loadMoreStatus"></uni-load-more>
+    <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
   </uni-list>
 </template>
 
 <script setup lang="ts">
-import { getUserInfoListByTag } from '@/api/mock';
+import { UserInfoType } from '@/api/mock';
+import request from '@/api/request';
 
 const leftDrawer = ref<any>(null);
-const horizontal = ref('right');
-const vertical = ref('top');
-const pattern = reactive({
-  color: '#7A7E83',
-  backgroundColor: '#fff',
-  selectedColor: '#007AFF',
-  buttonColor: '#007AFF',
-  iconColor: '#fff'
-});
-
-const trigger = (e: any) => {
-  console.log(e);
-  uni.showModal({
-    title: '提示',
-    content: `aaa${e.index}`,
-    success: function (res) {
-      if (res.confirm) {
-        console.log('用户点击确定');
-      } else if (res.cancel) {
-        console.log('用户点击取消');
-      }
-    }
-  });
-};
 
 const fabClick = () => {
   leftDrawer.value.open();
@@ -67,33 +45,56 @@ const fabClick = () => {
 
 const onClickDropHandler = (e: any) => {
   console.log('onClickDropHandler', e);
+  form.value.pageNo = 1;
+  dataList.value = [];
+
+  loadMore();
 };
+const onClickMoreHandler = () => {
+  if (loadMoreStatus.value === 'noMore') {
+    uni.showToast({
+      title: '没有更多了',
+      icon: 'none'
+    });
+    return;
+  }
+  loadMore();
+};
+// 筛选条件 height:身高 age:年龄 housing:房子
+const options = {
+  height: [
+    { value: 0, text: "不限" },
+    { value: 1, text: "150-160" },
+    { value: 2, text: "160-170" },
+    { value: 3, text: "170-180" },
+    { value: 4, text: "180-190" },
+    { value: 5, text: "190-200" },
+  ],
+  age: [
+    { value: 0, text: "不限" },
+    { value: 1, text: "18-25" },
+    { value: 2, text: "25-30" },
+    { value: 3, text: "30-35" },
+    { value: 4, text: "35-40" },
+    { value: 5, text: "40-45" },
+  ],
+  housing: [
+    { value: 0, text: "不限" },
+    { value: 1, text: "有房" },
+    { value: 2, text: "无房" },
+    { value: 3, text: "自建房" },
+  ],
+};
+/** 搜索的筛选条件 */
+const form = ref({
+  pageNo: 1,
+  pageSize: 10,
+  height: 0,
+  age: 0,
+  housing: 0,
+});
 
-
-const value1 = ref('1');
-const value2 = ref('1');
-const value3 = ref('1');
-
-const options1 = ref([
-  { text: '登陆日期', value: '1' },
-  { text: '房车', value: '2' },
-  { text: '是否离异', value: '3' },
-]);
-const options2 = ref([
-  { text: '20-25', value: '1' },
-  { text: '25-35', value: '2' },
-  { text: '35-45', value: '3' },
-]);
-const options3 = ref([
-  { text: '140-150', value: '1' },
-  { text: '150-155', value: '2' },
-  { text: '155-160', value: '3' },
-  { text: '160-170', value: '4' },
-  { text: '170-175', value: '5' },
-]);
-let pageNo = 1;
-const pageSize = 10;
-const dataList = ref(getUserInfoListByTag(pageNo, pageSize));
+const dataList = ref<UserInfoType[]>([]);
 const loadMoreStatus = ref('more');
 
 onLoad(() => {
@@ -101,8 +102,15 @@ onLoad(() => {
 })
 
 const loadMore = () => {
-  pageNo++;
-  dataList.value = dataList.value.concat(getUserInfoListByTag(pageNo, pageSize));
+  request.post<UserInfoType[]>('user/getUserListByTag', form.value).then((res) => {
+    if (res.data.length > 0) {
+      form.value.pageNo++;
+      dataList.value = dataList.value.concat(res.data);
+      if (res.data.length < form.value.pageSize) {
+        loadMoreStatus.value = 'noMore';
+      }
+    }
+  });
 };
 const clickGridHandler = (e: any) => {
   console.log(e);
@@ -111,3 +119,36 @@ const clickGridHandler = (e: any) => {
   });
 }
 </script>
+<style scoped lang="scss">
+.header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  &-left {
+    display: flex;
+    width: 80%;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  &-right {
+    background-color: #f29f9c;
+    color: white;
+    width: 20%;
+    text-align: center;
+    line-height: 1.8rem;
+    border-radius: 0.9rem;
+    height: 1.8rem;
+    box-shadow: 0 0 0.5rem #f29f9c;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+</style>

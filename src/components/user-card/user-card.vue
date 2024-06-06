@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-
+import type { UserInfoType } from "@/api/mock"
 const props = defineProps<{
-    item: any,
+    item: UserInfoType,
 }>()
 const birthday = computed(() => {
     const birthDate = new Date(props.item.birthday);

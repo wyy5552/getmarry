@@ -133,67 +133,9 @@
 import { ref } from 'vue';
 import { UserInfoType } from '@/api/mock';
 import request from "@/api/request";
+import userInfoOptions from '@/utils/userInfoOptions';
 
-// 定义枚举数据
-const sexOptions = [
-    { text: '女', value: 0 },
-    { text: '男', value: 1 }
-];
-
-const maritalStatusOptions = [
-    { text: '未婚', value: 0 },
-    { text: '离异无娃', value: 1 },
-    { text: '离异带男娃', value: 2 },
-    { text: '离异带女娃', value: 3 }
-];
-
-const educationOptions = [
-    { text: '初中', value: 0 },
-    { text: '高中', value: 1 },
-    { text: '大专', value: 2 },
-    { text: '本科', value: 3 },
-    { text: '研究生', value: 4 },
-    { text: '博士', value: 5 },
-    { text: '博士后', value: 6 }
-];
-
-const professionOptions = [
-    { text: '计算机/互联网/通信', value: 0 },
-    { text: '生产/工艺/制造', value: 1 },
-    { text: '商业/服务业/个体经营', value: 2 },
-    { text: '金融/银行/投资/保险', value: 3 },
-    { text: '文化/广告/传媒', value: 4 },
-    { text: '娱乐/艺术/表演', value: 5 },
-    { text: '医疗/护理/制药', value: 6 },
-    { text: '律师/法务', value: 7 },
-    { text: '教育/科研/培训', value: 8 },
-    { text: '公务员/事业单位', value: 9 },
-    { text: '模特', value: 10 },
-    { text: '空姐', value: 11 },
-    { text: '学生', value: 12 },
-    { text: '其他', value: 13 }
-];
-
-const marriageTimeOptions = [
-    { text: '半年内', value: 0 },
-    { text: '一年内', value: 1 }
-];
-
-const housingOptions = [
-    { text: '无', value: 0 },
-    { text: '有', value: 1 },
-    { text: '自建', value: 2 }
-];
-
-const carOwnershipOptions = [
-    { text: '无', value: 0 },
-    { text: '有', value: 1 }
-];
-
-const personalInfoOptions = [
-    { text: '否', value: 0 },
-    { text: '是', value: 1 }
-];
+const { sexOptions, maritalStatusOptions, educationOptions, professionOptions, marriageTimeOptions, housingOptions, carOwnershipOptions, personalInfoOptions } = userInfoOptions;
 // 获取本地用户信息
 const userInfo = JSON.parse(uni.getStorageSync('userInfo')) as UserInfoType;
 const baseFormData = ref<UserInfoType>(userInfo);

@@ -20,8 +20,8 @@
             {{ item.introduction }}
         </view>
         <view class="user-info-req">
-            <view>寻觅</view>
-            <view>既要：，又要：，还要</view>
+            <view class="tag-name">寻觅</view>
+            <view class="tag-info">既要：，又要：，还要</view>
         </view>
     </view>
 </template>
@@ -102,13 +102,12 @@ const getProfessionText = (profession: number) => {
 <style scoped lang="scss">
 .user-card {
     width: 92%;
-    margin: 1rem auto 1.2rem auto;
-    padding: 1rem 0 1rem;
+    margin: 0.5rem 1rem;
     border-radius: 1.2rem;
     box-sizing: border-box;
     position: relative;
     background-color: #fff;
-    min-height: 17rem;
+    min-height: 10rem;
 
     .header {
         display: flex;
@@ -173,6 +172,26 @@ const getProfessionText = (profession: number) => {
 
     .user-info-req {
         display: flex;
+        align-items: center;
+
+        .tag-name {
+            background-color: #FF6F6F;
+            color: #fff;
+            font-size: 1.2rem;
+            padding: 0 .5rem;
+            line-height: 2rem;
+            margin: 0 .5rem 0 0;
+            display: inline-block;
+            border-radius: 0.5rem;
+        }
+
+        .tag-info {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #666;
+            opacity: 0.8;
+        }
     }
 }
 </style>

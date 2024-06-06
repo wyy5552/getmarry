@@ -45,7 +45,7 @@ export const getVipList = () => {
  */
 export type UserInfoType = {
     /** 用户的唯一标识 */
-    id: string;
+    id: number;
     /** 用户的个人相册 */
     photoAlbum: string[];
     /** 个人介绍 */
@@ -62,16 +62,18 @@ export type UserInfoType = {
     weight: string;
     /** 用户的生日 */
     birthday: string;
+    /** 用户的年龄 */
+    age: number;
     /** 用户的住房情况,0 无 1 有 */
-    housing: string;
+    housing: number;
     /** 用户的购车情况 0 无 1 有*/
-    carOwnership: string;
+    carOwnership: number;
     /** 用户的婚姻状况 0 未婚 1 离异*/
-    maritalStatus: string;
+    maritalStatus: number;
     /** 用户的子女情况 */
     children: string;
     /** 用户的月收入 */
-    monthlyIncome: string;
+    monthlyIncome: number;
     /** 用户的学历 */
     education: number;
 
@@ -84,7 +86,7 @@ export type UserInfoType = {
     /** 用户的户籍地区 */
     registeredArea: string;
     /** 用户的职业 */
-    profession: string;
+    profession: number;
     /** 用户的房产位置 */
     propertyLocation: string;
     /** 用户的期望结婚时间 */
@@ -111,21 +113,24 @@ export type UserInfoType = {
     /**机构id */
     organizationId: string;
 
+    // 喜欢列表
+    likes: string;
+
     // 择偶要求
     /** 婚姻状况,未婚、离异无娃、离异带娃 */
-    maritalStatusRequirement?: string;
+    maritalStatusRequirement: string;
     /** 年龄要求 */
-    ageRequirement?: string;
+    ageRequirement: string;
     /** 身高要求 */
-    heightRequirement?: string;
+    heightRequirement: string;
     /** 学历要求 */
-    educationRequirement?: string;
+    educationRequirement: string;
     /** 收入要求 */
-    incomeRequirement?: string;
+    incomeRequirement: string;
     /** 区域要求 */
-    areaRequirement?: string;
+    areaRequirement: string;
     /** 其他要求 */
-    otherRequirement?: string;
+    otherRequirement: string;
 };
 /** 获取单个用户信息 */
 export const getUserInfo = () => {

@@ -101,9 +101,9 @@
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
-import { UserInfoType, getUserInfo } from '../../../api/mock';
+import { UserInfoType } from '../../../api/mock';
 
-const userInfo = ref<UserInfoType>(getUserInfo() as UserInfoType);
+const userInfo = ref<UserInfoType>({} as UserInfoType);
 onLoad((options: any) => {
     console.log('User Info Page Loaded', options);
     userInfo.value = JSON.parse(decodeURIComponent(options.item));;

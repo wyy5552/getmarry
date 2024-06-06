@@ -6,21 +6,42 @@
                 </user-card>
             </template>
         </uni-list-item>
-        <uni-load-more @clickLoadMore="loadMore" :status="loadMoreStatus"></uni-load-more>
+        <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
     </uni-list>
 </template>
 
 <script setup lang="ts">
-import { getUserInfoListByTag } from '@/api/mock';
+import { UserInfoType } from '@/api/mock';
+import request from '@/api/request';
 
 const loadMoreStatus = ref('more');
-let pageNo = 1;
-const pageSize = 10;
-const dataList = ref(getUserInfoListByTag(pageNo, pageSize));
+/** 搜索的筛选条件 */
+const form = {
+    pageNo: 1,
+    pageSize: 10,
+};
+const dataList = ref([] as UserInfoType[]);
 
 const loadMore = () => {
-    pageNo++;
-    dataList.value = dataList.value.concat(getUserInfoListByTag(pageNo, pageSize));
+    request.post<UserInfoType[]>('user/getLikesUserList', form).then((res) => {
+        if (res.data.length > 0) {
+            form.pageNo++;
+            dataList.value = dataList.value.concat(res.data);
+            if (res.data.length < form.pageSize) {
+                loadMoreStatus.value = 'noMore';
+            }
+        }
+    });
+};
+const onClickMoreHandler = () => {
+  if (loadMoreStatus.value === 'noMore') {
+    uni.showToast({
+      title: '没有更多了',
+      icon: 'none'
+    });
+    return;
+  }
+  loadMore();
 };
 onLoad(() => {
     loadMore();
