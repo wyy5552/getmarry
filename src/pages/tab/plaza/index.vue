@@ -38,10 +38,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { ref } from 'vue';
-import { UserInfoType } from '@/api/mock';
+import { UserInfoType } from "@/api/mock";
 import request from "@/api/request";
+import { reactive, ref } from "vue";
 
 // 使用 reactive 创建响应式数组  
 const swiperList = reactive([
@@ -67,11 +66,8 @@ const clickGridHandler = (e: any) => {
 }
 const girlList = ref<UserInfoType[]>([]);
 
-const title = ref<string>();
-title.value = import.meta.env.VITE_APP_TITLE;
-
 onMounted(() => {
-  request.get<any>('user/getVipList', null).then((res) => {
+  request.get<any>('plaza/getVipList', null).then((res) => {
     if (res.code === 200) {
       vipUserList.value = res.data;
     }
@@ -79,7 +75,7 @@ onMounted(() => {
     console.log(res);
   })
 
-  request.get<any>('user/getGirlList', null).then((res) => {
+  request.get<any>('plaza/getGirlList', null).then((res) => {
     if (res.code === 200) {
       girlList.value = res.data;
     }

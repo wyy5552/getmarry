@@ -1,8 +1,8 @@
 <template>
     <uni-list>
-        <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
+        <uni-list-item v-for="(item, index) in dataList" :key="index">
             <template v-slot:body>
-                <user-card :item="item">
+                <user-card :item="item" @tap="clickGridHandler(item)">
                 </user-card>
             </template>
         </uni-list-item>
@@ -34,14 +34,14 @@ const loadMore = () => {
     });
 };
 const onClickMoreHandler = () => {
-  if (loadMoreStatus.value === 'noMore') {
-    uni.showToast({
-      title: '没有更多了',
-      icon: 'none'
-    });
-    return;
-  }
-  loadMore();
+    if (loadMoreStatus.value === 'noMore') {
+        uni.showToast({
+            title: '没有更多了',
+            icon: 'none'
+        });
+        return;
+    }
+    loadMore();
 };
 onLoad(() => {
     loadMore();

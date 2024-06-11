@@ -104,7 +104,7 @@ const getUserInfo = async () => {
 }
 const favClick = async () => {
     try {
-        await request.post<any>('user/likeUser', { userId: userInfo.value.id, isLike: !isSelect.value });
+        await request.post<any>('list/likeUser', { userId: userInfo.value.id, isLike: !isSelect.value });
         isSelect.value = !isSelect.value;
         uni.showToast({
             title: isSelect.value ? "收藏成功！" : "取消收藏！",

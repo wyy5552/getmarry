@@ -14,13 +14,13 @@
         :clear="false"></uni-data-select>
     </view>
 
-    <view class="header-right" @click="fabClick">更多</view>
+    <!-- <view class="header-right" @click="fabClick">更多</view> -->
   </view>
 
   <uni-list>
     <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
       <template v-slot:body>
-        <user-list-card :item="item">
+        <user-list-card :item="item" :key="item.id" @tap="clickGridHandler(item)">
         </user-list-card>
       </template>
     </uni-list-item>
@@ -34,14 +34,17 @@ import request from '@/api/request';
 
 const leftDrawer = ref<any>(null);
 
-const fabClick = () => {
-  leftDrawer.value.open();
-  uni.showToast({
-    title: '点击了悬浮按钮',
-    icon: 'none'
-  });
-};
+// const fabClick = () => {
+//   leftDrawer.value.open();
+//   uni.showToast({
+//     title: '点击了悬浮按钮',
+//     icon: 'none'
+//   });
+// };
 
+onTabItemTap((item) => {
+    console.log('点击 Tab 项', item.index);
+});
 
 const onClickDropHandler = (e: any) => {
   console.log('onClickDropHandler', e);
@@ -60,6 +63,7 @@ const onClickMoreHandler = () => {
   }
   loadMore();
 };
+
 // 筛选条件 height:身高 age:年龄 housing:房子
 const options = {
   height: [
@@ -131,7 +135,7 @@ const clickGridHandler = (e: any) => {
 
   &-left {
     display: flex;
-    width: 80%;
+    width: 100%;
     padding-right: 0.5rem;
     padding-left: 0.5rem;
   }

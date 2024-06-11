@@ -102,7 +102,6 @@ const getProfessionText = (profession: number) => {
 <style scoped lang="scss">
 .user-card {
     width: 92%;
-    margin: 0.5rem 1rem;
     border-radius: 1.2rem;
     box-sizing: border-box;
     position: relative;
@@ -113,56 +112,61 @@ const getProfessionText = (profession: number) => {
         display: flex;
 
         .img-container {
-            width: 9rem;
-            height: 9rem;
+            width: 150px;
+            height: 150px;
             border-radius: 1rem;
             overflow: hidden;
 
+            // flex布局中，自身宽高不变化
+
             image {
-                width: 9rem;
-                height: 9rem !important;
+                width: 150px;
+                height: 150px;
             }
         }
-    }
 
-    .user-info-base {
-        text-align: left;
-        border-top: 0;
-        line-height: 2rem;
-        padding: 0 1rem;
+        .user-info-base {
+            margin-left: 1rem;
+            text-align: left;
+            border-top: 0;
+            line-height: 2rem;
+            width: 200px;
 
-        .user-info {
-            width: 100%;
-            text-overflow: ellipsis;
-        }
+            .user-info {
+                width: 100%;
+                text-overflow: ellipsis;
+            }
 
-        .user-tags {
-            width: 100%;
-            display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-
-            .item {
-                background-color: rgba(255, 111, 111, .1);
-                color: #FF6F6F;
-                font-weight: normal;
-                display: inline-block;
-                margin-right: 1rem;
-                margin-top: .6rem;
-                line-height: 1.2rem;
-                height: 1.2rem;
-                padding: 0 .8rem;
-                font-size: 0.8rem;
-                border-radius: .3rem;
-                box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                max-width: 50%;
+            .user-tags {
+                width: 100%;
+                display: block;
+                white-space: nowrap;
                 overflow: hidden;
+                text-overflow: ellipsis;
+
+                .item {
+                    background-color: rgba(255, 111, 111, .1);
+                    color: #FF6F6F;
+                    font-weight: normal;
+                    display: inline-block;
+                    margin-right: 1rem;
+                    margin-top: .6rem;
+                    line-height: 1.2rem;
+                    height: 1.2rem;
+                    padding: 0 .8rem;
+                    font-size: 0.8rem;
+                    border-radius: .3rem;
+                    box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    max-width: 50%;
+                    overflow: hidden;
+                }
             }
         }
     }
+
+
 
     .user-intro {
         padding: 0.5rem;

@@ -13,6 +13,7 @@
 			"pages.json": "jsonc"
 		},
 		"cSpell.words": [
+			"localdata",
 			"mydatabase",
 			"VITE"
 		]
