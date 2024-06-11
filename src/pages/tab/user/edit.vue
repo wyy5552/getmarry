@@ -187,6 +187,9 @@ const rules = {
         ]
     }
 };
+watch(() => baseFormData.value.birthday, (newVal, oldVal) => {
+    console.log(newVal)
+})
 let instance;
 onLoad(() => {
     instance = getCurrentInstance()?.proxy;

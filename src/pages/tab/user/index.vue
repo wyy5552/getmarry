@@ -29,13 +29,25 @@
         </view>
       </view>
       <view class="card">
-        <view class="one-line">
+        <view class="one-line" @click="onClickShowToOtherHandler">
           <view>是否展示给异性</view>
-          <switch checked />
+          <uni-popup ref="popupRef" type="dialog">
+            <uni-popup-dialog title="  " :content="popupMst" :duration="2000" :before-close="false"
+              @confirm="onConfirmHandler"></uni-popup-dialog>
+          </uni-popup>
+          <view class="pr-0.5rem">
+            <text class="text-0.6rem opacity-50">(点击进行操作)</text>
+            <text v-if="onSwitchChecked">是</text>
+            <text v-else>否</text>
+          </view>
         </view>
         <view class="one-line">
           <view>是否红娘认证</view>
-          <switch />
+          <view class="pr-0.5rem">
+            <text v-if="userInfo.isAuth">是</text>
+            <text v-else>否</text>
+
+          </view>
         </view>
       </view>
       <view class="card">
@@ -59,7 +71,7 @@ import { UserInfoType } from '@/api/mock';
 import request from "@/api/request";
 
 const userInfo = ref<UserInfoType>({} as UserInfoType);
-// 登陆状态 0 未登录 1 登录
+/** 登陆状态 0 未登录 1 登录  */
 const loginStatus = ref(0);
 
 onMounted(async () => {
@@ -67,20 +79,17 @@ onMounted(async () => {
   // 获取token
   const token = uni.getStorageSync('token');
   // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjEzMzgxNzAwMDAwIiwiaWF0IjoxNzE2OTA0MTkxLCJleHAiOjE3MTY5OTA1OTF9.PHc6PttpRzxIPLPn_dFovO2GxqTv3MThhLcUqagebd4";
-  uni.setStorageSync('token', token);
   console.log('token', token);
   try {
     // 判断是否有token
     if (token) {
       // 判断token是否过期
-      let res = await request.get<any>('user/isTokenValid', { token })
+      let res = await request.get<any>('user/isTokenValid', null);
       console.log(res);
       // 保存token
       uni.setStorageSync('token', res.data.token);
       // 获取用户信息
-      let res2 = await request.post<UserInfoType>('user/userInfo', null);
-      uni.setStorageSync('userInfo', JSON.stringify(res2.data));
-      userInfo.value = res2.data;
+      await getAndSetUserInfo();
     } else {
       // 清除token
       uni.removeStorageSync('token');
@@ -101,29 +110,25 @@ const onClickLoginHandler = () => {
       acceptDataFromOpenedPage: async function (data) {
         if (data == 'success') {
           loginStatus.value = 1;
-          let res2 = await request.post<UserInfoType>('user/userInfo', null);
-          uni.setStorageSync('userInfo', JSON.stringify(res2.data));
+          await getAndSetUserInfo();
         }
       },
     }
   });
 }
 
+
+
+const getAndSetUserInfo = async () => {
+  let res2 = await request.post<UserInfoType>('user/userInfo', null);
+  uni.setStorageSync('userInfo', JSON.stringify(res2.data));
+  userInfo.value = JSON.parse(uni.getStorageSync('userInfo'));
+}
 const onLogoutHandler = () => {
   uni.removeStorageSync('token');
   loginStatus.value = 0;
-  uni.request({
-    url: 'http://localhost:3000/logout',
-    method: 'POST',
-    header: {
-      'token': uni.getStorageSync('token') //自定义请求头信息
-    },
-    success: (res) => {
-      console.log(res.data);
-    },
-    fail: (fail) => {
-      console.log(fail);
-    },
+  request.post('user/logout', null).then((res) => {
+    console.log(res);
   });
 }
 
@@ -137,7 +142,40 @@ const birthday = computed(() => {
   }
   return age + "岁";
 })
+const onSwitchChecked = computed({
+  get: () => {
+    return userInfo.value.isShow;
+  },
+  set: (value) => {
+    userInfo.value.isShow = value;
+  }
+});
+const popupRef = ref();
+const popupMst = ref("");
+const msgObj = {
+  confirm: "是否展示给别人？",
+  cancel: "取消展示给别人？"
+}
 
+const onConfirmHandler = async () => {
+  request.post('user/showToOther', { showToOther: onSwitchChecked.value }).then((res) => {
+    console.log(res);
+    if (onSwitchChecked.value) {
+      onSwitchChecked.value = 0;
+    } else {
+      onSwitchChecked.value = 1;
+    }
+  });
+  popupRef.value?.close();
+}
+const onClickShowToOtherHandler = () => {
+  if (onSwitchChecked.value) {
+    popupMst.value = msgObj.cancel;
+  } else {
+    popupMst.value = msgObj.confirm;
+  }
+  popupRef.value?.open();
+}
 
 const onClickRegisterHandler = () => {
   uni.navigateTo({

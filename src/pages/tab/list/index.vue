@@ -102,7 +102,7 @@ onLoad(() => {
 })
 
 const loadMore = () => {
-  request.post<UserInfoType[]>('user/getUserListByTag', form.value).then((res) => {
+  request.post<UserInfoType[]>('list/getUserListByTag', form.value).then((res) => {
     if (res.data.length > 0) {
       form.value.pageNo++;
       dataList.value = dataList.value.concat(res.data);

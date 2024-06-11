@@ -5,7 +5,7 @@ type RspType<T extends any> = {
     message: string,
     data: T
 }
-const request = <T extends any>(url: string, data: any, method: any = "GET"): Promise<RspType<T>> => {
+const request = <T extends any>(url: string, data: any = null, method: any = "GET"): Promise<RspType<T>> => {
     return new Promise((resolve, reject) => {
         uni.request({
             url: baseUrl + url,
@@ -27,10 +27,10 @@ const request = <T extends any>(url: string, data: any, method: any = "GET"): Pr
         });
     });
 }
-const get = <T extends any>(url: string, data: any) => {
+const get = <T extends any>(url: string, data: any = null) => {
     return request<T>(url, data, "GET");
 }
-const post = <T extends any>(url: string, data: any) => {
+const post = <T extends any>(url: string, data: any = null) => {
     return request<T>(url, data, "POST");
 }
 export default {

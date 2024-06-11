@@ -6,9 +6,21 @@
   },
   "pages": [
     {
-      "path": "pages/tab/home/index",
+      "path": "pages/tab/plaza/index",
       "style": {
         "navigationBarTitleText": "广场"
+      }
+    },
+    {
+      "path": "pages/tab/test/index",
+      "style": {
+        "navigationBarTitleText": "测试声明周期"
+      }
+    },
+    {
+      "path": "pages/tab/test/detail",
+      "style": {
+        "navigationBarTitleText": "测试声明周期"
       }
     },
     {
@@ -82,7 +94,7 @@
   //   }
   // ],
   // "preloadRule": {
-  //   "pages/tab/home/index": {
+  //   "pages/tab/plaza/index": {
   //     "network": "all",
   //     "packages": [
   //       "pages/common"
@@ -96,7 +108,11 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/tab/home/index",
+        "pagePath": "pages/tab/test/index",
+        "text": "测试生命周期"
+      },
+      {
+        "pagePath": "pages/tab/plaza/index",
         "text": "广场"
       },
       {
