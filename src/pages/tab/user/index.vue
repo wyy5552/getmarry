@@ -64,10 +64,13 @@
     </view>
 
   </view>
+  <tabbar :is-user="true" :tab-index="2">
+  </tabbar>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
 import { UserInfoType } from '@/api/mock';
+import tabbar from '@/components/tabbar/tabbar.vue';
 import request from "@/api/request";
 
 const userInfo = ref<UserInfoType>({} as UserInfoType);

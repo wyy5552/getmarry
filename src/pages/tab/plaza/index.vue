@@ -35,12 +35,15 @@
       <uni-popup-message type="success" message="成功消息" :duration="2000"></uni-popup-message>
     </uni-popup>
   </view>
+  <tabbar :is-user="true" :tab-index="0">
+  </tabbar>
 </template>
 
 <script setup lang="ts">
 import { UserInfoType } from "@/api/mock";
 import request from "@/api/request";
 import { reactive, ref } from "vue";
+import tabbar from '@/components/tabbar/tabbar.vue';
 
 // 使用 reactive 创建响应式数组  
 const swiperList = reactive([

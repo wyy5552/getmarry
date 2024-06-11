@@ -26,11 +26,14 @@
     </uni-list-item>
     <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
   </uni-list>
+  <tabbar :is-user="true" :tab-index="1">
+  </tabbar>
 </template>
 
 <script setup lang="ts">
 import { UserInfoType } from '@/api/mock';
 import request from '@/api/request';
+import tabbar from '@/components/tabbar/tabbar.vue';
 
 const leftDrawer = ref<any>(null);
 
@@ -43,7 +46,7 @@ const leftDrawer = ref<any>(null);
 // };
 
 onTabItemTap((item) => {
-    console.log('点击 Tab 项', item.index);
+  console.log('点击 Tab 项', item.index);
 });
 
 const onClickDropHandler = (e: any) => {
