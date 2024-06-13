@@ -46,8 +46,7 @@ const onLoginHandler = async () => {
             passwordHash: loginForm.value.passwordHash
         });
         uni.setStorageSync('token', res.data.token);
-        const eventChannel = instance.getOpenerEventChannel();
-        eventChannel.emit('acceptDataFromOpenedPage', "success");
+        uni.$emit('loginSuccess');
         uni.navigateBack();
     } catch (err) {
         console.log(err);

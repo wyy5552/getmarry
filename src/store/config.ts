@@ -3,6 +3,10 @@ export default {
         { "text": "女", "value": 0 },
         { "text": "男", "value": 1 }
     ],
+    "role": [
+        { "text": "会员", "value": 0 },
+        { "text": "红娘", "value": 1 }
+    ],
     "housing": [
         { "text": "无", "value": 0 },
         { "text": "有", "value": 1 },

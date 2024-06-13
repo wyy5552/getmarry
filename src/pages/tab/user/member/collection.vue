@@ -23,7 +23,7 @@ const form = {
 const dataList = ref([] as UserInfoType[]);
 
 const loadMore = () => {
-    request.post<UserInfoType[]>('user/getLikesUserList', form).then((res) => {
+    request.post<UserInfoType[]>('member/getLikesUserList', form).then((res) => {
         if (res.data.length > 0) {
             form.pageNo++;
             dataList.value = dataList.value.concat(res.data);

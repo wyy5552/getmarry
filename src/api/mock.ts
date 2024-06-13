@@ -35,18 +35,37 @@
   * 其他
  */
 export type UserInfoType = {
-  /** 用户的唯一标识 */
-  id: number;
+  /** 用户的唯一标识符。默认自增长。不能为空 */
+  id: string;
+  /** 用户的手机号码。 不能为空*/
+  phone: number;
+  /** 用户的名字。 */
+  name: string;
+  /** 角色 */
+  role: number;
+  /** 用户的性别。 */
+  gender: number;
+  /** 用户的昵称。 */
+  nickname: string;
+  /** 用户的哈希密码。 不能为空*/
+  passwordHash: string;
+  /** 用户的授权级别（0代表用户，1代表红娘）。 不能为空 */
+  userType: number;
+  /** 组织id（邀请码）。对于用户，这是红娘的手机号码；对于红娘，这是系统提供的id。 不能为空 */
+  organizationId: number;
+  /** 绑定的会员或红娘的id。 */
+  userId: string;
+  /** 用户的登录时间。 */
+  loginTime: number;
+  /** 用户的注册时间。 */
+  registerTime: number;
+  /** 我的邀请码(手机号后4位） */
+  code: number;
+
   /** 用户的个人相册 */
   photoAlbum: string[];
   /** 个人介绍 */
   introduction: string;
-  /** 用户的昵称 */
-  nickname: string;
-  passwordHash?: string;
-  name: string;
-  /** 用户的性别，0 代表女性，1 代表男性 */
-  gender: number;
   /** 用户的身高 */
   height: string;
   /** 用户的体重 */
@@ -93,16 +112,12 @@ export type UserInfoType = {
   /** 红娘点评 */
   matchmakerComment: string;
 
-  /** 用户的手机号 */
-  phone: string;
   /** 用户的微信号 */
   wechat: string;
   /** 红娘手机号 */
   matchmakerPhone: string;
   /** 红娘微信 */
   matchmakerWechat: string;
-  /**机构id */
-  organizationId: string;
 
   // 喜欢列表
   likes: string;

@@ -99,7 +99,7 @@ const checkHasLiked = () => {
 
 // 获取个人信息
 const getUserInfo = async () => {
-    let res2 = await request.post<UserInfoType>('user/userInfo', null);
+    let res2 = await request.post<UserInfoType>('member/userInfo', null);
     uni.setStorageSync('userInfo', JSON.stringify(res2.data));
 }
 const favClick = async () => {
