@@ -35,7 +35,7 @@
       <uni-popup-message type="success" message="成功消息" :duration="2000"></uni-popup-message>
     </uni-popup>
   </view>
-  <tabbar :is-user="true" :tab-index="0">
+  <tabbar tab-value="pyq">
   </tabbar>
 </template>
 
@@ -44,6 +44,35 @@ import { UserInfoType } from "@/api/mock";
 import request from "@/api/request";
 import { reactive, ref } from "vue";
 import tabbar from '@/components/tabbar/tabbar.vue';
+import userUserStore from '@/store/modules/user/useUserStore';
+const userStore = userUserStore();
+// 解构
+const { role, userInfo, loginStatus } = storeToRefs(userStore);
+
+const vipStatus = ref(0);
+// 如果用户是红娘，则隐藏申请vip按钮
+if (role.value === 1) {
+  vipStatus.value = 1;
+}
+// 如果是用户
+if (role.value === 0) {
+  vipStatus.value = 0;
+  // 如果用户未登录
+  if (loginStatus.value === 0) {
+    vipStatus.value = 2;
+  }
+  else {
+    // 如果用户已经是vip
+    if (userInfo.value.isVip == 1) {
+      // 显示取消vip按钮
+      vipStatus.value = 3;
+    } else {
+      // 显示申请vip按钮
+      vipStatus.value = 4;
+
+    }
+  }
+}
 
 // 使用 reactive 创建响应式数组  
 const swiperList = reactive([

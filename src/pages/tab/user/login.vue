@@ -13,8 +13,9 @@
     </view>
 </template>
 <script setup lang="ts">
-import request from '@/api/request';
 import { ref } from 'vue';
+import userUserStore from '@/store/modules/user/useUserStore';
+const userStore = userUserStore();
 
 const loginForm = ref<{
     phone: string;
@@ -27,11 +28,9 @@ let instance;
 onLoad(() => {
     instance = getCurrentInstance()?.proxy;
     console.log('instance', instance);
-    uni.hideTabBar();
 });
 onBackPress((options: any) => {
     console.log('from:' + options.from)
-    uni.showTabBar();
 })
 const loginRef = ref();
 const onLoginHandler = async () => {
@@ -40,14 +39,16 @@ const onLoginHandler = async () => {
         uni.showToast({
             title: `校验通过`
         })
-        // 登陆
-        const res = await request.post<any>('user/login', {
-            phone: loginForm.value.phone,
-            passwordHash: loginForm.value.passwordHash
+        userStore.login(loginForm.value.phone, loginForm.value.passwordHash).then(() => {
+            uni.showToast({
+                title: `登陆成功`
+            })
+            uni.navigateBack();
+        }).catch(() => {
+            uni.showToast({
+                title: `登陆失败`
+            })
         });
-        uni.setStorageSync('token', res.data.token);
-        uni.$emit('loginSuccess');
-        uni.navigateBack();
     } catch (err) {
         console.log(err);
     }

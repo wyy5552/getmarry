@@ -131,17 +131,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { UserInfoType } from '@/api/mock';
 import request from "@/api/request";
 import userInfoOptions from '@/utils/userInfoOptions';
-import userUserStore from '@/store/modules/user/useUserStore';
-import type { UserInfoType } from '@/store/modules/user/types';
-
-const userStore = userUserStore();
-const { userInfo } = storeToRefs(userStore);
 
 const { sexOptions, maritalStatusOptions, educationOptions, professionOptions, marriageTimeOptions, housingOptions, carOwnershipOptions, personalInfoOptions } = userInfoOptions;
 // 获取本地用户信息
-const baseFormData = ref<UserInfoType>(JSON.parse(JSON.stringify(userInfo.value)));
+const userInfo = JSON.parse(uni.getStorageSync('userInfo')) as UserInfoType;
+const baseFormData = ref<UserInfoType>(userInfo);
 const formRef = ref();
 
 const rules = {
@@ -176,6 +173,7 @@ const rules = {
     weight: {
         rules: [
             { required: true, errorMessage: '体重是必填项' },
+            { minimum: 30, errorMessage: '请输入大于30kg的体重' }
         ]
     },
     introduction: {
@@ -189,20 +187,37 @@ const rules = {
         ]
     }
 };
+watch(() => baseFormData.value.birthday, (newVal, oldVal) => {
+    console.log(newVal)
+})
+let instance;
 onLoad(() => {
+    instance = getCurrentInstance()?.proxy;
 });
 const submit = async () => {
-    let res = await formRef.value.validate();
-    console.log('success', res);
-    uni.showToast({
-        title: '校验通过'
-    });
-    await request.post<UserInfoType>('member/updateUserInfo', baseFormData.value);
-    uni.showToast({
-        title: '更新成功'
-    });
-    // 更新本地用户信息
-    await userStore.getUserInfo();
+    try {
+        let res = await formRef.value.validate();
+        console.log('success', res);
+        uni.showToast({
+            title: '校验通过'
+        });
+        let res1 = await request.post<UserInfoType>('user/updateUserInfo', baseFormData.value);
+        console.log('res', res1);
+        uni.showToast({
+            title: '更新成功'
+        });
+        // 更新本地用户信息
+        let res2 = await request.post<UserInfoType>('user/userInfo', null);
+        uni.setStorageSync('userInfo', JSON.stringify(res2.data));
+        const eventChannel = instance.getOpenerEventChannel();
+        eventChannel.emit('acceptDataFromOpenedPage', "success");
+    }
+    catch (error) {
+        uni.showToast({
+            title: '请求失败',
+            icon: 'error'
+        });
+    }
 }
 </script>
 

@@ -3,15 +3,15 @@
         <image class="img" src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg" mode="aspectFill" />
         <view class="user-card">
             <view>
-                <view class="font-bold text-1rem">{{ userInfo.name + " " }}<text class="text-#f29f9c"
-                        v-if="userInfo.gender == 0">♀</text><text class="text-#007aff" v-else>♂</text></view>
-                <view class="mt-0.5rem opacity-90">{{ userInfo.registeredArea + " · " +
-                    getEducationLabel(userInfo.education) }}</view>
+                <view class="font-bold text-1rem">{{ otherUserInfo.name + " " }}<text class="text-#f29f9c"
+                        v-if="otherUserInfo.gender == 0">♀</text><text class="text-#007aff" v-else>♂</text></view>
+                <view class="mt-0.5rem opacity-90">{{ otherUserInfo.registeredArea + " · " +
+                    getEducationLabel(otherUserInfo.education) }}</view>
                 <view class="flex gap-1rem mt-0.5rem opacity-90">
-                    <uni-tag type="warning" :text="getAge(userInfo.birthday) + ''"></uni-tag>
-                    <uni-tag type="warning" :text="userInfo.height + 'cm'"></uni-tag>
-                    <uni-tag type="warning" :text="userInfo.industry"></uni-tag>
-                    <uni-tag type="warning" :text="userInfo.monthlyIncome + '万'"></uni-tag>
+                    <uni-tag type="warning" :text="getAgeLabel(otherUserInfo.birthday) + ''"></uni-tag>
+                    <uni-tag type="warning" :text="otherUserInfo.height + 'cm'"></uni-tag>
+                    <uni-tag type="warning" :text="otherUserInfo.industry"></uni-tag>
+                    <uni-tag type="warning" :text="otherUserInfo.monthlyIncome + '万'"></uni-tag>
                 </view>
             </view>
             <view>
@@ -23,13 +23,13 @@
         <view class="card">
             <view class="title">基本资料</view>
             <view class="content">
-                <uni-tag :text="getGenderLabel(userInfo.gender)" inverted></uni-tag>
-                <uni-tag :text="userInfo.weight + 'kg'" inverted></uni-tag>
-                <uni-tag :text="getHousingLabel(userInfo.housing)" inverted></uni-tag>
-                <uni-tag :text="getCarOwnershipLabel(userInfo.carOwnership)" inverted></uni-tag>
-                <uni-tag :text="getEducationLabel(userInfo.education)" inverted></uni-tag>
-                <uni-tag :text="userInfo.registeredArea" inverted></uni-tag>
-                <uni-tag :text="getMarriageTimeLabel(userInfo.expectedMarriageTime)" inverted></uni-tag>
+                <uni-tag :text="getGenderLabel(otherUserInfo.gender)" inverted></uni-tag>
+                <uni-tag :text="otherUserInfo.weight + 'kg'" inverted></uni-tag>
+                <uni-tag :text="getHousingLabel(otherUserInfo.housing)" inverted></uni-tag>
+                <uni-tag :text="getCarOwnershipLabel(otherUserInfo.carOwnership)" inverted></uni-tag>
+                <uni-tag :text="getEducationLabel(otherUserInfo.education)" inverted></uni-tag>
+                <uni-tag :text="otherUserInfo.registeredArea" inverted></uni-tag>
+                <uni-tag :text="getMarriageTimeLabel(otherUserInfo.expectedMarriageTime)" inverted></uni-tag>
                 <view class="border-red border opacity-80 text-red-5" @click="onShowMoreHandler">查看更多></view>
             </view>
         </view>
@@ -37,31 +37,42 @@
             <view class="title">择偶要求</view>
 
             <view class="content">
-                <uni-tag type="warning" :text="userInfo.maritalStatusRequirement ?? '未婚'" inverted></uni-tag>
-                <uni-tag type="warning" :text="userInfo.ageRequirement ?? '上下三岁'" inverted></uni-tag>
-                <uni-tag type="warning" :text="userInfo.heightRequirement ?? '无身高要求'" inverted></uni-tag>
-                <uni-tag type="warning" :text="userInfo.incomeRequirement ?? '无收入要求'" inverted></uni-tag>
-                <uni-tag type="warning" :text="userInfo.areaRequirement ?? '地区不限'" inverted></uni-tag>
-                <uni-tag type="warning" :text="userInfo.otherRequirement ?? '看眼缘'" inverted></uni-tag>
+                <uni-tag type="warning" :text="otherUserInfo.maritalStatusRequirement ?? '未婚'" inverted></uni-tag>
+                <uni-tag type="warning" :text="otherUserInfo.ageRequirement ?? '上下三岁'" inverted></uni-tag>
+                <uni-tag type="warning" :text="otherUserInfo.heightRequirement ?? '无身高要求'" inverted></uni-tag>
+                <uni-tag type="warning" :text="otherUserInfo.incomeRequirement ?? '无收入要求'" inverted></uni-tag>
+                <uni-tag type="warning" :text="otherUserInfo.areaRequirement ?? '地区不限'" inverted></uni-tag>
+                <uni-tag type="warning" :text="otherUserInfo.otherRequirement ?? '看眼缘'" inverted></uni-tag>
             </view>
         </view>
         <view class="card">
             <view class="title">自我介绍</view>
-            <view class="content"> {{ userInfo.introduction }}</view>
+            <view class="content"> {{ otherUserInfo.introduction }}</view>
         </view>
         <view class="card">
             <view class="title">红娘点评</view>
-            <view class="content"> {{ userInfo.matchmakerComment }}</view>
+            <view class="content"> {{ otherUserInfo.matchmakerComment }}</view>
         </view>
         <view class="contact">
-            <view class="item">
+            <view class="item" @click="onClickPhoneHandler">
                 <uni-icons type="phone" size="30"></uni-icons>
                 红娘电话
             </view>
-            <view class="item">
+            <uni-popup ref="popupRef" type="dialog">
+                <uni-popup-dialog title="  " :duration="2000" :before-close="false" @confirm="onConfirmHandler">
+                    是否拨打红娘电话？
+                    {{ userStore.matchmakerInfo.phone }}
+                </uni-popup-dialog>
+            </uni-popup>
+            <view class="item" @click="onClickWxHandler">
                 <uni-icons type="weixin" size="30"></uni-icons>
                 红娘微信
             </view>
+            <uni-popup ref="popupWxRef" type="dialog">
+                <uni-popup-dialog title=" 长按添加微信 " :duration="2000" :before-close="false" @confirm="onConfirmWxHandler">
+                    <image src="../../../static/images/wechat.png" mode="scaleToFill" />
+                </uni-popup-dialog>
+            </uni-popup>
         </view>
 
     </view>
@@ -69,48 +80,45 @@
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
-import { UserInfoType } from '../../../api/mock';
-import userInfoOptions from '@/utils/userInfoOptions';
-
-import { getGenderLabel } from '@/utils/userInfoOptions';
-import { getHousingLabel } from '@/utils/userInfoOptions';
-import { getCarOwnershipLabel } from '@/utils/userInfoOptions';
-import { getMarriageTimeLabel } from '@/utils/userInfoOptions';
 import request from '@/api/request';
+import userUserStore from '@/store/modules/user/useUserStore';
+import userInfoOptions from '@/utils/userInfoOptions';
+import type { UserInfoType } from '@/store/modules/user/types';
 
-const { getEducationLabel, getAge } = userInfoOptions;
+const userStore = userUserStore();
 
-const userInfo = ref<UserInfoType>({} as unknown as UserInfoType);
+const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;
+
+const otherUserInfo = ref<UserInfoType>({} as unknown as UserInfoType);
 onLoad((options: any) => {
-    userInfo.value = JSON.parse(decodeURIComponent(options.item));;
+    otherUserInfo.value = JSON.parse(decodeURIComponent(options.item));;
     checkHasLiked();
 });
 
 const isSelect = ref(false);
+const popupRef = ref();
+
+const popupWxRef = ref();
 
 const checkHasLiked = () => {
     // 从本地获取个人信息
-    const selfInfo = JSON.parse(uni.getStorageSync('userInfo')) as UserInfoType;
+    const selfInfo = userStore.userInfo;
     // 获取喜欢列表
     const likeList = selfInfo.likes?.split(',') ?? [];
     // 判断是否已经收藏
-    isSelect.value = likeList.includes(userInfo.value.id + "");
+    isSelect.value = likeList.includes(otherUserInfo.value.id + "");
 }
 
-// 获取个人信息
-const getUserInfo = async () => {
-    let res2 = await request.post<UserInfoType>('member/userInfo', null);
-    uni.setStorageSync('userInfo', JSON.stringify(res2.data));
-}
+/** 喜欢 */
 const favClick = async () => {
     try {
-        await request.post<any>('list/likeUser', { userId: userInfo.value.id, isLike: !isSelect.value });
+        await request.post<any>('list/likeUser', { userId: otherUserInfo.value.id, isLike: !isSelect.value });
         isSelect.value = !isSelect.value;
         uni.showToast({
             title: isSelect.value ? "收藏成功！" : "取消收藏！",
             icon: 'none'
         });
-        await getUserInfo();
+        await userStore.getUserInfo();
     } catch {
         uni.showToast({
             title: "操作失败！",
@@ -118,11 +126,40 @@ const favClick = async () => {
         });
     }
 }
-
+/** 展示更多个人信息 */
 const onShowMoreHandler = () => {
     uni.navigateTo({
-        url: '/pages/tab/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(userInfo.value))
+        url: '/pages/tab/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(otherUserInfo.value))
     });
+}
+
+const onClickWxHandler = () => {
+    popupWxRef.value?.open();
+}
+
+const onConfirmWxHandler = async () => {
+    uni.setClipboardData({
+        data: userStore.matchmakerInfo.wechat + "",
+        success: function () {
+            uni.showToast({
+                title: '微信号已复制',
+                icon: 'none'
+            });
+            console.log('success');
+        }
+    });
+    popupRef.value?.close();
+}
+
+const onClickPhoneHandler = () => {
+    popupRef.value?.open();
+}
+
+const onConfirmHandler = async () => {
+    uni.makePhoneCall({
+        phoneNumber: userStore.matchmakerInfo.phone + ""
+    });
+    popupRef.value?.close();
 }
 </script>
 

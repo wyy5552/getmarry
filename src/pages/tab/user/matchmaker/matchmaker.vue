@@ -4,57 +4,63 @@
             <view class="flex">
                 <image src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg" mode="scaleToFill" />
                 <view class="h-full my-auto ml-1rem">
-                    <view class="font-bold text-1rem">{{ userInfo.nickname + " " }}<text class="text-#f29f9c"
-                            v-if="userInfo.gender == 0">♀</text><text class="text-#007aff" v-else>♂</text></view>
+                    <view class="font-bold text-1rem">{{ userInfo.nickname + " · " + userInfo.name }}<text
+                            class="text-#f29f9c" v-if="userInfo.gender == 0">♀</text><text class="text-#007aff"
+                            v-else>♂</text></view>
                     <view class="mt-0.5rem opacity-90">{{
-                        getAgeLabel(userInfo.birthday)
-                        + " · " + userInfo.height + "cm· " +
-                        getEducationLabel(userInfo.education) }}
+                        userInfo.introduction
+                    }}
+                    </view>
+                    <view class="mt-0.5rem opacity-90">{{
+                            getAgeLabel(userInfo.birthday)
+                        }}
                     </view>
                 </view>
             </view>
         </view>
         <view class="card">
-            <view class="one-line" @tap="clickMyCollectionHandler">
-                <view>我的收藏</view>
-                <view>></view>
-            </view>
             <view class="one-line">
                 <view>我的相册</view>
                 <view>></view>
             </view>
-            <view class="one-line" @tap="clickEditHandler">
-                <view>个人信息登记</view>
+            <view class="one-line" @tap="clickAddHandler">
+                <view>我的个人信息</view>
+                <view>></view>
+            </view>
+            <view class="one-line">
+                <view>我的组织id</view>
+                <view class="pr-0.5rem">
+                    <text>{{ userInfo.organizationId }}</text>
+                </view>
+            </view>
+        </view>
+        <view class="card">
+            <view class="one-line" @tap="clickMyCollectionHandler">
+                <view>VIP列表</view>
+                <view>></view>
+            </view>
+            <view class="one-line" @tap="clickMyCollectionHandler">
+                <view>推荐列表</view>
+                <view>></view>
+            </view>
+            <view class="one-line" @tap="clickMyCollectionHandler">
+                <view>待审核列表</view>
+                <view>></view>
+            </view>
+            <view class="one-line" @tap="clickMyCollectionHandler">
+                <view>待注销列表</view>
                 <view>></view>
             </view>
         </view>
         <view class="card">
-            <view class="one-line" @click="onClickShowToOtherHandler">
-                <view>是否展示给异性</view>
-                <uni-popup ref="popupRef" type="dialog">
-                    <uni-popup-dialog title="  " :content="popupMst" :duration="2000" :before-close="false"
-                        @confirm="onConfirmHandler"></uni-popup-dialog>
-                </uni-popup>
-                <view class="pr-0.5rem">
-                    <text class="text-0.6rem opacity-50">(点击进行操作)</text>
-                    <text v-if="userInfo.isShow == 1">是</text>
-                    <text v-else>否</text>
-                </view>
+            <view class="one-line" @click="() => console.log('我的邀请码')">
+                <view>我的邀请码</view>
+                <text>{{ userInfo.code }}</text>
             </view>
-        </view>
-        <view class="card">
-            <view class="one-line">
-                <view>认证</view>
-                <view class="pr-0.5rem">
-                    <text v-if="userInfo.isAuth">是</text>
-                    <text v-else>否</text>
-                </view>
+            <view class="one-line" @tap="clickAddHandler">
+                <view>新增会员</view>
+                <view>+</view>
             </view>
-        </view>
-        <view class="card">
-            <view class="text-red">我的红娘</view>
-            <view class="one-line">手机号：{{ matchmakerInfo.phone }}</view>
-            <view class="one-line">微信：{{ matchmakerInfo.wechat }}</view>
         </view>
         <button type="primary" @click="onLogoutHandler">退出登录</button>
         <button type="primary" @click="onLogoutHandler">注销账号</button>
@@ -62,58 +68,28 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import request from "@/api/request";
 import userUserStore from '@/store/modules/user/useUserStore';
-import { UserInfoType } from '@/store/modules/user/types';
-
 import userInfoOptions from '@/utils/userInfoOptions';
 
-const { getEducationLabel, getAgeLabel } = userInfoOptions;
 const userStore = userUserStore();
-const { userInfo, matchmakerInfo } = storeToRefs(userStore);
+const { userInfo } = storeToRefs(userStore);
+const { getAgeLabel } = userInfoOptions;
 
-const popupRef = ref();
-const popupMst = ref("");
-const msgObj = {
-    confirm: "是否展示给别人？",
-    cancel: "取消展示给别人？"
-}
 const clickMyCollectionHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
         url: '/pages/tab/user/member/collection'
     });
 }
-const clickEditHandler = (e: any) => {
+const clickAddHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/member/edit',
+        url: '/pages/tab/user/matchmaker/matchmaker-edit',
     });
 }
-onMounted(async () => {
-    // 获取我的红娘
-    const organizationId = userInfo.value.organizationId;
-    // 根据id获取红娘信息
-    const res = await request.post<UserInfoType>('member/getMatchmakerInfo', { organizationId });
-    matchmakerInfo.value = res.data;
-})
+
 const onLogoutHandler = () => {
     userStore.logout();
-}
-const onConfirmHandler = async () => {
-    const isHide = userInfo.value.isShow == 1 ? 0 : 1;
-    await request.post('member/showToOther', { showToOther: isHide });
-    await userStore.getUserInfo();
-    popupRef.value?.close();
-}
-const onClickShowToOtherHandler = () => {
-    if (userInfo.value.isShow == 1) {
-        popupMst.value = msgObj.cancel;
-    } else {
-        popupMst.value = msgObj.confirm;
-    }
-    popupRef.value?.open();
 }
 
 </script>

@@ -2,8 +2,8 @@
     <uni-list>
         <uni-list-item v-for="(item, index) in dataList" :key="index">
             <template v-slot:body>
-                <user-card :item="item" @tap="clickGridHandler(item)">
-                </user-card>
+                <member-collection-item :item="item" @tap="clickGridHandler(item)">
+                </member-collection-item>
             </template>
         </uni-list-item>
         <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
@@ -11,8 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import { UserInfoType } from '@/api/mock';
 import request from '@/api/request';
+import MemberCollectionItem from '@/pages/tab/user/member/member-collection-item.vue';
+import { UserInfoType } from '@/store/modules/user/types';
 
 const loadMoreStatus = ref('more');
 /** 搜索的筛选条件 */
@@ -47,7 +48,6 @@ onLoad(() => {
     loadMore();
 })
 const clickGridHandler = (e: any) => {
-    console.log(e);
     uni.navigateTo({
         url: '/pages/tab/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
     });

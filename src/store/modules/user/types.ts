@@ -141,4 +141,6 @@ export type UserInfoType = {
   isShow: number;
   /** 是否认证 */
   isAuth: number;
+  isVip: number;
+  isApplyVip: number;
 };

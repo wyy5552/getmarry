@@ -8,7 +8,7 @@
                 <uni-easyinput v-model="baseFormData.nickname" placeholder="请输入昵称" />
             </uni-forms-item>
             <uni-forms-item label="角色" required name="role">
-                <uni-data-checkbox v-model="baseFormData.role" :localdata="config.role" />
+                <uni-data-checkbox v-model="baseFormData.role" :localdata="roleOptions" />
             </uni-forms-item>
             <uni-forms-item label="邀请码" required name="name">
                 <uni-easyinput v-model="baseFormData.organizationId" placeholder="请输入邀请码" />
@@ -26,8 +26,10 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-import config from '@/store/config';
+import userInfoOptions from '@/utils/userInfoOptions';
 import request from '@/api/request';
+
+const { roleOptions } = userInfoOptions;
 
 type FormType = {
     phone: string;

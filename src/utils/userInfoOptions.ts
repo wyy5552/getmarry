@@ -44,20 +44,26 @@ export const marriageTimeOptions = [
 ];
 
 export const housingOptions = [
-    { text: '无', value: 0 },
-    { text: '有', value: 1 },
-    { text: '自建', value: 2 }
+    { text: '无房', value: 0 },
+    { text: '有房', value: 1 },
+    { text: '自建房', value: 2 }
 ];
 
 export const carOwnershipOptions = [
-    { text: '无', value: 0 },
-    { text: '有', value: 1 }
+    { text: '无车', value: 0 },
+    { text: '有车', value: 1 }
 ];
 
 export const personalInfoOptions = [
     { text: '否', value: 0 },
     { text: '是', value: 1 }
 ];
+
+/** 角色 */
+export const roleOptions = [
+    { "text": "会员", "value": 0 },
+    { "text": "红娘", "value": 1 }
+]
 
 /** 
  * 根据枚举获取性别男女 
@@ -123,6 +129,17 @@ export const getAge = (date) => {
     const diff = now.getTime() - birth.getTime();
     return Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000));
 }
+
+export const getAgeLabel = (date = '1995-01-01') => {
+    const birthDate = new Date(date);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age + "岁";
+}
 export default {
     sexOptions,
     maritalStatusOptions,
@@ -132,6 +149,7 @@ export default {
     housingOptions,
     carOwnershipOptions,
     personalInfoOptions,
+    roleOptions,
     getGenderLabel,
     getMaritalStatusLabel,
     getEducationLabel,
@@ -140,5 +158,6 @@ export default {
     getHousingLabel,
     getCarOwnershipLabel,
     getPersonalInfoLabel,
-    getAge
+    getAge,
+    getAgeLabel
 };

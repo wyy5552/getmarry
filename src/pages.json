@@ -54,6 +54,12 @@
       }
     },
     {
+      "path": "pages/tab/likes-list/index",
+      "style": {
+        "navigationBarTitleText": "互生爱慕"
+      }
+    },
+    {
       "path": "pages/tab/user/member/edit",
       "style": {
         "navigationBarTitleText": "修改信息"
@@ -69,6 +75,18 @@
       "path": "pages/tab/user/register",
       "style": {
         "navigationBarTitleText": "注册"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/matchmaker-edit",
+      "style": {
+        "navigationBarTitleText": "红娘信息修改"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/matchmaker-add-member",
+      "style": {
+        "navigationBarTitleText": "新增会员"
       }
     }
   ],
@@ -110,6 +128,10 @@
       {
         "pagePath": "pages/tab/test/index",
         "text": "测试生命周期"
+      },
+      {
+        "pagePath": "pages/tab/likes-list/index",
+        "text": "互生爱慕"
       },
       {
         "pagePath": "pages/tab/plaza/index",

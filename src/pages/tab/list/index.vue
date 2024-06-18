@@ -26,7 +26,7 @@
     </uni-list-item>
     <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
   </uni-list>
-  <tabbar :is-user="true" :tab-index="1">
+  <tabbar tab-value="list">
   </tabbar>
 </template>
 

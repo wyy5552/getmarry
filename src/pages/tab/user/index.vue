@@ -2,51 +2,38 @@
   <view class="user-container">
     <Member v-if="loginStatus == 1 && role == 0">
     </Member>
+    <Matchmaker v-if="loginStatus == 1 && role == 1">
+    </Matchmaker>
     <view v-if="loginStatus == 0" class="btn-container">
       <button class="mt-8rem" type="primary" @click="onClickRegisterHandler">注册</button>
       <button class="mt-1rem" type="primary" @click="onClickLoginHandler">登录</button>
     </view>
 
   </view>
-  <tabbar :is-user="true" :tab-index="2">
+  <tabbar tab-value="person">
   </tabbar>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
 import tabbar from '@/components/tabbar/tabbar.vue';
-import request from "@/api/request";
-import { UserInfoType } from "@/api/mock";
 import Member from './member/member.vue';
+import Matchmaker from './matchmaker/matchmaker.vue';
 
-/** 会员信息 */
+import userUserStore from '@/store/modules/user/useUserStore';
+const userStore = userUserStore();
+// 解构
+const { role, token, loginStatus } = storeToRefs(userStore);
 
-/** 登陆状态 0 未登录 1 已登录  */
-const loginStatus = ref(0);
-const role = ref(-1);
-
+uni.hideTabBar();
 onMounted(async () => {
-  loginStatus.value = 1;
-  // 获取token
-  const token = uni.getStorageSync('token');
   // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjEzMzgxNzAwMDAwIiwiaWF0IjoxNzE2OTA0MTkxLCJleHAiOjE3MTY5OTA1OTF9.PHc6PttpRzxIPLPn_dFovO2GxqTv3MThhLcUqagebd4";
-  console.log('token', token);
-  try {
-    // 判断是否有token
-    if (token) {
-      // 判断token是否过期
-      let res = await request.get<any>('user/isTokenValid', null);
-      // 保存token
-      uni.setStorageSync('token', res.data.token);
-      uni.$emit('loginSuccess');
-      // 获取用户信息
-    } else {
-      // 清除token
-      throw new Error("token不存在")
-    }
-  } catch (err: any) {
-    uni.removeStorageSync('token');
-    loginStatus.value = 0;
-  }
+  console.log('token', token.value);
+  userStore.checkToken().then(async () => {
+    console.log('loginStatus', loginStatus.value);
+    await userStore.getUserInfo();
+  }).catch(() => {
+    console.log('token失效');
+  });
+
 });
 
 const onClickLoginHandler = () => {
@@ -55,14 +42,6 @@ const onClickLoginHandler = () => {
   });
 }
 
-const loginSuccess = async () => {
-  let res = await request.post<UserInfoType>('member/userInfo', null);
-  const user = res.data;
-  uni.setStorageSync('userInfo', JSON.stringify(res.data));
-  loginStatus.value = 1;
-  role.value = (user.role);
-}
-uni.$on('loginSuccess', loginSuccess);
 
 
 const onClickRegisterHandler = () => {

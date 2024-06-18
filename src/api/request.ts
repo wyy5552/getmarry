@@ -1,3 +1,6 @@
+import userUserStore from '@/store/modules/user/useUserStore';
+
+
 // 封装uni-app的网络请求
 const baseUrl = 'http://localhost:3000/';
 type RspType<T extends any> = {
@@ -6,12 +9,13 @@ type RspType<T extends any> = {
     data: T
 }
 const request = <T extends any>(url: string, data: any = null, method: any = "GET"): Promise<RspType<T>> => {
+    const userStore = userUserStore();
     return new Promise((resolve, reject) => {
         uni.request({
             url: baseUrl + url,
             method,
             header: {
-                token: uni.getStorageSync('token')
+                token: userStore.token
             },
             data,
             success: (res) => {

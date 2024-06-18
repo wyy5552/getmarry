@@ -1,13 +1,9 @@
 <template>
     <view class="custom-tab-bar">
-        <view v-if="isUser" v-for="(tab, index) in tabs" :key="index" class="tab-item"
-            :class="{ 'active': tabIndex === index }" @tap="switchTab(index)">
-            <uni-icons class="icon" :type="tab.icon" size="30" :class="{ 'active': tabIndex === index }"></uni-icons>
-            <text>{{ tab.title }}</text>
-        </view>
-        <view v-else v-for=" (tab, index) in matchmakerTabs " :key="tab.title" class="tab-item"
-            :class="{ 'active': tabIndex === index }" @tap="switchTab(index)">
-            <uni-icons class="icon" :type="tab.icon" size="30" :class="{ 'active': tabIndex === index }"></uni-icons>
+        <view v-for="(tab) in curTabConfig" :key="tab.value" class="tab-item"
+            :class="{ 'active': tabValue === tab.value }" @tap="switchTab(tab.value)">
+            <uni-icons class="icon" :type="tab.icon" size="30"
+                :class="{ 'active': tabValue === tab.value }"></uni-icons>
             <text>{{ tab.title }}</text>
         </view>
     </view>
@@ -15,27 +11,53 @@
 
 <script setup lang="ts">
 
+import userUserStore from '@/store/modules/user/useUserStore';
+const userStore = userUserStore();
+const { role } = storeToRefs(userStore);
+
 defineProps<{
-    tabIndex: number,
-    isUser: boolean
+    tabValue: string,
 }>();
 
+const defaultTabs = [
+    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/tab/list/index" },
+    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/tab/user/index" }
+]
+
 const tabs = [
-    { title: "广场", icon: "pyq", pagePath: "/pages/tab/plaza/index" },
-    { title: "列表", icon: "list", pagePath: "/pages/tab/list/index" },
-    { title: "我的", icon: "person", pagePath: "/pages/tab/user/index" }
+    { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/tab/plaza/index" },
+    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/tab/list/index" },
+    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/tab/user/index" }
 ];
-
 const matchmakerTabs = [
-    { title: "首页", icon: "/static/tab_home.png" },
-    { title: "消息", icon: "/static/tab_message.png" },
-    { title: "我的", icon: "/static/tab_me.png" }
+    { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/tab/plaza/index" },
+    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/tab/list/index" },
+    { title: "互生爱慕", value: 'likes-list', icon: "list", pagePath: "/pages/tab/likes-list/index" },
+    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/tab/user/index" }
 ];
 
-const switchTab = (index: number) => {
+const curTabConfig = ref<any[]>(defaultTabs);
+watch(role, (newVal) => {
+    switch (role.value) {
+        case 0:
+            curTabConfig.value = tabs;
+            break;
+        case 1:
+            curTabConfig.value = matchmakerTabs;
+            break;
+        default:
+            curTabConfig.value = defaultTabs;
+    }
+}, {
+    immediate: true
+})
+
+
+const switchTab = (value: string) => {
     // 在这里可以根据需要执行其他操作，比如切换页面等
+    const item = curTabConfig.value.find(item => item.value === value);
     uni.switchTab({
-        url: tabs[index].pagePath
+        url: item.pagePath
     });
 };
 </script>
