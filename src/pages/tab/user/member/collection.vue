@@ -44,7 +44,7 @@ const onClickMoreHandler = () => {
     }
     loadMore();
 };
-onLoad(() => {
+onShow(() => {
     loadMore();
 })
 const clickGridHandler = (e: any) => {

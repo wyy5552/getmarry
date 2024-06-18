@@ -130,7 +130,7 @@ export const getAge = (date) => {
     return Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000));
 }
 
-export const getAgeLabel = (date = '1995-01-01') => {
+export const getAgeLabel = (date) => {
     const birthDate = new Date(date);
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();

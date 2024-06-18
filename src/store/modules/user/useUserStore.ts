@@ -53,7 +53,7 @@ const useUserStore = defineStore('useUserStore', {
         },
         async getUserInfo() {
             try {
-                let res = await request.post<UserInfoType>('member/userInfo', null);
+                let res = await request.post<UserInfoType>('user/userInfo', null);
                 this.userInfo = res.data;
                 this.role = res.data.role;
             } catch (e) {

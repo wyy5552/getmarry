@@ -7,7 +7,7 @@
             </view>
             <view class="item">
                 <view>性别</view>
-                <view>{{ userInfo.gender }}</view>
+                <view>{{ temp.gender }}</view>
             </view>
             <view class="item">
                 <view>身高</view>
@@ -18,20 +18,20 @@
                 <view>{{ userInfo.weight }}</view>
             </view>
             <view class="item">
-                <view>生日</view>
-                <view>{{ userInfo.birthday }}</view>
+                <view>年龄</view>
+                <view>{{ temp.age }}</view>
             </view>
             <view class="item">
                 <view>房子</view>
-                <view>{{ userInfo.housing }}</view>
+                <view>{{ temp.housing }}</view>
             </view>
             <view class="item">
                 <view>车子</view>
-                <view>{{ userInfo.carOwnership }}</view>
+                <view>{{ temp.carOwnership }}</view>
             </view>
             <view class="item">
                 <view>婚姻状况</view>
-                <view>{{ userInfo.maritalStatus }}</view>
+                <view>{{ temp.maritalStatus }}</view>
             </view>
             <view class="item">
                 <view>子女情况</view>
@@ -43,7 +43,7 @@
             </view>
             <view class="item">
                 <view>学历</view>
-                <view>{{ userInfo.education }}</view>
+                <view>{{ temp.education }}</view>
             </view>
         </view>
         <view class="section">
@@ -53,7 +53,7 @@
             </view>
             <view class="item">
                 <view>是否是个人填写信息</view>
-                <view>{{ userInfo.isPersonalInfo }}</view>
+                <view>{{ temp.isPersonalInfo }}</view>
             </view>
             <view class="item">
                 <view>工作地区</view>
@@ -65,7 +65,7 @@
             </view>
             <view class="item">
                 <view>职业</view>
-                <view>{{ userInfo.profession }}</view>
+                <view>{{ temp.profession }}</view>
             </view>
             <view class="item">
                 <view>房产位置</view>
@@ -73,7 +73,7 @@
             </view>
             <view class="item">
                 <view>期望结婚时间</view>
-                <view>{{ userInfo.expectedMarriageTime }}</view>
+                <view>{{ temp.expectedMarriageTime }}</view>
             </view>
             <view class="item">
                 <view>兄弟姐妹</view>
@@ -102,6 +102,8 @@
 import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
 import { UserInfoType } from '../../../api/mock';
+import userInfoOptions from '@/utils/userInfoOptions';
+
 
 const userInfo = ref<UserInfoType>({} as UserInfoType);
 onLoad((options: any) => {
@@ -109,6 +111,30 @@ onLoad((options: any) => {
     userInfo.value = JSON.parse(decodeURIComponent(options.item));;
     console.log('User Info:', userInfo.value);
 });
+const {
+    getGenderLabel,
+    getMaritalStatusLabel,
+    getEducationLabel,
+    getProfessionLabel,
+    getMarriageTimeLabel,
+    getHousingLabel,
+    getCarOwnershipLabel,
+    getPersonalInfoLabel,
+    getAgeLabel
+} = userInfoOptions;
+const temp = computed(() => {
+    return {
+        gender: getGenderLabel(userInfo.value.gender),
+        maritalStatus: getMaritalStatusLabel(userInfo.value.maritalStatus),
+        education: getEducationLabel(userInfo.value.education),
+        profession: getProfessionLabel(userInfo.value.profession),
+        expectedMarriageTime: getMarriageTimeLabel(userInfo.value.expectedMarriageTime),
+        housing: getHousingLabel(userInfo.value.housing),
+        carOwnership: getCarOwnershipLabel(userInfo.value.carOwnership),
+        age: getAgeLabel(userInfo.value.birthday),
+        isPersonalInfo: getPersonalInfoLabel(userInfo.value.isPersonalInfo)
+    }
+})
 
 
 </script>
