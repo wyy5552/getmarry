@@ -143,4 +143,6 @@ export type UserInfoType = {
   isAuth: number;
   isVip: number;
   isApplyVip: number;
+
+  userpic:string;
 };

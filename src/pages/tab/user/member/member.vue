@@ -2,14 +2,14 @@
     <view class="has-user-info">
         <view class="user-info-header">
             <view class="flex">
-                <image src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg" mode="scaleToFill" />
+                <image :src="userInfo.userpic" mode="scaleToFill" @click="onClickPhotoHandler" />
                 <view class="h-full my-auto ml-1rem">
                     <view class="font-bold text-1rem">{{ userInfo.nickname + " " }}<text class="text-#f29f9c"
                             v-if="userInfo.gender == 0">♀</text><text class="text-#007aff" v-else>♂</text></view>
                     <view class="mt-0.5rem opacity-90">{{
-                        getAgeLabel(userInfo.birthday)
-                        + " · " + userInfo.height + "cm· " +
-                        getEducationLabel(userInfo.education) }}
+                    getAgeLabel(userInfo.birthday)
+                    + " · " + userInfo.height + "cm· " +
+                    getEducationLabel(userInfo.education) }}
                     </view>
                 </view>
             </view>
@@ -19,7 +19,7 @@
                 <view>我的收藏</view>
                 <view>></view>
             </view>
-            <view class="one-line">
+            <view class="one-line" @tap="onAddPicHandler">
                 <view>我的相册</view>
                 <view>></view>
             </view>
@@ -64,13 +64,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import request from "@/api/request";
-import userUserStore from '@/store/modules/user/useUserStore';
+import useUserStore from '@/store/modules/user/useUserStore';
 import { UserInfoType } from '@/store/modules/user/types';
 
 import userInfoOptions from '@/utils/userInfoOptions';
 
 const { getEducationLabel, getAgeLabel } = userInfoOptions;
-const userStore = userUserStore();
+const userStore = useUserStore();
 const { userInfo, matchmakerInfo } = storeToRefs(userStore);
 
 const popupRef = ref();
@@ -89,6 +89,13 @@ const clickEditHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
         url: '/pages/tab/user/member/edit',
+    });
+}
+
+const onAddPicHandler = (e: any) => {
+    console.log(e);
+    uni.navigateTo({
+        url: '/pages/tab/user/member/pic',
     });
 }
 onMounted(async () => {
@@ -114,6 +121,27 @@ const onClickShowToOtherHandler = () => {
         popupMst.value = msgObj.confirm;
     }
     popupRef.value?.open();
+}
+
+const onClickPhotoHandler = () => {
+    uni.chooseImage({
+        success: (chooseImageRes) => {
+            const tempFilePaths = chooseImageRes.tempFilePaths;
+            console.log(tempFilePaths);
+            uni.uploadFile({
+                header: {
+                    token: userStore.token
+                },
+                url: 'http://localhost:3000/img/upload', //仅为示例，非真实的接口地址
+                filePath: tempFilePaths[0],
+                name: 'file',
+                success: (uploadFileRes) => {
+                    userInfo.value.userpic = uploadFileRes.data;
+                    console.log(uploadFileRes.data);
+                }
+            });
+        }
+    });
 }
 
 </script>

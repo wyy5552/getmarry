@@ -66,6 +66,12 @@
       }
     },
     {
+      "path": "pages/tab/user/member/pic",
+      "style": {
+        "navigationBarTitleText": "个人照片"
+      }
+    },
+    {
       "path": "pages/tab/user/login",
       "style": {
         "navigationBarTitleText": "登录"
