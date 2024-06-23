@@ -1,6 +1,6 @@
 <template>
     <div class="user-card">
-        <image class="img" mode="aspectFill" src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg">
+        <image class="img" mode="aspectFill" :src="item.userpic">
         </image>
         <div class="user-info">
             <view class="name">
@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-
 
 const props = defineProps<{
     item: any,

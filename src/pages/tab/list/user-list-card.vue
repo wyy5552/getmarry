@@ -2,7 +2,7 @@
     <view class="user-card">
         <view class="header">
             <view class="img-container">
-                <image mode="aspectFill" src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg">
+                <image mode="aspectFill" :src="item.userpic">
                 </image>
             </view>
 

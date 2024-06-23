@@ -34,6 +34,8 @@
 import { UserInfoType } from '@/api/mock';
 import request from '@/api/request';
 import tabbar from '@/components/tabbar/tabbar.vue';
+import UserListCard from './user-list-card.vue';
+
 
 const leftDrawer = ref<any>(null);
 

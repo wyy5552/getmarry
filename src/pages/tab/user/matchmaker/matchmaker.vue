@@ -2,28 +2,28 @@
     <view class="has-user-info">
         <view class="user-info-header">
             <view class="flex">
-                <image src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg" mode="scaleToFill" />
+                <image :src="userInfo.userpic" mode="scaleToFill" @click="onClickPhotoHandler" />
                 <view class="h-full my-auto ml-1rem">
                     <view class="font-bold text-1rem">{{ userInfo.nickname + " · " + userInfo.name }}<text
                             class="text-#f29f9c" v-if="userInfo.gender == 0">♀</text><text class="text-#007aff"
                             v-else>♂</text></view>
                     <view class="mt-0.5rem opacity-90">{{
-                        userInfo.introduction
-                    }}
+                    userInfo.introduction
+                }}
                     </view>
                     <view class="mt-0.5rem opacity-90">{{
-                            getAgeLabel(userInfo.birthday)
-                        }}
+                        getAgeLabel(userInfo.birthday)
+                    }}
                     </view>
                 </view>
             </view>
         </view>
         <view class="card">
-            <view class="one-line">
+            <view class="one-line" @tap="onAddPicHandler">
                 <view>我的相册</view>
                 <view>></view>
             </view>
-            <view class="one-line" @tap="clickAddHandler">
+            <view class="one-line" @tap="clickMyInfoEditHandler">
                 <view>我的个人信息</view>
                 <view>></view>
             </view>
@@ -57,7 +57,7 @@
                 <view>我的邀请码</view>
                 <text>{{ userInfo.code }}</text>
             </view>
-            <view class="one-line" @tap="clickAddHandler">
+            <view class="one-line" @tap="clickMyInfoEditHandler">
                 <view>新增会员</view>
                 <view>+</view>
             </view>
@@ -81,7 +81,7 @@ const clickMyCollectionHandler = (e: any) => {
         url: '/pages/tab/user/member/collection'
     });
 }
-const clickAddHandler = (e: any) => {
+const clickMyInfoEditHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
         url: '/pages/tab/user/matchmaker/matchmaker-edit',
@@ -91,7 +91,33 @@ const clickAddHandler = (e: any) => {
 const onLogoutHandler = () => {
     userStore.logout();
 }
-
+const onClickPhotoHandler = () => {
+    uni.chooseImage({
+        success: (chooseImageRes) => {
+            const tempFilePaths = chooseImageRes.tempFilePaths;
+            console.log(tempFilePaths);
+            uni.uploadFile({
+                header: {
+                    token: userStore.token
+                },
+                url: 'http://localhost:3000/img/uploadHeadPic', //仅为示例，非真实的接口地址
+                filePath: tempFilePaths[0],
+                name: 'file',
+                success: (uploadFileRes) => {
+                    userInfo.value.userpic = uploadFileRes.data;
+                    console.log(uploadFileRes.data);
+                    userStore.getUserInfo();
+                }
+            });
+        }
+    });
+}
+const onAddPicHandler = (e: any) => {
+    console.log(e);
+    uni.navigateTo({
+        url: '/pages/tab/user/member/pic',
+    });
+}
 </script>
 <style lang="scss" scoped>
 .has-user-info {

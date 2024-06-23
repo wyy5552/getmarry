@@ -45,6 +45,9 @@ import request from "@/api/request";
 import { reactive, ref } from "vue";
 import tabbar from '@/components/tabbar/tabbar.vue';
 import userUserStore from '@/store/modules/user/useUserStore';
+import UserCard from './user-card.vue';
+import UserVipCard from './user-vip-card.vue';
+
 const userStore = userUserStore();
 // 解构
 const { role, userInfo, loginStatus } = storeToRefs(userStore);
