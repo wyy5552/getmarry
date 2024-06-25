@@ -10,8 +10,11 @@
     <view class="vip-box">
       <view class="title">
         <view class="right">置顶嘉宾</view>
-        <view class="left flex items-center justify-between" @click="clickAddVip">我要上榜<uni-icons type="plusempty"
-            size="30" color="white"></uni-icons></view>
+        <view v-if="vipStatus == 4 || vipStatus == 2" class="left flex items-center justify-between"
+          @click="clickAddVip">
+          我要上榜<uni-icons type="plusempty" size="30" color="white"></uni-icons></view>
+        <view v-if="vipStatus == 3" class="left flex items-center justify-between" @click="clickCancelVip">
+          下榜</view>
       </view>
       <view class="flex items-center justify-between px-1.5rem">
         <user-vip-card @tap="clickGridHandler(item)" v-for="item in vipUserList" :item="item" :key="item.id">
@@ -22,8 +25,8 @@
     <view class="vip-box">
       <view class="title">
         <view class="right">推荐异性</view>
-        <view class="left flex items-center justify-between" @click="clickAddVip">刷新<uni-icons type="refreshempty"
-            size="30" color="white"></uni-icons>
+        <view class="left flex items-center justify-between" @click="onGetRecommendListHandler">刷新<uni-icons
+            type="refreshempty" size="30" color="white"></uni-icons>
         </view>
       </view>
       <view class="girl-list-2 mt-1rem">
@@ -66,7 +69,7 @@ if (role.value === 0) {
   }
   else {
     // 如果用户已经是vip
-    if (userInfo.value.isVip == 1) {
+    if (userInfo.value.isVip == 2 ||  userInfo.value.isVip == 1) {
       // 显示取消vip按钮
       vipStatus.value = 3;
     } else {
@@ -88,12 +91,44 @@ const swiperList = reactive([
 
 const clickAddVip = (e: any) => {
   console.log(e);
+  request.post<any>('plaza/applyVip', null).then((res) => {
+    if (res.code === 200) {
+      uni.showToast({
+        title: '申请成功',
+        icon: 'success'
+      });
+    }
+  }).then(res => {
+    console.log(res);
+  });
+}
+const clickCancelVip = (e: any) => {
+  console.log(e);
+  request.post<any>('plaza/cancelVip', null).then((res) => {
+    if (res.code === 200) {
+      uni.showToast({
+        title: '取消成功',
+        icon: 'success'
+      });
+    }
+  }).then(res => {
+    console.log(res);
+  });
 }
 const vipUserList = ref<UserInfoType[]>([]);
 
 // 创建对子组件的引用  
 const uToastRef = ref(null);
 //==================异性==================================
+const onGetRecommendListHandler = () => {
+  request.post<any>('plaza/getRecommendList', null).then((res) => {
+    if (res.code === 200) {
+      girlList.value = res.data;
+    }
+  }).then(res => {
+    console.log(res);
+  })
+}
 const clickGridHandler = (e: any) => {
   uni.navigateTo({
     url: '/pages/tab/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
@@ -101,22 +136,17 @@ const clickGridHandler = (e: any) => {
 }
 const girlList = ref<UserInfoType[]>([]);
 
-onMounted(() => {
+onShow(() => {
   request.get<any>('plaza/getVipList', null).then((res) => {
     if (res.code === 200) {
       vipUserList.value = res.data;
     }
   }).then(res => {
     console.log(res);
-  })
-
-  request.get<any>('plaza/getGirlList', null).then((res) => {
-    if (res.code === 200) {
-      girlList.value = res.data;
-    }
-  }).then(res => {
-    console.log(res);
   });
+  onGetRecommendListHandler();
+
+
 }
 );
 </script>

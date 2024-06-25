@@ -34,7 +34,7 @@
 import { UserInfoType } from '@/api/mock';
 import request from '@/api/request';
 import tabbar from '@/components/tabbar/tabbar.vue';
-import UserListCard from './member/user-list-card.vue';
+import UserListCard from './match-user-list-card.vue';
 
 
 const leftDrawer = ref<any>(null);
@@ -111,7 +111,7 @@ onLoad(() => {
 })
 
 const loadMore = () => {
-    request.post<UserInfoType[]>('list/getUserListByTag', form.value).then((res) => {
+    request.post<UserInfoType[]>('list/getMatchMakerUserListByTag', form.value).then((res) => {
         if (res.data.length > 0) {
             form.value.pageNo++;
             dataList.value = dataList.value.concat(res.data);

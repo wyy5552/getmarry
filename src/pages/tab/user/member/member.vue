@@ -57,7 +57,7 @@
             <view class="one-line">微信：{{ matchmakerInfo.wechat }}</view>
         </view>
         <button type="primary" @click="onLogoutHandler">退出登录</button>
-        <button type="primary" @click="onLogoutHandler">注销账号</button>
+        <button type="primary" @click="onApplyDeleteHandler">注销账号</button>
     </view>
 </template>
 
@@ -107,6 +107,10 @@ onMounted(async () => {
 })
 const onLogoutHandler = () => {
     userStore.logout();
+}
+
+const onApplyDeleteHandler = () => {
+    userStore.deleteUser();
 }
 const onConfirmHandler = async () => {
     const isHide = userInfo.value.isShow == 1 ? 0 : 1;

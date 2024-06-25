@@ -65,6 +65,10 @@ const useUserStore = defineStore('useUserStore', {
             this.role = -1;
             this.userInfo = {} as UserInfoType;
             this.token = '';
+        },
+        async deleteUser(){
+            const res = await request.post("member/applyDeleteUser",null);
+            console.log(res);
         }
     },
 });

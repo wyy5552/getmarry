@@ -50,7 +50,19 @@
     {
       "path": "pages/tab/list/index",
       "style": {
-        "navigationBarTitleText": "搜索"
+        "navigationBarTitleText": "会员列表"
+      }
+    },
+    {
+      "path": "pages/tab/list/member/index",
+      "style": {
+        "navigationBarTitleText": "会员列表"
+      }
+    },
+    {
+      "path": "pages/tab/list/matchmaker/index",
+      "style": {
+        "navigationBarTitleText": "所有会员列表"
       }
     },
     {
@@ -87,6 +99,48 @@
       "path": "pages/tab/user/matchmaker/matchmaker-edit",
       "style": {
         "navigationBarTitleText": "红娘信息修改"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/vip-list",
+      "style": {
+        "navigationBarTitleText": "申请VIP列表"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/vip-list-user-info",
+      "style": {
+        "navigationBarTitleText": "VIP用户信息"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/recommend-list",
+      "style": {
+        "navigationBarTitleText": "推荐列表"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/auth-list",
+      "style": {
+        "navigationBarTitleText": "待认证列表"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/auth-list-user-info",
+      "style": {
+        "navigationBarTitleText": "待认证用户信息"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/delete-list",
+      "style": {
+        "navigationBarTitleText": "待注销账号"
+      }
+    },
+    {
+      "path": "pages/tab/user/matchmaker/delete-list-user-info",
+      "style": {
+        "navigationBarTitleText": "待注销"
       }
     },
     {
@@ -134,18 +188,6 @@
       {
         "pagePath": "pages/tab/test/index",
         "text": "测试生命周期"
-      },
-      {
-        "pagePath": "pages/tab/likes-list/index",
-        "text": "互生爱慕"
-      },
-      {
-        "pagePath": "pages/tab/plaza/index",
-        "text": "广场"
-      },
-      {
-        "pagePath": "pages/tab/list/index",
-        "text": "搜索"
       },
       {
         "pagePath": "pages/tab/user/index",

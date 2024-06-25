@@ -39,15 +39,15 @@
                 <view>VIP列表</view>
                 <view>></view>
             </view>
-            <view class="one-line" @tap="clickMyCollectionHandler">
+            <view class="one-line" @tap="clickRecommendHandler">
                 <view>推荐列表</view>
                 <view>></view>
             </view>
-            <view class="one-line" @tap="clickMyCollectionHandler">
-                <view>待审核列表</view>
+            <view class="one-line" @tap="clickAuthHandler">
+                <view>待认证列表</view>
                 <view>></view>
             </view>
-            <view class="one-line" @tap="clickMyCollectionHandler">
+            <view class="one-line" @tap="clickDeleteHandler">
                 <view>待注销列表</view>
                 <view>></view>
             </view>
@@ -78,13 +78,32 @@ const { getAgeLabel } = userInfoOptions;
 const clickMyCollectionHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/member/collection'
+        url: '/pages/tab/user/matchmaker/vip-list'
+    });
+}
+const clickRecommendHandler = (e: any) => {
+    console.log(e);
+    uni.navigateTo({
+        url: '/pages/tab/user/matchmaker/recommend-list'
+    });
+}
+
+const clickAuthHandler = (e: any) => {
+    console.log(e);
+    uni.navigateTo({
+        url: '/pages/tab/user/matchmaker/auth-list'
     });
 }
 const clickMyInfoEditHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
         url: '/pages/tab/user/matchmaker/matchmaker-edit',
+    });
+}
+const clickDeleteHandler = (e: any) => {
+    console.log(e);
+    uni.navigateTo({
+        url: '/pages/tab/user/matchmaker/delete-list',
     });
 }
 

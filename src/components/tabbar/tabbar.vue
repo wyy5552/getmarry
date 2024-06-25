@@ -26,12 +26,12 @@ const defaultTabs = [
 
 const tabs = [
     { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/tab/plaza/index" },
-    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/tab/list/index" },
+    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/tab/list/member/index" },
     { title: "我的", value: 'person', icon: "person", pagePath: "/pages/tab/user/index" }
 ];
 const matchmakerTabs = [
     { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/tab/plaza/index" },
-    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/tab/list/index" },
+    { title: "ALL", value: 'list', icon: "list", pagePath: "/pages/tab/list/matchmaker/index" },
     { title: "互生爱慕", value: 'likes-list', icon: "list", pagePath: "/pages/tab/likes-list/index" },
     { title: "我的", value: 'person', icon: "person", pagePath: "/pages/tab/user/index" }
 ];
@@ -56,9 +56,16 @@ watch(role, (newVal) => {
 const switchTab = (value: string) => {
     // 在这里可以根据需要执行其他操作，比如切换页面等
     const item = curTabConfig.value.find(item => item.value === value);
-    uni.switchTab({
-        url: item.pagePath
-    });
+    if (item.value == 'person') {
+        uni.switchTab({
+            url: item.pagePath
+        });
+    } else {
+        uni.redirectTo({
+            url: item.pagePath
+        });
+    }
+
 };
 </script>
 
