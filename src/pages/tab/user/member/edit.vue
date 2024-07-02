@@ -164,7 +164,7 @@ const rules = {
     name: {
         rules: [
             { required: true, errorMessage: '姓名是必填项' },
-            { minLength: 3, errorMessage: '姓名长度必须大于2' }
+            { minLength: 2, errorMessage: '姓名长度必须大于2' }
         ]
     },
     height: {

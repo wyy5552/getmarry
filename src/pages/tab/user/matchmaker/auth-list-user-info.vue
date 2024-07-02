@@ -58,11 +58,8 @@
 import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
 import request from '@/api/request';
-import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
 import type { UserInfoType } from '@/store/modules/user/types';
-
-const userStore = userUserStore();
 
 const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;
 

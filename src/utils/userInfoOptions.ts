@@ -65,6 +65,33 @@ export const roleOptions = [
     { "text": "红娘", "value": 1 }
 ]
 
+
+// 筛选条件 height:身高 age:年龄 housing:房子
+const filterOptions = {
+    height: [
+        { value: 0, text: "身高不限" },
+        { value: 1, text: "150-160cm" },
+        { value: 2, text: "160-170cm" },
+        { value: 3, text: "170-180cm" },
+        { value: 4, text: "180-190cm" },
+        { value: 5, text: "190-200cm" },
+    ],
+    age: [
+        { value: 0, text: "年龄不限" },
+        { value: 1, text: "18-25岁" },
+        { value: 2, text: "25-30岁" },
+        { value: 3, text: "30-35岁" },
+        { value: 4, text: "35-40岁" },
+        { value: 5, text: "40-45岁" },
+    ],
+    housing: [
+        { value: 0, text: "房产不限" },
+        { value: 1, text: "有房" },
+        { value: 2, text: "无房" },
+        { value: 3, text: "自建房" },
+    ],
+};
+
 /** 
  * 根据枚举获取性别男女 
  */
@@ -150,6 +177,7 @@ export default {
     carOwnershipOptions,
     personalInfoOptions,
     roleOptions,
+    filterOptions,
     getGenderLabel,
     getMaritalStatusLabel,
     getEducationLabel,

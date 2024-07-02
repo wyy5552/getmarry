@@ -57,7 +57,7 @@
                 <view>我的邀请码</view>
                 <text>{{ userInfo.code }}</text>
             </view>
-            <view class="one-line" @tap="clickMyInfoEditHandler">
+            <view class="one-line" @tap="clickAddMemberHandler">
                 <view>新增会员</view>
                 <view>+</view>
             </view>
@@ -98,6 +98,12 @@ const clickMyInfoEditHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
         url: '/pages/tab/user/matchmaker/matchmaker-edit',
+    });
+}
+const clickAddMemberHandler = (e: any) => {
+    console.log(e);
+    uni.navigateTo({
+        url: '/pages/tab/user/matchmaker/matchmaker-add-member',
     });
 }
 const clickDeleteHandler = (e: any) => {

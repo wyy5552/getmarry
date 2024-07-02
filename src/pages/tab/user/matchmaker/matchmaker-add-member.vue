@@ -1,6 +1,9 @@
 <template>
     <view class="register-container">
         <uni-forms ref="formRef" :modelValue="baseFormData" :rules="rules">
+            <uni-forms-item label="手机号" required name="phone">
+                <uni-easyinput v-model="baseFormData.phone" placeholder="请输入手机号" />
+            </uni-forms-item>
             <!-- 微信 -->
             <uni-forms-item required label="微信" name="wechat">
                 <uni-easyinput v-model="baseFormData.wechat" placeholder="请输入微信" />
@@ -20,106 +23,9 @@
                 <uni-easyinput v-model="baseFormData.name" placeholder="请输入姓名" />
             </uni-forms-item>
 
-            <!-- 用户身高 (cm) -->
-            <uni-forms-item required label="身高 (cm)" name="height">
-                <uni-easyinput v-model="baseFormData.height" placeholder="请输入身高" type="number" />
-            </uni-forms-item>
-
-            <!-- 用户体重 (kg) -->
-            <uni-forms-item required label="体重 (kg)" name="weight">
-                <uni-easyinput v-model="baseFormData.weight" placeholder="请输入体重" type="number" />
-            </uni-forms-item>
-
             <!-- 用户介绍 -->
             <uni-forms-item required label="介绍" name="introduction">
                 <uni-easyinput v-model="baseFormData.introduction" placeholder="请输入自我介绍" />
-            </uni-forms-item>
-
-            <!-- 用户生日 -->
-            <uni-forms-item required label="生日" name="birthday">
-                <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.birthday" />
-            </uni-forms-item>
-
-            <!-- 婚姻状况 -->
-            <uni-forms-item label="婚姻" name="maritalStatus">
-                <uni-data-select v-model="baseFormData.maritalStatus" :localdata="maritalStatusOptions" />
-            </uni-forms-item>
-            <!-- 子女情况 -->
-            <uni-forms-item label="子女情况" name="children">
-                <uni-easyinput v-model="baseFormData.children" placeholder="请输入子女情况" />
-            </uni-forms-item>
-            <!-- 教育程度 -->
-            <uni-forms-item label="教育" name="education">
-                <uni-data-select v-model="baseFormData.education" :localdata="educationOptions" />
-            </uni-forms-item>
-
-            <!-- 行业 -->
-            <uni-forms-item label="行业" name="profession">
-                <uni-data-select v-model="baseFormData.profession" :localdata="professionOptions" />
-            </uni-forms-item>
-
-            <!-- 预期结婚时间 -->
-            <uni-forms-item label="结婚时间" name="expectedMarriageTime">
-                <uni-data-checkbox v-model="baseFormData.expectedMarriageTime" :localdata="marriageTimeOptions" />
-            </uni-forms-item>
-
-            <!-- 住房情况 -->
-            <uni-forms-item label="住房情况" name="housing">
-                <uni-data-select v-model="baseFormData.housing" :localdata="housingOptions" />
-            </uni-forms-item>
-
-            <!-- 汽车所有权 -->
-            <uni-forms-item label="汽车所有权" name="carOwnership">
-                <uni-data-checkbox v-model="baseFormData.carOwnership" :localdata="carOwnershipOptions" />
-            </uni-forms-item>
-
-            <!-- 月收入 (万) -->
-            <uni-forms-item label="月收入 (万)" name="monthlyIncome">
-                <uni-easyinput v-model="baseFormData.monthlyIncome" placeholder="请输入月收入" type="number" />
-            </uni-forms-item>
-
-            <!-- 是否为个人填写 -->
-            <uni-forms-item label="是否为个人填写" name="isPersonalInfo">
-                <uni-data-checkbox v-model="baseFormData.isPersonalInfo" :localdata="personalInfoOptions" />
-            </uni-forms-item>
-
-            <!-- 工作区域 -->
-            <uni-forms-item label="工作区域" name="workArea">
-                <uni-easyinput v-model="baseFormData.workArea" placeholder="请输入工作区域" />
-            </uni-forms-item>
-
-            <!-- 家乡区域 -->
-            <uni-forms-item label="家乡区域" name="registeredArea">
-                <uni-easyinput v-model="baseFormData.registeredArea" placeholder="请输入家乡区域" />
-            </uni-forms-item>
-
-            <!-- 财产位置 -->
-            <uni-forms-item label="财产位置" name="propertyLocation">
-                <uni-easyinput v-model="baseFormData.propertyLocation" placeholder="请输入财产位置" />
-            </uni-forms-item>
-
-            <!-- 兄弟姐妹情况 -->
-            <uni-forms-item label="兄弟姐妹情况" name="siblings">
-                <uni-easyinput v-model="baseFormData.siblings" placeholder="请输入兄弟姐妹情况" />
-            </uni-forms-item>
-
-            <!-- 爱好 -->
-            <uni-forms-item label="爱好" name="hobbies">
-                <uni-easyinput v-model="baseFormData.hobbies" placeholder="请输入爱好" />
-            </uni-forms-item>
-
-            <!-- 职业 -->
-            <uni-forms-item label="职业" name="industry">
-                <uni-easyinput v-model="baseFormData.industry" placeholder="请输入职业" />
-            </uni-forms-item>
-
-            <!-- 单位类型 -->
-            <uni-forms-item label="单位类型" name="companyType">
-                <uni-easyinput v-model="baseFormData.companyType" placeholder="请输入单位类型" />
-            </uni-forms-item>
-            <!-- 其他信息 -->
-            <uni-forms-item label="其他信息" name="otherInfo">
-                <uni-easyinput v-model="baseFormData.otherInfo" placeholder="请输入其他信息" />
             </uni-forms-item>
         </uni-forms>
         <view class="h-1.2rem"></view>
@@ -131,17 +37,32 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { UserInfoType } from '@/api/mock';
 import request from "@/api/request";
+import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
+import type { UserInfoType } from '@/store/modules/user/types';
 
-const { sexOptions, maritalStatusOptions, educationOptions, professionOptions, marriageTimeOptions, housingOptions, carOwnershipOptions, personalInfoOptions } = userInfoOptions;
+const { sexOptions } = userInfoOptions;
+const userStore = userUserStore();
+const { userInfo } = storeToRefs(userStore);
+
 // 获取本地用户信息
-const userInfo = JSON.parse(uni.getStorageSync('userInfo')) as UserInfoType;
-const baseFormData = ref<UserInfoType>(userInfo);
+const baseFormData = ref<UserInfoType>({} as unknown as UserInfoType);
 const formRef = ref();
 
 const rules = {
+    phone: {
+        rules: [
+            {
+                required: true,
+                errorMessage: '请输入手机号',
+            },
+            {
+                pattern: /^1[3456789]\d{9}$/,
+                errorMessage: '手机号格式不正确',
+            }
+        ]
+    },
     wechat: {
         rules: [
             { required: true, errorMessage: '微信是必填项' },
@@ -161,56 +82,32 @@ const rules = {
     name: {
         rules: [
             { required: true, errorMessage: '姓名是必填项' },
-            { minLength: 3, errorMessage: '姓名长度必须大于2' }
+            { minLength: 2, errorMessage: '姓名长度必须大于2' }
         ]
     },
-    height: {
-        rules: [
-            { required: true, errorMessage: '身高是必填项' },
-            { pattern: /^(1[0-9]{2}|2[0-4][0-9]|250)$/, errorMessage: '请输入100到250之间的身高' }
-        ]
-    },
-    weight: {
-        rules: [
-            { required: true, errorMessage: '体重是必填项' },
-            { minimum: 30, errorMessage: '请输入大于30kg的体重' }
-        ]
-    },
+
     introduction: {
         rules: [
             { required: true, errorMessage: '介绍是必填项' }
         ]
     },
-    birthday: {
-        rules: [
-            { required: true, errorMessage: '生日是必填项' }
-        ]
-    }
 };
-watch(() => baseFormData.value.birthday, (newVal, oldVal) => {
-    console.log(newVal)
-})
-let instance;
 onLoad(() => {
-    instance = getCurrentInstance()?.proxy;
 });
 const submit = async () => {
     try {
         let res = await formRef.value.validate();
         console.log('success', res);
+        // 添加红娘的id
+        baseFormData.value.organizationId = userInfo.value.code;
         uni.showToast({
             title: '校验通过'
         });
-        let res1 = await request.post<UserInfoType>('user/updateUserInfo', baseFormData.value);
-        console.log('res', res1);
+        await request.post<UserInfoType>('matchmaker/addUser', baseFormData.value);
         uni.showToast({
-            title: '更新成功'
+            title: '新增用户成功'
         });
-        // 更新本地用户信息
-        let res2 = await request.post<UserInfoType>('user/userInfo', null);
-        uni.setStorageSync('userInfo', JSON.stringify(res2.data));
-        const eventChannel = instance.getOpenerEventChannel();
-        eventChannel.emit('acceptDataFromOpenedPage', "success");
+
     }
     catch (error) {
         uni.showToast({

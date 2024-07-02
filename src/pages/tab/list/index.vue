@@ -6,11 +6,11 @@
     </uni-drawer>
     <view class="header">
         <view class="header-left">
-            <uni-data-select v-model="form.height" placeholder="身高" :localdata="options.height"
+            <uni-data-select v-model="form.height" placeholder="身高" :localdata="options.filterOptions.height"
                 @change="onClickDropHandler" :clear="false"></uni-data-select>
-            <uni-data-select v-model="form.age" placeholder="年龄" :localdata="options.age" @change="onClickDropHandler"
-                :clear="false"></uni-data-select>
-            <uni-data-select v-model="form.housing" placeholder="房子" :localdata="options.housing"
+            <uni-data-select v-model="form.age" placeholder="年龄" :localdata="options.filterOptions.age"
+                @change="onClickDropHandler" :clear="false"></uni-data-select>
+            <uni-data-select v-model="form.housing" placeholder="房子" :localdata="options.filterOptions.housing"
                 @change="onClickDropHandler" :clear="false"></uni-data-select>
         </view>
 
@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { UserInfoType } from '@/api/mock';
+import options from "@/utils/userInfoOptions"
 import request from '@/api/request';
 import tabbar from '@/components/tabbar/tabbar.vue';
 import UserListCard from './member/user-list-card.vue';
@@ -68,32 +69,6 @@ const onClickMoreHandler = () => {
     }
     loadMore();
 };
-
-// 筛选条件 height:身高 age:年龄 housing:房子
-const options = {
-    height: [
-        { value: 0, text: "不限" },
-        { value: 1, text: "150-160" },
-        { value: 2, text: "160-170" },
-        { value: 3, text: "170-180" },
-        { value: 4, text: "180-190" },
-        { value: 5, text: "190-200" },
-    ],
-    age: [
-        { value: 0, text: "不限" },
-        { value: 1, text: "18-25" },
-        { value: 2, text: "25-30" },
-        { value: 3, text: "30-35" },
-        { value: 4, text: "35-40" },
-        { value: 5, text: "40-45" },
-    ],
-    housing: [
-        { value: 0, text: "不限" },
-        { value: 1, text: "有房" },
-        { value: 2, text: "无房" },
-        { value: 3, text: "自建房" },
-    ],
-};
 /** 搜索的筛选条件 */
 const form = ref({
     pageNo: 1,
@@ -111,11 +86,18 @@ onLoad(() => {
 })
 
 const loadMore = () => {
-    request.post<UserInfoType[]>('list/getUserListByTag', form.value).then((res) => {
-        if (res.data.length > 0) {
+    request.post<{
+        list: UserInfoType[], pageNo,
+        pageSize,
+        height,
+        age,
+        housing,
+        total,
+    }>('list/getUserListByTag', form.value).then((res) => {
+        if (res.data.list.length > 0) {
             form.value.pageNo++;
-            dataList.value = dataList.value.concat(res.data);
-            if (res.data.length < form.value.pageSize) {
+            dataList.value = dataList.value.concat(res.data.list);
+            if (res.data.total < form.value.pageSize) {
                 loadMoreStatus.value = 'noMore';
             }
         }

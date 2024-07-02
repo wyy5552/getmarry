@@ -102,6 +102,12 @@
       }
     },
     {
+      "path": "pages/tab/user/matchmaker/matchmaker-add-member",
+      "style": {
+        "navigationBarTitleText": "新增会员"
+      }
+    },
+    {
       "path": "pages/tab/user/matchmaker/vip-list",
       "style": {
         "navigationBarTitleText": "申请VIP列表"
@@ -141,12 +147,6 @@
       "path": "pages/tab/user/matchmaker/delete-list-user-info",
       "style": {
         "navigationBarTitleText": "待注销"
-      }
-    },
-    {
-      "path": "pages/tab/user/matchmaker/matchmaker-add-member",
-      "style": {
-        "navigationBarTitleText": "新增会员"
       }
     }
   ],
