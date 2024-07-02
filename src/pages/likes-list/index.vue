@@ -56,7 +56,7 @@ const loadMore = () => {
 const clickGridHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
+        url: '/pages/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
     });
 }
 </script>

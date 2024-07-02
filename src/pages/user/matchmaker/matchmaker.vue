@@ -78,38 +78,38 @@ const { getAgeLabel } = userInfoOptions;
 const clickMyCollectionHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/matchmaker/vip-list'
+        url: '/pages/user/matchmaker/vip-list'
     });
 }
 const clickRecommendHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/matchmaker/recommend-list'
+        url: '/pages/user/matchmaker/recommend-list'
     });
 }
 
 const clickAuthHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/matchmaker/auth-list'
+        url: '/pages/user/matchmaker/auth-list'
     });
 }
 const clickMyInfoEditHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/matchmaker/matchmaker-edit',
+        url: '/pages/user/matchmaker/matchmaker-edit',
     });
 }
 const clickAddMemberHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/matchmaker/matchmaker-add-member',
+        url: '/pages/user/matchmaker/matchmaker-add-member',
     });
 }
 const clickDeleteHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/matchmaker/delete-list',
+        url: '/pages/user/matchmaker/delete-list',
     });
 }
 
@@ -140,7 +140,7 @@ const onClickPhotoHandler = () => {
 const onAddPicHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/member/pic',
+        url: '/pages/user/member/pic',
     });
 }
 </script>

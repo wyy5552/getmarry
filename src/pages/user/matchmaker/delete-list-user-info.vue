@@ -15,8 +15,11 @@
                 </view>
             </view>
             <view>
-                <button @click="onPassHandler" class="mb-0.5rem" type="warn" plain="true">认证通过</button>
-                <button @click="onRejectHandler" type="default" plain="true">拒绝</button>
+                <button @click="onDeleteHandler" class="mb-0.5rem" type="warn" plain="true">确定删除</button>
+                <uni-popup ref="popupRef" type="dialog">
+                    <uni-popup-dialog title="  " content="确定注销用户账号？" :duration="2000" :before-close="false"
+                        @confirm="onConfirmHandler"></uni-popup-dialog>
+                </uni-popup>
             </view>
         </view>
         <view class="card">
@@ -58,8 +61,12 @@
 import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
 import request from '@/api/request';
+import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
 import type { UserInfoType } from '@/store/modules/user/types';
+
+const userStore = userUserStore();
+const popupRef = ref();
 
 const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;
 
@@ -72,11 +79,14 @@ onLoad((options: any) => {
 /** 展示更多个人信息 */
 const onShowMoreHandler = () => {
     uni.navigateTo({
-        url: '/pages/tab/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(otherUserInfo.value))
+        url: '/pages/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(otherUserInfo.value))
     });
 }
-const onPassHandler = () => {
-    request.post('matchmaker/passAuth', { userId: otherUserInfo.value.id }).then(res => {
+const onDeleteHandler = () => {
+    popupRef.value.open();
+}
+const onConfirmHandler = () => {
+    request.post('user/deleteUser', { userId: otherUserInfo.value.id }).then(res => {
         uni.showToast({
             title: '操作成功',
             icon: 'success',
@@ -84,17 +94,7 @@ const onPassHandler = () => {
         });
         uni.navigateBack();
     });
-}
-
-const onRejectHandler = () => {
-    request.post('matchmaker/rejectAuth', { userId: otherUserInfo.value.id }).then(res => {
-        uni.showToast({
-            title: '操作成功',
-            icon: 'success',
-            duration: 2000
-        });
-        uni.navigateBack();
-    });
+    popupRef.value.close();
 }
 </script>
 

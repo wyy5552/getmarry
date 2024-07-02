@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import request from '@/api/request';
-import MemberCollectionItem from '@/pages/tab/user/member/member-collection-item.vue';
+import MemberCollectionItem from '@/pages/user/member/member-collection-item.vue';
 import { UserInfoType } from '@/store/modules/user/types';
 
 const loadMoreStatus = ref('more');
@@ -49,7 +49,7 @@ onShow(() => {
 })
 const clickGridHandler = (e: any) => {
     uni.navigateTo({
-        url: '/pages/tab/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
+        url: '/pages/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
     });
 }
 </script>

@@ -15,7 +15,7 @@
                 </view>
             </view>
             <view>
-                <button @click="onPassHandler" class="mb-0.5rem" type="warn" plain="true">VIP申请通过</button>
+                <button @click="onPassHandler" class="mb-0.5rem" type="warn" plain="true">认证通过</button>
                 <button @click="onRejectHandler" type="default" plain="true">拒绝</button>
             </view>
         </view>
@@ -58,11 +58,8 @@
 import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
 import request from '@/api/request';
-import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
 import type { UserInfoType } from '@/store/modules/user/types';
-
-const userStore = userUserStore();
 
 const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;
 
@@ -75,11 +72,11 @@ onLoad((options: any) => {
 /** 展示更多个人信息 */
 const onShowMoreHandler = () => {
     uni.navigateTo({
-        url: '/pages/tab/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(otherUserInfo.value))
+        url: '/pages/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(otherUserInfo.value))
     });
 }
 const onPassHandler = () => {
-    request.post('matchmaker/passVip', { userId: otherUserInfo.value.id }).then(res => {
+    request.post('matchmaker/passAuth', { userId: otherUserInfo.value.id }).then(res => {
         uni.showToast({
             title: '操作成功',
             icon: 'success',
@@ -90,7 +87,7 @@ const onPassHandler = () => {
 }
 
 const onRejectHandler = () => {
-    request.post('matchmaker/rejectVip', { userId: otherUserInfo.value.id }).then(res => {
+    request.post('matchmaker/rejectAuth', { userId: otherUserInfo.value.id }).then(res => {
         uni.showToast({
             title: '操作成功',
             icon: 'success',

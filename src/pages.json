@@ -6,145 +6,145 @@
   },
   "pages": [
     {
-      "path": "pages/tab/user/index",
+      "path": "pages/user/index",
       "style": {
         "navigationBarTitleText": "我的"
       }
     },
     {
-      "path": "pages/tab/plaza/index",
+      "path": "pages/plaza/index",
       "style": {
         "navigationBarTitleText": "广场"
       }
     },
     {
-      "path": "pages/tab/test/index",
+      "path": "pages/test/index",
       "style": {
         "navigationBarTitleText": "测试声明周期"
       }
     },
     {
-      "path": "pages/tab/test/detail",
+      "path": "pages/test/detail",
       "style": {
         "navigationBarTitleText": "测试声明周期"
       }
     },
     {
-      "path": "pages/tab/user/member/collection",
+      "path": "pages/user/member/collection",
       "style": {
         "navigationBarTitleText": "我的收藏"
       }
     },
     {
-      "path": "pages/tab/user-info/user-info",
+      "path": "pages/user-info/user-info",
       "style": {
         "navigationBarTitleText": "用户信息"
       }
     },
     {
-      "path": "pages/tab/user-info/user-info-more",
+      "path": "pages/user-info/user-info-more",
       "style": {
         "navigationBarTitleText": "更多信息"
       }
     },
     {
-      "path": "pages/tab/list/index",
+      "path": "pages/list/index",
       "style": {
         "navigationBarTitleText": "会员列表"
       }
     },
     {
-      "path": "pages/tab/list/member/index",
+      "path": "pages/list/member/index",
       "style": {
         "navigationBarTitleText": "会员列表"
       }
     },
     {
-      "path": "pages/tab/list/matchmaker/index",
+      "path": "pages/list/matchmaker/index",
       "style": {
         "navigationBarTitleText": "所有会员列表"
       }
     },
     {
-      "path": "pages/tab/likes-list/index",
+      "path": "pages/likes-list/index",
       "style": {
         "navigationBarTitleText": "互生爱慕"
       }
     },
     {
-      "path": "pages/tab/user/member/edit",
+      "path": "pages/user/member/edit",
       "style": {
         "navigationBarTitleText": "修改信息"
       }
     },
     {
-      "path": "pages/tab/user/member/pic",
+      "path": "pages/user/member/pic",
       "style": {
         "navigationBarTitleText": "个人照片"
       }
     },
     {
-      "path": "pages/tab/user/login",
+      "path": "pages/user/login",
       "style": {
         "navigationBarTitleText": "登录"
       }
     },
     {
-      "path": "pages/tab/user/register",
+      "path": "pages/user/register",
       "style": {
         "navigationBarTitleText": "注册"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/matchmaker-edit",
+      "path": "pages/user/matchmaker/matchmaker-edit",
       "style": {
         "navigationBarTitleText": "红娘信息修改"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/matchmaker-add-member",
+      "path": "pages/user/matchmaker/matchmaker-add-member",
       "style": {
         "navigationBarTitleText": "新增会员"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/vip-list",
+      "path": "pages/user/matchmaker/vip-list",
       "style": {
         "navigationBarTitleText": "申请VIP列表"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/vip-list-user-info",
+      "path": "pages/user/matchmaker/vip-list-user-info",
       "style": {
         "navigationBarTitleText": "VIP用户信息"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/recommend-list",
+      "path": "pages/user/matchmaker/recommend-list",
       "style": {
         "navigationBarTitleText": "推荐列表"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/auth-list",
+      "path": "pages/user/matchmaker/auth-list",
       "style": {
         "navigationBarTitleText": "待认证列表"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/auth-list-user-info",
+      "path": "pages/user/matchmaker/auth-list-user-info",
       "style": {
         "navigationBarTitleText": "待认证用户信息"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/delete-list",
+      "path": "pages/user/matchmaker/delete-list",
       "style": {
         "navigationBarTitleText": "待注销账号"
       }
     },
     {
-      "path": "pages/tab/user/matchmaker/delete-list-user-info",
+      "path": "pages/user/matchmaker/delete-list-user-info",
       "style": {
         "navigationBarTitleText": "待注销"
       }
@@ -172,7 +172,7 @@
   //   }
   // ],
   // "preloadRule": {
-  //   "pages/tab/plaza/index": {
+  //   "pages/plaza/index": {
   //     "network": "all",
   //     "packages": [
   //       "pages/common"
@@ -186,11 +186,11 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/tab/test/index",
+        "pagePath": "pages/test/index",
         "text": "测试生命周期"
       },
       {
-        "pagePath": "pages/tab/user/index",
+        "pagePath": "pages/user/index",
         "text": "我的"
       }
     ]

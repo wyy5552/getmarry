@@ -20,20 +20,20 @@ defineProps<{
 }>();
 
 const defaultTabs = [
-    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/tab/list/index" },
-    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/tab/user/index" }
+    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/list/index" },
+    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/user/index" }
 ]
 
 const tabs = [
-    { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/tab/plaza/index" },
-    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/tab/list/member/index" },
-    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/tab/user/index" }
+    { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/plaza/index" },
+    { title: "列表", value: 'list', icon: "list", pagePath: "/pages/list/member/index" },
+    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/user/index" }
 ];
 const matchmakerTabs = [
-    { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/tab/plaza/index" },
-    { title: "ALL", value: 'list', icon: "list", pagePath: "/pages/tab/list/matchmaker/index" },
-    { title: "互生爱慕", value: 'likes-list', icon: "list", pagePath: "/pages/tab/likes-list/index" },
-    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/tab/user/index" }
+    { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/plaza/index" },
+    { title: "ALL", value: 'list', icon: "list", pagePath: "/pages/list/matchmaker/index" },
+    { title: "互生爱慕", value: 'likes-list', icon: "list", pagePath: "/pages/likes-list/index" },
+    { title: "我的", value: 'person', icon: "person", pagePath: "/pages/user/index" }
 ];
 
 const curTabConfig = ref<any[]>(defaultTabs);

@@ -14,7 +14,7 @@ const title = ref('Uniapp Vue3 生命周期示例');
 
 const navigateToDetail = () => {
     uni.navigateTo({
-        url: '/pages/tab/test/detail'
+        url: '/pages/test/detail'
     });
 };
 

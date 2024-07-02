@@ -2,8 +2,8 @@
     <uni-list>
         <uni-list-item v-for="(item, index) in dataList" :key="index">
             <template v-slot:body>
-                <auth-list-card :item="item" @tap="clickGridHandler(item)">
-                </auth-list-card>
+                <member-collection-item :item="item" @tap="clickGridHandler(item)">
+                </member-collection-item>
             </template>
         </uni-list-item>
         <button class="w-100%" @click="onClickMoreHandler">
@@ -14,13 +14,13 @@
 
 <script setup lang="ts">
 import request from '@/api/request';
-import AuthListCard from './auth-list-card.vue';
+import MemberCollectionItem from '@/pages/user/member/member-collection-item.vue';
 import { UserInfoType } from '@/store/modules/user/types';
 
 const dataList = ref([] as UserInfoType[]);
 
 const loadMore = () => {
-    request.post<UserInfoType[]>('matchmaker/getApplyAuthList', null).then((res) => {
+    request.post<UserInfoType[]>('matchmaker/getRecommendList', null).then((res) => {
         dataList.value = res.data;
     });
 };
@@ -32,7 +32,7 @@ onShow(() => {
 })
 const clickGridHandler = (e: any) => {
     uni.navigateTo({
-        url: '/pages/tab/user/matchmaker/auth-list-user-info?item=' + encodeURIComponent(JSON.stringify(e)),
+        url: '/pages/user/matchmaker/vip-list-user-info?item=' + encodeURIComponent(JSON.stringify(e)),
     });
 }
 </script>

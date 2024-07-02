@@ -82,20 +82,20 @@ const msgObj = {
 const clickMyCollectionHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/member/collection'
+        url: '/pages/user/member/collection'
     });
 }
 const clickEditHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/member/edit',
+        url: '/pages/user/member/edit',
     });
 }
 
 const onAddPicHandler = (e: any) => {
     console.log(e);
     uni.navigateTo({
-        url: '/pages/tab/user/member/pic',
+        url: '/pages/user/member/pic',
     });
 }
 onMounted(async () => {

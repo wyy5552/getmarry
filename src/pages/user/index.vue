@@ -38,7 +38,7 @@ onMounted(async () => {
 
 const onClickLoginHandler = () => {
   uni.navigateTo({
-    url: '/pages/tab/user/login',
+    url: '/pages/user/login',
   });
 }
 
@@ -46,7 +46,7 @@ const onClickLoginHandler = () => {
 
 const onClickRegisterHandler = () => {
   uni.navigateTo({
-    url: '/pages/tab/user/register'
+    url: '/pages/user/register'
   });
 }
 
