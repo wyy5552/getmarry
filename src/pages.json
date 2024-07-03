@@ -66,6 +66,12 @@
       }
     },
     {
+      "path": "pages/list/matchmaker/match-user-info",
+      "style": {
+        "navigationBarTitleText": "会员信息"
+      }
+    },
+    {
       "path": "pages/likes-list/index",
       "style": {
         "navigationBarTitleText": "互生爱慕"

@@ -1,9 +1,4 @@
 <template>
-  <uni-drawer ref="leftDrawer" mask maskClick mode="left" :width="320">
-    <view class="close">
-      我爱中国
-    </view>
-  </uni-drawer>
   <view class="header">
     <view class="header-left">
       <uni-data-select v-model="form.height" placeholder="身高" :localdata="options.filterOptions.height"
@@ -13,7 +8,6 @@
       <uni-data-select v-model="form.housing" placeholder="房子" :localdata="options.filterOptions.housing"
         @change="onClickDropHandler" :clear="false"></uni-data-select>
     </view>
-
     <!-- <view class="header-right" @click="fabClick">更多</view> -->
   </view>
 
@@ -36,17 +30,6 @@ import options from "@/utils/userInfoOptions"
 import request from '@/api/request';
 import tabbar from '@/components/tabbar/tabbar.vue';
 import UserListCard from './user-list-card.vue';
-
-
-const leftDrawer = ref<any>(null);
-
-// const fabClick = () => {
-//   leftDrawer.value.open();
-//   uni.showToast({
-//     title: '点击了悬浮按钮',
-//     icon: 'none'
-//   });
-// };
 
 onTabItemTap((item) => {
   console.log('点击 Tab 项', item.index);
@@ -97,7 +80,7 @@ const loadMore = () => {
     if (res.data.list.length > 0) {
       form.value.pageNo++;
       dataList.value = dataList.value.concat(res.data.list);
-      if (res.data.total < form.value.pageSize) {
+      if (res.data.total <= form.value.pageSize) {
         loadMoreStatus.value = 'noMore';
       }
     }

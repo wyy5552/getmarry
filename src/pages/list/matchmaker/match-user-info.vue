@@ -3,33 +3,30 @@
         <image class="img" src="https://www.8520y.cn/up/p/m/2024/05/101034_1715327064586_m.jpg" mode="aspectFill" />
         <view class="user-card">
             <view>
-                <view class="font-bold text-1rem">{{ otherUserInfo.name + " " }}<text class="text-#f29f9c"
-                        v-if="otherUserInfo.gender == 0">♀</text><text class="text-#007aff" v-else>♂</text></view>
-                <view class="mt-0.5rem opacity-90">{{ otherUserInfo.registeredArea + " · " +
-                    getEducationLabel(otherUserInfo.education) }}</view>
+                <view class="font-bold text-1rem">{{ optUserInfo.name + " " }}<text class="text-#f29f9c"
+                        v-if="optUserInfo.gender == 0">♀</text><text class="text-#007aff" v-else>♂</text></view>
+                <view class="mt-0.5rem opacity-90">{{ optUserInfo.registeredArea + " · " +
+                    getEducationLabel(optUserInfo.education) }}</view>
                 <view class="flex gap-1rem mt-0.5rem opacity-90">
-                    <uni-tag type="warning" :text="getAgeLabel(otherUserInfo.birthday) + ''"></uni-tag>
-                    <uni-tag type="warning" :text="otherUserInfo.height + 'cm'"></uni-tag>
-                    <uni-tag type="warning" :text="otherUserInfo.industry"></uni-tag>
-                    <uni-tag type="warning" :text="otherUserInfo.monthlyIncome + '万'"></uni-tag>
+                    <uni-tag type="warning" :text="getAgeLabel(optUserInfo.birthday) + ''"></uni-tag>
+                    <uni-tag type="warning" :text="optUserInfo.height + 'cm'"></uni-tag>
+                    <uni-tag type="warning" :text="optUserInfo.industry"></uni-tag>
+                    <uni-tag type="warning" :text="optUserInfo.monthlyIncome + '万'"></uni-tag>
                 </view>
             </view>
             <view>
-                <uni-fav :contentText="{ contentDefault: '喜欢', contentFav: '已收藏' }" :checked="isSelect" :circle="true"
-                    bg-color="#dd524d" bg-color-checked="#999" fg-color="#ffffff" fg-color-checked="#ffffff"
-                    @click="favClick" />
             </view>
         </view>
         <view class="card">
             <view class="title">基本资料</view>
             <view class="content">
-                <uni-tag :text="getGenderLabel(otherUserInfo.gender)" inverted></uni-tag>
-                <uni-tag :text="otherUserInfo.weight + 'kg'" inverted></uni-tag>
-                <uni-tag :text="getHousingLabel(otherUserInfo.housing)" inverted></uni-tag>
-                <uni-tag :text="getCarOwnershipLabel(otherUserInfo.carOwnership)" inverted></uni-tag>
-                <uni-tag :text="getEducationLabel(otherUserInfo.education)" inverted></uni-tag>
-                <uni-tag :text="otherUserInfo.registeredArea" inverted></uni-tag>
-                <uni-tag :text="getMarriageTimeLabel(otherUserInfo.expectedMarriageTime)" inverted></uni-tag>
+                <uni-tag :text="getGenderLabel(optUserInfo.gender)" inverted></uni-tag>
+                <uni-tag :text="optUserInfo.weight + 'kg'" inverted></uni-tag>
+                <uni-tag :text="getHousingLabel(optUserInfo.housing)" inverted></uni-tag>
+                <uni-tag :text="getCarOwnershipLabel(optUserInfo.carOwnership)" inverted></uni-tag>
+                <uni-tag :text="getEducationLabel(optUserInfo.education)" inverted></uni-tag>
+                <uni-tag :text="optUserInfo.registeredArea" inverted></uni-tag>
+                <uni-tag :text="getMarriageTimeLabel(optUserInfo.expectedMarriageTime)" inverted></uni-tag>
                 <view class="border-red border opacity-80 text-red-5" @click="onShowMoreHandler">查看更多></view>
             </view>
         </view>
@@ -37,21 +34,21 @@
             <view class="title">择偶要求</view>
 
             <view class="content">
-                <uni-tag type="warning" :text="otherUserInfo.maritalStatusRequirement ?? '未婚'" inverted></uni-tag>
-                <uni-tag type="warning" :text="otherUserInfo.ageRequirement ?? '上下三岁'" inverted></uni-tag>
-                <uni-tag type="warning" :text="otherUserInfo.heightRequirement ?? '无身高要求'" inverted></uni-tag>
-                <uni-tag type="warning" :text="otherUserInfo.incomeRequirement ?? '无收入要求'" inverted></uni-tag>
-                <uni-tag type="warning" :text="otherUserInfo.areaRequirement ?? '地区不限'" inverted></uni-tag>
-                <uni-tag type="warning" :text="otherUserInfo.otherRequirement ?? '看眼缘'" inverted></uni-tag>
+                <uni-tag type="warning" :text="optUserInfo.maritalStatusRequirement ?? '未婚'" inverted></uni-tag>
+                <uni-tag type="warning" :text="optUserInfo.ageRequirement ?? '上下三岁'" inverted></uni-tag>
+                <uni-tag type="warning" :text="optUserInfo.heightRequirement ?? '无身高要求'" inverted></uni-tag>
+                <uni-tag type="warning" :text="optUserInfo.incomeRequirement ?? '无收入要求'" inverted></uni-tag>
+                <uni-tag type="warning" :text="optUserInfo.areaRequirement ?? '地区不限'" inverted></uni-tag>
+                <uni-tag type="warning" :text="optUserInfo.otherRequirement ?? '看眼缘'" inverted></uni-tag>
             </view>
         </view>
         <view class="card">
             <view class="title">自我介绍</view>
-            <view class="content"> {{ otherUserInfo.introduction }}</view>
+            <view class="content"> {{ optUserInfo.introduction }}</view>
         </view>
         <view class="card">
             <view class="title">红娘点评</view>
-            <view class="content"> {{ otherUserInfo.matchmakerComment }}</view>
+            <view class="content"> {{ optUserInfo.matchmakerComment }}</view>
         </view>
         <view class="contact">
             <view class="item" @click="onClickPhoneHandler">
@@ -70,7 +67,7 @@
             </view>
             <uni-popup ref="popupWxRef" type="dialog">
                 <uni-popup-dialog title=" 长按添加微信 " :duration="2000" :before-close="false" @confirm="onConfirmWxHandler">
-                    <image src="../../static/images/wechat.png" mode="scaleToFill" />
+                    <image src="../../../static/images/wechat.png" mode="scaleToFill" />
                 </uni-popup-dialog>
             </uni-popup>
         </view>
@@ -79,7 +76,7 @@
 </template>
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app';
-import { ref } from 'vue';
+import { ref, toRef } from 'vue';
 import request from '@/api/request';
 import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
@@ -87,11 +84,11 @@ import type { UserInfoType } from '@/store/modules/user/types';
 
 const userStore = userUserStore();
 
+const { optUserInfo } = storeToRefs(userStore);
+
 const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;
 
-const otherUserInfo = ref<UserInfoType>({} as unknown as UserInfoType);
 onLoad((options: any) => {
-    otherUserInfo.value = JSON.parse(decodeURIComponent(options.item));;
     checkHasLiked();
 });
 
@@ -106,13 +103,13 @@ const checkHasLiked = () => {
     // 获取喜欢列表
     const likeList = selfInfo.likes?.split(',') ?? [];
     // 判断是否已经收藏
-    isSelect.value = likeList.includes(otherUserInfo.value.id + "");
+    isSelect.value = likeList.includes(optUserInfo.value.id + "");
 }
 
 /** 喜欢 */
 const favClick = async () => {
     try {
-        await request.post<any>('list/likeUser', { userId: otherUserInfo.value.id, isLike: !isSelect.value });
+        await request.post<any>('list/likeUser', { userId: optUserInfo.value.id, isLike: !isSelect.value });
         isSelect.value = !isSelect.value;
         uni.showToast({
             title: isSelect.value ? "收藏成功！" : "取消收藏！",
@@ -129,7 +126,7 @@ const favClick = async () => {
 /** 展示更多个人信息 */
 const onShowMoreHandler = () => {
     uni.navigateTo({
-        url: '/pages/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(otherUserInfo.value))
+        url: '/pages/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(optUserInfo.value))
     });
 }
 
