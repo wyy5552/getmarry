@@ -1,9 +1,9 @@
 <template>
     <view class="user-info">
-        <view class="section">
+        <view class="card">
             <view class="item">
                 <view>昵称</view>
-                <view>{{ userInfo.nickname }}</view>
+                <view>{{ optUserInfo.nickname }}</view>
             </view>
             <view class="item">
                 <view>性别</view>
@@ -11,11 +11,11 @@
             </view>
             <view class="item">
                 <view>身高</view>
-                <view>{{ userInfo.height }}</view>
+                <view>{{ optUserInfo.height }}</view>
             </view>
             <view class="item">
                 <view>体重</view>
-                <view>{{ userInfo.weight }}</view>
+                <view>{{ optUserInfo.weight }}</view>
             </view>
             <view class="item">
                 <view>年龄</view>
@@ -35,21 +35,21 @@
             </view>
             <view class="item">
                 <view>子女情况</view>
-                <view>{{ userInfo.children }}</view>
+                <view>{{ optUserInfo.children }}</view>
             </view>
             <view class="item">
                 <view>月收入</view>
-                <view>{{ userInfo.monthlyIncome }}</view>
+                <view>{{ optUserInfo.monthlyIncome }}</view>
             </view>
             <view class="item">
                 <view>学历</view>
                 <view>{{ temp.education }}</view>
             </view>
         </view>
-        <view class="section">
+        <view class="card">
             <view class="item">
                 <view>其他</view>
-                <view>{{ userInfo.otherInfo }}</view>
+                <view>{{ optUserInfo.otherInfo }}</view>
             </view>
             <view class="item">
                 <view>是否是个人填写信息</view>
@@ -57,11 +57,11 @@
             </view>
             <view class="item">
                 <view>工作地区</view>
-                <view>{{ userInfo.workArea }}</view>
+                <view>{{ optUserInfo.workArea }}</view>
             </view>
             <view class="item">
                 <view>户籍地区</view>
-                <view>{{ userInfo.registeredArea }}</view>
+                <view>{{ optUserInfo.registeredArea }}</view>
             </view>
             <view class="item">
                 <view>职业</view>
@@ -69,7 +69,7 @@
             </view>
             <view class="item">
                 <view>房产位置</view>
-                <view>{{ userInfo.propertyLocation }}</view>
+                <view>{{ optUserInfo.propertyLocation }}</view>
             </view>
             <view class="item">
                 <view>期望结婚时间</view>
@@ -77,40 +77,35 @@
             </view>
             <view class="item">
                 <view>兄弟姐妹</view>
-                <view>{{ userInfo.siblings }}</view>
+                <view>{{ optUserInfo.siblings }}</view>
             </view>
             <view class="item">
                 <view>兴趣爱好</view>
-                <view>{{ userInfo.hobbies }}</view>
+                <view>{{ optUserInfo.hobbies }}</view>
             </view>
             <view class="item">
                 <view>工作行业</view>
-                <view>{{ userInfo.industry }}</view>
+                <view>{{ optUserInfo.industry }}</view>
             </view>
             <view class="item">
                 <view>单位类型</view>
-                <view>{{ userInfo.companyType }}</view>
+                <view>{{ optUserInfo.companyType }}</view>
             </view>
             <view class="item">
                 <view>红娘点评</view>
-                <view>{{ userInfo.matchmakerComment }}</view>
+                <view>{{ optUserInfo.matchmakerComment }}</view>
             </view>
         </view>
     </view>
 </template>
 <script setup lang="ts">
-import { onLoad } from '@dcloudio/uni-app';
-import { ref } from 'vue';
-import { UserInfoType } from '../../../api/mock';
-import userInfoOptions from '@/utils/userInfoOptions';
+import userUserStore from '@/store/modules/user/useUserStore';
+import optUserInfoOptions from '@/utils/userInfoOptions';
 
+const userStore = userUserStore();
 
-const userInfo = ref<UserInfoType>({} as UserInfoType);
-onLoad((options: any) => {
-    console.log('User Info Page Loaded', options);
-    userInfo.value = JSON.parse(decodeURIComponent(options.item));;
-    console.log('User Info:', userInfo.value);
-});
+const { optUserInfo } = storeToRefs(userStore);
+
 const {
     getGenderLabel,
     getMaritalStatusLabel,
@@ -121,18 +116,18 @@ const {
     getCarOwnershipLabel,
     getPersonalInfoLabel,
     getAgeLabel
-} = userInfoOptions;
+} = optUserInfoOptions;
 const temp = computed(() => {
     return {
-        gender: getGenderLabel(userInfo.value.gender),
-        maritalStatus: getMaritalStatusLabel(userInfo.value.maritalStatus),
-        education: getEducationLabel(userInfo.value.education),
-        profession: getProfessionLabel(userInfo.value.profession),
-        expectedMarriageTime: getMarriageTimeLabel(userInfo.value.expectedMarriageTime),
-        housing: getHousingLabel(userInfo.value.housing),
-        carOwnership: getCarOwnershipLabel(userInfo.value.carOwnership),
-        age: getAgeLabel(userInfo.value.birthday),
-        isPersonalInfo: getPersonalInfoLabel(userInfo.value.isPersonalInfo)
+        gender: getGenderLabel(optUserInfo.value.gender),
+        maritalStatus: getMaritalStatusLabel(optUserInfo.value.maritalStatus),
+        education: getEducationLabel(optUserInfo.value.education),
+        profession: getProfessionLabel(optUserInfo.value.profession),
+        expectedMarriageTime: getMarriageTimeLabel(optUserInfo.value.expectedMarriageTime),
+        housing: getHousingLabel(optUserInfo.value.housing),
+        carOwnership: getCarOwnershipLabel(optUserInfo.value.carOwnership),
+        age: getAgeLabel(optUserInfo.value.birthday),
+        isPersonalInfo: getPersonalInfoLabel(optUserInfo.value.isPersonalInfo)
     }
 })
 
@@ -142,16 +137,12 @@ const temp = computed(() => {
 <style scoped lang="scss">
 .user-info {
     width: 100%;
-    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.section {
-    margin: 0 0.5rem 1rem 0.5rem;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
-
+.card {
     .item {
         display: flex;
         justify-content: space-between;

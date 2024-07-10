@@ -10,11 +10,15 @@
     <view class="vip-box">
       <view class="title">
         <view class="right">置顶嘉宾</view>
-        <view v-if="vipStatus == 4 || vipStatus == 2" class="left flex items-center justify-between"
-          @click="clickAddVip">
-          我要上榜<uni-icons type="plusempty" size="30" color="white"></uni-icons></view>
-        <view v-if="vipStatus == 3" class="left flex items-center justify-between" @click="clickCancelVip">
-          下榜</view>
+        <view v-if="role == 0 || vipStatus == -1">
+          <view v-if="vipStatus == 0" class="left flex items-center justify-between" @click="clickAddVip">
+            我要上榜<uni-icons type="plusempty" size="30" color="white"></uni-icons></view>
+          <view v-else-if="vipStatus == 1" class="left flex items-center justify-between">
+            VIP申请中</view>
+          <view v-else-if="vipStatus == 2" class="left flex items-center justify-between" @click="clickCancelVip">
+            下榜</view>
+        </view>
+
       </view>
       <view class="flex items-center justify-between px-1.5rem">
         <user-vip-card @tap="clickGridHandler(item)" v-for="item in vipUserList" :item="item" :key="item.id">
@@ -43,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { UserInfoType } from "@/api/mock";
+import type { UserInfoType } from '@/store/modules/user/types';
 import request from "@/api/request";
 import { reactive, ref } from "vue";
 import tabbar from '@/components/tabbar/tabbar.vue';
@@ -53,32 +57,12 @@ import UserVipCard from './user-vip-card.vue';
 
 const userStore = userUserStore();
 // 解构
-const { role, userInfo, loginStatus } = storeToRefs(userStore);
-
-const vipStatus = ref(0);
-// 如果用户是红娘，则隐藏申请vip按钮
-if (role.value === 1) {
-  vipStatus.value = 1;
-}
-// 如果是用户
-if (role.value === 0) {
-  vipStatus.value = 0;
-  // 如果用户未登录
-  if (loginStatus.value === 0) {
-    vipStatus.value = 2;
-  }
-  else {
-    // 如果用户已经是vip
-    if (userInfo.value.isVip == 2 ||  userInfo.value.isVip == 1) {
-      // 显示取消vip按钮
-      vipStatus.value = 3;
-    } else {
-      // 显示申请vip按钮
-      vipStatus.value = 4;
-
-    }
-  }
-}
+const { role, userInfo } = storeToRefs(userStore);
+// 0 普通 1 申请中 2 vip -1 用户未登录
+const vipStatus = computed(() => {
+  console.log(userInfo.value.isVip);
+  return userInfo.value.isVip;
+});
 
 // 使用 reactive 创建响应式数组  
 const swiperList = reactive([
@@ -97,6 +81,7 @@ const clickAddVip = (e: any) => {
         title: '申请成功',
         icon: 'success'
       });
+      userStore.getUserInfo();
     }
   }).then(res => {
     console.log(res);
@@ -110,6 +95,8 @@ const clickCancelVip = (e: any) => {
         title: '取消成功',
         icon: 'success'
       });
+      onGetRecommendListHandler();
+      userStore.getUserInfo();
     }
   }).then(res => {
     console.log(res);
@@ -145,6 +132,7 @@ onShow(() => {
     console.log(res);
   });
   onGetRecommendListHandler();
+  userStore.getUserInfo();
 
 
 }
@@ -162,7 +150,7 @@ onShow(() => {
   .title {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
     position: relative;
     padding: 1rem 1.5rem 0 1.5rem;
     height: 3rem;

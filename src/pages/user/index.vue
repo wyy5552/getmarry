@@ -5,10 +5,13 @@
     <Matchmaker v-if="loginStatus == 1 && role == 1">
     </Matchmaker>
     <view v-if="loginStatus == 0" class="btn-container">
-      <button class="mt-8rem" type="primary" @click="onClickRegisterHandler">注册</button>
-      <button class="mt-1rem" type="primary" @click="onClickLoginHandler">登录</button>
+      <view class="logo">
+        Ai
+      </view>
+      <text class="intro">红豆生南国,春来发几枝~</text>
+      <button class='mt-360rpx' type="primary" @click="onClickRegisterHandler">注册</button>
+      <button class='login mt-40rpx' type="primary" @click="onClickLoginHandler">登录</button>
     </view>
-
   </view>
   <tabbar tab-value="person">
   </tabbar>
@@ -54,9 +57,8 @@ const onClickRegisterHandler = () => {
 <style scoped lang="scss">
 .user-container {
   width: 100%;
-  height: 100%;
-
-
+  height: 100vh;
+  background-image: url('http://localhost:3000/public/login-bg.png');
 
   .btn-container {
     background-color: #FF6F6F00;
@@ -67,17 +69,34 @@ const onClickRegisterHandler = () => {
     align-items: center;
     flex-direction: column;
 
+    .logo {
+      background-color: #FF5D97;
+      height: 300rpx;
+      width: 300rpx;
+      border-radius: 60rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      line-height: 180rpx;
+      font-size: 180rpx;
+    }
+
+    .intro {
+      color: #ADB5BD;
+      margin-top: 40rpx;
+    }
+
     button {
-      box-shadow: 0 .3rem .8rem rgba(255, 111, 111, .4);
-      background-color: #fff;
-      background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, .6) 0%, #FF6F6F 100%);
-      width: 80%;
-      border-radius: 10rem;
-      height: 5rem;
-      line-height: 5rem;
-      padding: 0 2.5rem;
-      font-size: 1.8rem;
-      vertical-align: middle;
+      background-color: #FF92B9;
+      width: 540rpx;
+      height: 92rpx;
+      border-radius: 100rpx;
+      border: none;
+    }
+
+    .login {
+      background-color: #FF5D97;
     }
   }
 

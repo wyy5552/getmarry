@@ -53,8 +53,22 @@
         </view>
         <view class="card">
             <view class="text-red">我的红娘</view>
-            <view class="one-line">手机号：{{ matchmakerInfo.phone }}</view>
-            <view class="one-line">微信：{{ matchmakerInfo.wechat }}</view>
+            <view class="one-line">
+                <view @click="callHandler(matchmakerInfo.phone)">
+                    手机号：{{ matchmakerInfo.phone }}
+                </view>
+                <view @click="copyStrHandler(matchmakerInfo.phone + '')">
+                    拷贝
+                </view>
+            </view>
+            <view class="one-line">
+                <view>
+                    微信：{{ matchmakerInfo.wechat }}</view>
+                <view @click="copyStrHandler(matchmakerInfo.wechat)">
+                    拷贝
+                </view>
+            </view>
+
         </view>
         <button type="primary" @click="onLogoutHandler">退出登录</button>
         <button type="primary" @click="onApplyDeleteHandler">注销账号</button>
@@ -148,7 +162,31 @@ const onClickPhotoHandler = () => {
         }
     });
 }
+const copyStrHandler = (str: string) => {
+    uni.setClipboardData({
+        data: str,
+        success: function () {
+            console.log('拷贝成功');
+        }
+    });
+}
 
+const callHandler = (phone) => {
+    uni.showModal({
+        content: '是否拨打红娘电话？',
+        success: function (res) {
+            if (res.confirm) {
+                uni.makePhoneCall({
+                    phoneNumber: phone
+                });
+            } else if (res.cancel) {
+                console.log('用户点击取消');
+            }
+        }
+    });
+
+
+}
 </script>
 <style lang="scss" scoped>
 .has-user-info {

@@ -1,9 +1,9 @@
 <template>
-    <view class="custom-tab-bar">
+    <view class="bottom-tab">
         <view v-for="(tab) in curTabConfig" :key="tab.value" class="tab-item"
             :class="{ 'active': tabValue === tab.value }" @tap="switchTab(tab.value)">
-            <uni-icons class="icon" :type="tab.icon" size="30"
-                :class="{ 'active': tabValue === tab.value }"></uni-icons>
+            <image v-if="tabValue === tab.value" :src="`http://localhost:3000/public/tabbar-${tab.icon}-red.svg`" />
+            <image v-else :src="`http://localhost:3000/public/tabbar-${tab.icon}.svg`" />
             <text>{{ tab.title }}</text>
         </view>
     </view>
@@ -69,19 +69,11 @@ const switchTab = (value: string) => {
 };
 </script>
 
-<style scoped>
-.custom-tab-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
-    /* 根据实际情况调整高度 */
-    background-color: #fff;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #ccc;
-    /* 可选：添加上边框 */
+<style scoped lang="scss">
+.bottom-tab {
+    .active {
+        color: #ff5d97;
+    }
 }
 
 .tab-item {
@@ -89,17 +81,10 @@ const switchTab = (value: string) => {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
 
-.icon {
-    width: 35px;
-    /* 根据实际情况调整图标大小 */
-    height: 35px;
-    /* 根据实际情况调整图标大小 */
-}
-
-.active {
-    color: #007bff !important;
-    /* 根据实际情况调整选中态样式 */
+    image {
+        width: 54rpx;
+        height: 54rpx;
+    }
 }
 </style>

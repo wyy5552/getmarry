@@ -15,6 +15,9 @@
                 </view>
             </view>
             <view>
+                <uni-fav :contentText="{ contentDefault: '推荐', contentFav: '推荐中' }" :checked="isSelect" :circle="true"
+                    bg-color="#dd524d" bg-color-checked="#999" fg-color="#ffffff" fg-color-checked="#ffffff"
+                    @click="recommendUser" />
             </view>
         </view>
         <view class="card">
@@ -76,11 +79,10 @@
 </template>
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app';
-import { ref, toRef } from 'vue';
+import { ref } from 'vue';
 import request from '@/api/request';
 import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
-import type { UserInfoType } from '@/store/modules/user/types';
 
 const userStore = userUserStore();
 
@@ -107,15 +109,15 @@ const checkHasLiked = () => {
 }
 
 /** 喜欢 */
-const favClick = async () => {
+const recommendUser = async () => {
     try {
-        await request.post<any>('list/likeUser', { userId: optUserInfo.value.id, isLike: !isSelect.value });
+        await request.post<any>('matchmaker/recommendUser', { userId: optUserInfo.value.id, isRecommend: !isSelect.value });
         isSelect.value = !isSelect.value;
+        optUserInfo.isRecommend = isSelect.value;
         uni.showToast({
-            title: isSelect.value ? "收藏成功！" : "取消收藏！",
+            title: isSelect.value ? "推荐成功" : "取消成功",
             icon: 'none'
         });
-        await userStore.getUserInfo();
     } catch {
         uni.showToast({
             title: "操作失败！",

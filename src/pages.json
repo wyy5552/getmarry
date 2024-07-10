@@ -8,7 +8,9 @@
     {
       "path": "pages/user/index",
       "style": {
-        "navigationBarTitleText": "我的"
+        "navigationBarTitleText": "",
+        "navigationBarBackgroundColor":"#ffffff00",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -203,7 +205,7 @@
   },
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#f29f9c"
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F9F9F9"
   }
 }

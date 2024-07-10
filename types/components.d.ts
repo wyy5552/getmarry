@@ -7,13 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AgreePrivacy: typeof import('./../src/components/agree-privacy/index.vue')['default']
-    PageNav: typeof import('./../src/components/page-nav/page-nav.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Tabbar: typeof import('./../src/components/tabbar/tabbar.vue')['default']
-    UserCard: typeof import('./../src/components/user-card/user-card.vue')['default']
-    UserListCard: typeof import('./../src/components/user-card/user-list-card.vue')['default']
-    UserVipCard: typeof import('./../src/components/user-card/user-vip-card.vue')['default']
   }
 }
