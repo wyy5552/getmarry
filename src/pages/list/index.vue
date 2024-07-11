@@ -22,12 +22,12 @@
 </template>
 
 <script setup lang="ts">
-import { UserInfoType } from '@/api/mock';
 import options from "@/utils/userInfoOptions"
 import request from '@/api/request';
 import tabbar from '@/components/tabbar/tabbar.vue';
 import UserListCard from './member/user-list-card.vue';
 import useUserStore from '@/store/modules/user/useUserStore';
+import { UserInfoType } from '@/store/modules/user/types';
 
 const userStore = useUserStore();
 
@@ -77,7 +77,6 @@ const loadMore = () => {
         if (res.data.list.length > 0) {
             form.value.pageNo++;
             dataList.value = dataList.value.concat(res.data.list);
-            dataList.value = [...dataList.value, ...dataList.value, ...dataList.value]
             if (res.data.total < form.value.pageSize) {
                 loadMoreStatus.value = 'noMore';
             }
@@ -164,7 +163,7 @@ const clickGridHandler = (e: any) => {
         }
 
         background-color: #fff;
-        width: 690rpx;
+        width: $container-width;
         margin-top: 24rpx;
         border-radius: 60rpx;
     }

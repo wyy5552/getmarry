@@ -28,7 +28,7 @@
                 <view>></view>
             </view>
         </view>
-        <view class="card">
+        <view class="card card2">
             <view class="one-line" @click="onClickShowToOtherHandler">
                 <view>是否展示给异性</view>
                 <uni-popup ref="popupRef" type="dialog">
@@ -42,7 +42,7 @@
                 </view>
             </view>
         </view>
-        <view class="card">
+        <view class="card card3">
             <view class="one-line">
                 <view>认证</view>
                 <view class="pr-0.5rem">
@@ -52,7 +52,7 @@
             </view>
         </view>
         <view class="card">
-            <view class="text-red">我的红娘</view>
+            <view class="hn">我的红娘</view>
             <view class="one-line">
                 <view @click="callHandler(matchmakerInfo.phone)">
                     手机号：{{ matchmakerInfo.phone }}
@@ -190,6 +190,10 @@ const callHandler = (phone) => {
 </script>
 <style lang="scss" scoped>
 .has-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     button {
         box-shadow: 0 .3rem .8rem rgba(255, 111, 111, .4);
         background-color: #fff;
@@ -207,7 +211,7 @@ const callHandler = (phone) => {
 
     .user-info-header {
         position: relative;
-        width: 100%;
+        width: $container-width;
         text-align: left;
         padding: 1rem 1rem;
 
@@ -231,11 +235,7 @@ const callHandler = (phone) => {
     }
 
     .card {
-        margin: 0 0.5rem 1rem 0.5rem;
-        padding: 0.5rem;
-        background-color: white;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
+        border-radius: 30rpx;
 
         .one-line {
             display: flex;
@@ -250,6 +250,32 @@ const callHandler = (phone) => {
             }
         }
 
+    }
+
+    .card1 {
+        // 背景渐变 从 #FF92B9 到 透明
+        background: -webkit-linear-gradient(315deg, rgba(255, 146, 185, 1) 0%, rgba(255, 146, 185, 0) 100%);
+        color: $color-text-1;
+    }
+
+    .card2 {
+        // 背景渐变 从 #A3E0EE 到 透明
+        background: -webkit-linear-gradient(315deg, rgba(163, 224, 238, 1) 0%, rgba(163, 224, 238, 0) 100%);
+    }
+
+    .card3 {
+        // 背景渐变 从 #F3CB3D 到 透明
+        background: -webkit-linear-gradient(315deg, rgba(243, 203, 61, 1) 0%, rgba(243, 203, 61, 0) 100%);
+    }
+
+    .card4 {
+        // 背景渐变 从 #BB99FF 到 透明
+        background: -webkit-linear-gradient(315deg, rgba(187, 153, 255, 1) 0%, rgba(187, 153, 255, 0) 100%);
+    }
+
+    .hn {
+        font-size: 1.2rem;
+        font-weight: bold;
     }
 }
 </style>

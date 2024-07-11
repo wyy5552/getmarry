@@ -1,6 +1,6 @@
 <template>
     <view class="card-cont">
-        <image class="img-card top-margin" :src="firstImg" mode="aspectFill" />
+        <image class="img-card top-margin" :src="photoAlbum[0] ?? ''" mode="aspectFill" />
         <view class="card ">
             <view class="title flex justify-between ">
                 <view>
@@ -56,7 +56,7 @@
             <view class="title">红娘点评</view>
             <view class="content"> {{ optUserInfo.matchmakerComment }}</view>
         </view>
-        <image class="img-card top-margin" v-for="item in optUserInfo.photoAlbum" :src="item" mode="aspectFill" />
+        <image class="img-card top-margin" v-for="item in photoAlbum" :src="item" mode="aspectFill" />
         <view class="bottom-height"></view>
         <view class="bottom-tab">
             <view class="item" @click="onClickPhoneHandler">
@@ -96,10 +96,11 @@ const { optUserInfo } = storeToRefs(userStore);
 onLoad((options: any) => {
     checkHasLiked();
 });
-
-const firstImg = computed(() => {
-    return (optUserInfo.value.photoAlbum && optUserInfo.value.photoAlbum[0]) ?? '';
-});
+const photoAlbum = computed(() => {
+    let photoAlbum = optUserInfo.value.photoAlbum as string;
+    const arr = (photoAlbum && photoAlbum.split(',')) ?? [];
+    return arr;
+})
 
 const isSelect = ref(false);
 const popupRef = ref();

@@ -63,7 +63,7 @@ export type UserInfoType = {
   code: number;
 
   /** 用户的个人相册 */
-  photoAlbum: string[];
+  photoAlbum: string[] | string;
   /** 个人介绍 */
   introduction: string;
   /** 用户的身高 */
@@ -143,5 +143,5 @@ export type UserInfoType = {
   isAuth: number;
   isVip: number;
 
-  userpic:string;
+  userpic: string;
 };

@@ -96,6 +96,7 @@
                 <view>{{ optUserInfo.matchmakerComment }}</view>
             </view>
         </view>
+        <view class="h-24rpx"></view>
     </view>
 </template>
 <script setup lang="ts">
@@ -140,20 +141,21 @@ const temp = computed(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
 
-.card {
-    .item {
-        display: flex;
-        justify-content: space-between;
-        height: 2rem;
-        line-height: 3rem;
-        border-bottom: 0.1rem solid #f2f2f2;
-        align-items: center;
+    .card {
+        .item {
+            display: flex;
+            justify-content: space-between;
+            height: 2rem;
+            line-height: 3rem;
+            border-bottom: 0.1rem solid #f2f2f2;
+            align-items: center;
 
-        &:last-child {
-            border-bottom: none;
+            &:last-child {
+                border-bottom: none;
+            }
         }
+
     }
 
 }

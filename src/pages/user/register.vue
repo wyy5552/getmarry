@@ -149,5 +149,27 @@ const onValidateHandler = (e) => {
         border-radius: 100rpx;
         border: none;
     }
+
+    :deep(.uni-forms-item) {
+        display: flex;
+        align-items: center;
+
+        .uni-forms-item__label {
+            display: flex;
+            align-items: center;
+        }
+
+        .uni-data-checklist .checklist-group .checklist-box.is--default.is-checked .radio__inner {
+            border-color: $color-blue;
+
+            .radio__inner-icon {
+                background-color: $color-blue;
+            }
+        }
+
+        .uni-data-checklist .checklist-group .checklist-box.is--default.is-checked .checklist-text {
+            color: $color-blue;
+        }
+    }
 }
 </style>

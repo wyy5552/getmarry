@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import type { UserInfoType } from "@/api/mock"
+import { UserInfoType } from '@/store/modules/user/types';
 const props = defineProps<{
     item: UserInfoType,
 }>()
@@ -92,6 +92,7 @@ const getProfessionText = (profession: number) => {
 </script>
 
 <style scoped lang="scss">
+
 .user-card {
     flex: 1 1 calc(50% - 0.5rem);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

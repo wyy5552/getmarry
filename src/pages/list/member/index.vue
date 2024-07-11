@@ -1,14 +1,11 @@
 <template>
   <view class="header">
-    <view class="header-left">
-      <uni-data-select v-model="form.height" placeholder="身高" :localdata="options.filterOptions.height"
-        @change="onClickDropHandler" :clear="false"></uni-data-select>
-      <uni-data-select v-model="form.age" placeholder="年龄" :localdata="options.filterOptions.age"
-        @change="onClickDropHandler" :clear="false"></uni-data-select>
-      <uni-data-select v-model="form.housing" placeholder="房子" :localdata="options.filterOptions.housing"
-        @change="onClickDropHandler" :clear="false"></uni-data-select>
-    </view>
-    <!-- <view class="header-right" @click="fabClick">更多</view> -->
+    <uni-data-select v-model="form.height" placeholder="身高" :localdata="options.filterOptions.height"
+      @change="onClickDropHandler" :clear="false"></uni-data-select>
+    <uni-data-select v-model="form.age" placeholder="年龄" :localdata="options.filterOptions.age"
+      @change="onClickDropHandler" :clear="false"></uni-data-select>
+    <uni-data-select v-model="form.housing" placeholder="房子" :localdata="options.filterOptions.housing"
+      @change="onClickDropHandler" :clear="false"></uni-data-select>
   </view>
 
   <uni-list>
@@ -20,20 +17,21 @@
     </uni-list-item>
     <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
   </uni-list>
+  <view class="bottom-height"></view>
   <tabbar tab-value="list">
   </tabbar>
 </template>
 
 <script setup lang="ts">
-import { UserInfoType } from '@/api/mock';
 import options from "@/utils/userInfoOptions"
 import request from '@/api/request';
 import tabbar from '@/components/tabbar/tabbar.vue';
 import UserListCard from './user-list-card.vue';
+import useUserStore from '@/store/modules/user/useUserStore';
+import { UserInfoType } from '@/store/modules/user/types'
 
-onTabItemTap((item) => {
-  console.log('点击 Tab 项', item.index);
-});
+const userStore = useUserStore();
+
 
 const onClickDropHandler = (e: any) => {
   console.log('onClickDropHandler', e);
@@ -80,7 +78,8 @@ const loadMore = () => {
     if (res.data.list.length > 0) {
       form.value.pageNo++;
       dataList.value = dataList.value.concat(res.data.list);
-      if (res.data.total <= form.value.pageSize) {
+      dataList.value = [...dataList.value, ...dataList.value, ...dataList.value]
+      if (res.data.total < form.value.pageSize) {
         loadMoreStatus.value = 'noMore';
       }
     }
@@ -88,8 +87,10 @@ const loadMore = () => {
 };
 const clickGridHandler = (e: any) => {
   console.log(e);
+  console.log(e);
+  userStore.optUserInfo = e;
   uni.navigateTo({
-    url: '/pages/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
+    url: '/pages/user-info/user-info',
   });
 }
 </script>
@@ -97,32 +98,76 @@ const clickGridHandler = (e: any) => {
 .header {
   position: sticky;
   z-index: 100;
-  top: 0;
+  top: 30rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  padding: 0 30rpx;
+}
 
-  &-left {
-    display: flex;
-    width: 100%;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+
+
+:deep(.uni-stat__select) {
+  margin-top: 24rpx;
+
+  .uni-stat-box {
+    width: 200rpx;
+    flex: none;
   }
 
-  &-right {
-    background-color: #f29f9c;
-    color: white;
-    width: 20%;
-    text-align: center;
-    line-height: 1.8rem;
-    border-radius: 0.9rem;
-    height: 1.8rem;
-    box-shadow: 0 0 0.5rem #f29f9c;
+  width: 200rpx;
+  flex: none;
 
-    &:hover {
-      opacity: 0.8;
+  .uniui-bottom:before {
+    color: white;
+  }
+}
+
+:deep(.uni-select) {
+  border: none !important;
+  background-color: #FF92B9;
+  border-radius: 100rpx;
+
+  //加粗
+  font-weight: bold;
+
+  .uni-select__input-text {
+    color: white !important;
+  }
+
+
+}
+
+:deep(.uni-list) {
+  .uni-list--border-top {
+    display: none;
+  }
+
+  background-color: rgba(255, 111, 111, 0);
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+
+
+  .uni-list-item {
+    padding: 0;
+
+    .uni-list--border {
+      display: none;
     }
+
+    .uni-list-item__container {
+      padding: 0;
+    }
+
+    .card {
+      margin-top: 0;
+    }
+
+    background-color: #fff;
+    width: $container-width;
+    margin-top: 24rpx;
+    border-radius: 60rpx;
   }
 }
 </style>
