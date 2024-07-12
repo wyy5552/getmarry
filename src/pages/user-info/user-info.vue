@@ -8,9 +8,9 @@
                         class="text-#007aff" v-else>♂</text>
                 </view>
                 <view class="right">
-                    <image v-if="isSelect" @click="favClick" class="image"
-                        src="http://localhost:3000/public/likes-red.svg" mode="scaleToFill" />
-                    <image v-else @click="favClick" class="image" src="http://localhost:3000/public/likes.svg"
+                    <image v-if="isSelect" @click="favClick" class="image" :src="`${baseUrl}/public/likes-red.svg`"
+                        mode="scaleToFill" />
+                    <image v-else @click="favClick" class="image" :src="`${baseUrl}/public/likes.svg`"
                         mode="scaleToFill" />
                 </view>
             </view>
@@ -82,7 +82,6 @@
     </view>
 </template>
 <script setup lang="ts">
-import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
 import request from '@/api/request';
 import userUserStore from '@/store/modules/user/useUserStore';
@@ -92,6 +91,8 @@ const userStore = userUserStore();
 
 const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;
 const { optUserInfo } = storeToRefs(userStore);
+
+const baseUrl = import.meta.env.VITE_APP_BASE_API;
 
 onLoad((options: any) => {
     checkHasLiked();

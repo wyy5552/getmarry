@@ -90,7 +90,7 @@ defineProps<{
             justify-content: space-between;
 
             .tag-name {
-                background-color: $color-yellow;
+                background-color: $color-blue;
                 color: #fff;
                 border-radius: 14rpx;
                 width: 100rpx;
@@ -104,6 +104,8 @@ defineProps<{
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 color: $color-text-2;
+                // 向左移动20rpx
+                transform: translateX(-60rpx);
             }
         }
     }

@@ -17,10 +17,17 @@ export default defineConfig((): UserConfig => {
     },
     // vite 相关配置
     server: {
-      port: 8080,
+      port: 5173,
       host: true,
       open: true,
-      proxy,
+      // proxy: {
+      //   // 选项写法
+      //   "/api": {
+      //     target: "http://localhost:3000",
+      //     changeOrigin: true,
+      //     rewrite: (path) => path.replace(/^\/api/, ""),
+      //   },
+      // },
     },
     css: {
       preprocessorOptions: {

@@ -55,14 +55,17 @@ const submitHandler = async () => {
         baseFormData.value.organizationId = parseInt(baseFormData.value.organizationId as any);
         console.log(baseFormData.value);
         // 请求注册接口
-        const res = await request.post<any>('user/register', baseFormData.value);
-        console.log(res);
+        await request.post<any>('user/register', baseFormData.value);
         uni.showToast({
             title: `注册成功`
         })
         uni.navigateBack();
-    } catch (err) {
-        console.log(err);
+    } catch (err: any) {
+        if (err.data && err.data.message) {
+            uni.showToast({
+                title: err.data.message
+            })
+        }
     }
 
 

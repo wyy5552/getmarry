@@ -1,12 +1,12 @@
-import { createSSRApp } from 'vue';
+import { createSSRApp } from "vue";
 
 // 引入UnoCSS
-import 'uno.css';
+import "uno.css";
 import "@/uni.scss";
-import App from '@/App.vue';
-import { createPinia } from 'pinia';
+import App from "@/App.vue";
+import { createPinia } from "pinia";
 // 引入状态管理
-import piniaPersist from 'pinia-plugin-persist-uni';
+import piniaPersist from "pinia-plugin-persist-uni";
 
 // #ifdef VUE3
 export function createApp() {

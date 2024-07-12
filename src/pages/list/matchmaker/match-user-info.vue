@@ -113,7 +113,7 @@ const recommendUser = async () => {
     try {
         await request.post<any>('matchmaker/recommendUser', { userId: optUserInfo.value.id, isRecommend: !isSelect.value });
         isSelect.value = !isSelect.value;
-        optUserInfo.isRecommend = isSelect.value;
+        optUserInfo.value.isRecommend = isSelect.value;
         uni.showToast({
             title: isSelect.value ? "推荐成功" : "取消成功",
             icon: 'none'

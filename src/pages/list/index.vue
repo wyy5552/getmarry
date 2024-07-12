@@ -125,15 +125,11 @@ const clickGridHandler = (e: any) => {
     border: none !important;
     background-color: #FF92B9;
     border-radius: 100rpx;
-
     //加粗
     font-weight: bold;
-
     .uni-select__input-text {
         color: white !important;
     }
-
-
 }
 
 :deep(.uni-list) {

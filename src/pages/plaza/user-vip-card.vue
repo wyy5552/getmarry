@@ -1,77 +1,52 @@
 <template>
-    <div class="user-card">
+    <view class="user-card-vip">
         <image class="img" mode="aspectFill" :src="item.userpic">
         </image>
-        <div class="user-info">
-            <view class="name">
-                {{ item.nickname }}
-            </view>
-            <view class="desc">
-                {{ birthday + "/" + item.registeredArea }}
-            </view>
-        </div>
-    </div>
+        <image class="vip-icon" src="@/assets/vip.png" mode="scaleToFill" />
+        <view class="user-info">
+            {{ item.nickname }}
+        </view>
+    </view>
 </template>
 
 <script setup lang="ts">
 
-const props = defineProps<{
+defineProps<{
     item: any,
 }>()
-
-const birthday = computed(() => {
-    const birthDate = new Date(props.item.birthday);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age + "岁";
-})
-
-
 
 </script>
 
 <style scoped lang="scss">
-.user-card {
-    width: 31vw;
+.user-card-vip {
+    width: 160rpx;
+    height: 220rpx;
     text-align: center;
-    display: block;
-    box-sizing: border-box;
     background-color: #fff;
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 4%);
+    position: relative;
 
     .img {
         border-radius: 50%;
-        width: 5rem;
-        height: 5rem;
-        display: inline-block;
+        width: 160rpx;
+        height: 160rpx;
+    }
+
+    .vip-icon {
+        width: 38rpx;
+        height: 38rpx;
+        position: absolute;
+        right: 10rpx;
+        top: 130rpx;
     }
 
     .user-info {
         width: 100%;
-        font-size: 1rem;
-
-        .name {
-            width: 90%;
-            display: inline-block;
-            vertical-align: middle;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #333;
-        }
-
-        .desc {
-            display: block;
-            margin-top: .5rem;
-            color: #999;
-            font-size: 0.8rem;
-        }
+        font-size: $font-size;
+        font-weight: bold;
+        margin-top: 14rpx;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 }

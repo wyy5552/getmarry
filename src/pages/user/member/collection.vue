@@ -1,9 +1,9 @@
 <template>
     <uni-list>
-        <uni-list-item v-for="(item, index) in dataList" :key="index">
+        <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
             <template v-slot:body>
-                <member-collection-item :item="item" @tap="clickGridHandler(item)">
-                </member-collection-item>
+                <user-list-card :item="item" :key="item.id" @tap="clickGridHandler(item)">
+                </user-list-card>
             </template>
         </uni-list-item>
         <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import request from '@/api/request';
-import MemberCollectionItem from '@/pages/user/member/member-collection-item.vue';
+import UserListCard from '@/pages/list/member/user-list-card.vue';
 import { UserInfoType } from '@/store/modules/user/types';
 
 const loadMoreStatus = ref('more');
@@ -45,6 +45,8 @@ const onClickMoreHandler = () => {
     loadMore();
 };
 onShow(() => {
+    form.pageNo = 1;
+    dataList.value = [];
     loadMore();
 })
 const clickGridHandler = (e: any) => {
@@ -53,3 +55,37 @@ const clickGridHandler = (e: any) => {
     });
 }
 </script>
+<style scoped lang="scss">
+:deep(.uni-list) {
+    .uni-list--border-top {
+        display: none;
+    }
+
+    background-color: rgba(255, 111, 111, 0);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    .uni-list-item {
+        padding: 0;
+
+        .uni-list--border {
+            display: none;
+        }
+
+        .uni-list-item__container {
+            padding: 0;
+        }
+
+        .card {
+            margin-top: 0;
+        }
+
+        background-color: #fff;
+        width: $container-width;
+        margin-top: 24rpx;
+        border-radius: 60rpx;
+    }
+}
+</style>

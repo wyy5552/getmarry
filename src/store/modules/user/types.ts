@@ -142,6 +142,7 @@ export type UserInfoType = {
   /** 是否认证 */
   isAuth: number;
   isVip: number;
-
+  
   userpic: string;
+  isRecommend: boolean;
 };

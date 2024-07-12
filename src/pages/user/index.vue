@@ -1,5 +1,5 @@
 <template>
-  <view class="user-container">
+  <view class="user-container" :style="style">
     <Member v-if="loginStatus == 1 && role == 0">
     </Member>
     <Matchmaker v-if="loginStatus == 1 && role == 1">
@@ -53,12 +53,16 @@ const onClickRegisterHandler = () => {
   });
 }
 
+// 定义css变量
+const style = {
+  '--bg-img': `url(${import.meta.env.VITE_APP_BASE_API + '/public/login-bg.png'})`
+}
 </script>
 <style scoped lang="scss">
 .user-container {
   width: 100%;
   height: 100vh;
-  background-image: url('http://localhost:3000/public/login-bg.png');
+  background-image: var(--bg-img);
 
   .btn-container {
     background-color: #FF6F6F00;

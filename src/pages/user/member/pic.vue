@@ -18,6 +18,8 @@ import { ref } from 'vue';
 import useUserStore from '@/store/modules/user/useUserStore';
 import request from '@/api/request';
 
+const baseUrl = import.meta.env.VITE_APP_BASE_API;
+
 const userStore = useUserStore();
 const picArr = ref([] as ImageType[]);
 type ImageStatus = 'prepare' | 'uploaded';
@@ -30,7 +32,7 @@ type ImageType = {
 const max = 3;
 onMounted(() => {
     const { userInfo } = userStore;
-    const albums = userInfo.photoAlbum;
+    const albums = userInfo.photoAlbum as string[];
     picArr.value = albums.map((album) => ({
         localUrl: '',
         serverUrl: album,
@@ -104,7 +106,7 @@ const updateImage = (fileTemp: ImageType, index: number) => {
         header: {
             token: userStore.token
         },
-        url: 'http://localhost:3000/img/uploadAlbum', // 示例地址，请替换为实际接口地址
+        url: baseUrl + '/img/uploadAlbum', // 示例地址，请替换为实际接口地址
         filePath: fileTemp.localUrl,
         name: 'file',
         success: (uploadFileRes) => {

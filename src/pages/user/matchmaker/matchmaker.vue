@@ -71,6 +71,8 @@
 import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
 
+const baseUrl = import.meta.env.VITE_APP_BASE_API;
+
 const userStore = userUserStore();
 const { userInfo } = storeToRefs(userStore);
 const { getAgeLabel } = userInfoOptions;
@@ -125,7 +127,7 @@ const onClickPhotoHandler = () => {
                 header: {
                     token: userStore.token
                 },
-                url: 'http://localhost:3000/img/uploadHeadPic', //仅为示例，非真实的接口地址
+                url: baseUrl + '/img/uploadHeadPic', //仅为示例，非真实的接口地址
                 filePath: tempFilePaths[0],
                 name: 'file',
                 success: (uploadFileRes) => {

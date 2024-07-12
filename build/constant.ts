@@ -8,7 +8,7 @@ export const API_PREFIX = '/api';
 
 // serve
 export const API_BASE_URL = '/api';
-export const API_TARGET_URL = 'http://localhost:8080';
+export const API_TARGET_URL = 'http://121.89.212.93:3000';
 
 // mock
 export const MOCK_API_BASE_URL = '/mock/api';

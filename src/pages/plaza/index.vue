@@ -1,5 +1,5 @@
 <template>
-  <view class="home">
+  <view class="plaza-home">
     <!--广告栏-->
     <swiper class="swiper" circular :indicator-dots="true" :autoplay="true" :interval="2000" :duration="500">
       <swiper-item v-for="(item, index) in swiperList" :key="index">
@@ -10,13 +10,13 @@
       <!--上榜人员-->
       <view class="card">
         <view class="title">
-          <view class="right">置顶嘉宾</view>
+          <view class="left">置顶嘉宾</view>
           <view v-if="role == 0 || vipStatus == -1">
-            <view v-if="vipStatus == 0" class="left flex items-center justify-between" @click="clickAddVip">
+            <view v-if="vipStatus == 0" class="right" @click="clickAddVip">
               我要上榜<uni-icons type="plusempty" size="30" color="white"></uni-icons></view>
-            <view v-else-if="vipStatus == 1" class="left flex items-center justify-between">
+            <view v-else-if="vipStatus == 1" class="right2 ">
               VIP申请中</view>
-            <view v-else-if="vipStatus == 2" class="left flex items-center justify-between" @click="clickCancelVip">
+            <view v-else-if="vipStatus == 2" class="right3" @click="clickCancelVip">
               下榜</view>
           </view>
 
@@ -29,12 +29,12 @@
       <!--推荐异性-->
       <view class="card">
         <view class="title">
-          <view class="right">推荐异性</view>
-          <view class="left flex items-center justify-between" @click="onGetRecommendListHandler">刷新<uni-icons
-              type="refreshempty" size="30" color="white"></uni-icons>
+          <view class="left">推荐异性</view>
+          <view class="right" @click="onGetRecommendListHandler">刷新<uni-icons type="refreshempty" size="30"
+              color="white"></uni-icons>
           </view>
         </view>
-        <view class="girl-list-2 mt-1rem">
+        <view class="girl-list-2 ">
           <user-card @tap="clickGridHandler(item)" v-for="item in girlList" :item="item" :key="item.id">
           </user-card>
         </view>
@@ -45,6 +45,7 @@
       <uni-popup-message type="success" message="成功消息" :duration="2000"></uni-popup-message>
     </uni-popup>
   </view>
+  <view class="bottom-height"></view>
   <tabbar tab-value="pyq">
   </tabbar>
 </template>
@@ -55,7 +56,7 @@ import request from "@/api/request";
 import { reactive, ref } from "vue";
 import tabbar from '@/components/tabbar/tabbar.vue';
 import userUserStore from '@/store/modules/user/useUserStore';
-import UserCard from './user-card.vue';
+import UserCard from './user-card-plaza.vue';
 import UserVipCard from './user-vip-card.vue';
 
 const userStore = userUserStore();
@@ -64,7 +65,8 @@ const { role, userInfo } = storeToRefs(userStore);
 // 0 普通 1 申请中 2 vip -1 用户未登录
 const vipStatus = computed(() => {
   console.log(userInfo.value.isVip);
-  return userInfo.value.isVip;
+
+  return userInfo.value.isVip ?? 0;
 });
 
 // 使用 reactive 创建响应式数组  
@@ -142,6 +144,10 @@ onShow(() => {
 );
 </script>
 <style scoped lang="scss">
+.plaza-home {
+  width: 100%;
+}
+
 .plaza-content {
   display: flex;
   flex-wrap: wrap;
@@ -149,37 +155,56 @@ onShow(() => {
 }
 
 .card {
-  margin-top: 1rem;
+  margin-top: $margin-y;
 
   .title {
     display: flex;
     justify-content: space-between;
 
     .right {
-      display: inline-block;
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: $color-text-1;
-      position: relative;
+      background-color: $color-red-1;
+      border-radius: $radius;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16rpx;
+      font-size: $font-size;
+      height: 60rpx;
+      width: 200rpx;
+    }
 
-      &::after {
-        background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, 1) 0%, rgba(255, 111, 111, .01) 100%);
-        content: '';
-        position: absolute;
-        height: .2rem;
-        width: 2rem;
-        display: block;
-        border-radius: 2rem;
-      }
+    .right2 {
+      background-color: $color-blue;
+      border-radius: $radius;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16rpx;
+      font-size: $font-size;
+      height: 60rpx;
+      width: 150rpx;
+    }
+
+    .right3 {
+      background-color: $color-yellow;
+      border-radius: $radius;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16rpx;
+      font-size: $font-size;
+      height: 60rpx;
+      width: 70rpx;
     }
 
     .left {
-      background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, .4) 0%, rgba(255, 111, 111, .8) 100%);
-      line-height: 2.4rem;
-      padding: 0 .5rem 0 .9rem;
-      border-radius: 1.4rem;
-      color: #fff;
-      font-size: 1.2rem;
+      font-weight: bold;
+      align-items: center;
+      font-size: $font-big;
+      color: $color-text-1;
     }
   }
 
@@ -193,8 +218,9 @@ onShow(() => {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 10px;
     width: 100%;
+    margin-top: $margin-y;
+    gap: 10rpx;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <view class="register-container">
+    <view class="register-container card-cont">
         <uni-forms ref="formRef" :modelValue="baseFormData" :rules="rules">
             <!-- 微信 -->
             <uni-forms-item required label="微信" name="wechat">
@@ -122,7 +122,7 @@
                 <uni-easyinput v-model="baseFormData.otherInfo" placeholder="请输入其他信息" />
             </uni-forms-item>
         </uni-forms>
-        <view class="h-1.2rem"></view>
+        <view class="h-100rpx"></view>
     </view>
     <view class="submit-bottom">
         <button type="primary" @click="submit()">提交</button>
@@ -208,10 +208,39 @@ const submit = async () => {
 
 <style lang="scss" scoped>
 .register-container {
-    color: #333333;
-    padding: 1rem;
+    background-color: white;
+    padding-top: $margin-y;
 
+    :deep(.uni-easyinput__content) {
+        background-color: #F8F9FA !important;
+        width: 550rpx;
+        height: 112rpx;
+        border-radius: 100rpx;
+        border: none;
 
+    }
+
+    :deep(.uni-forms-item) {
+        display: flex;
+        align-items: center;
+
+        .uni-forms-item__label {
+            display: flex;
+            align-items: center;
+        }
+
+        .uni-data-checklist .checklist-group .checklist-box.is--default.is-checked .radio__inner {
+            border-color: $color-blue;
+
+            .radio__inner-icon {
+                background-color: $color-blue;
+            }
+        }
+
+        .uni-data-checklist .checklist-group .checklist-box.is--default.is-checked .checklist-text {
+            color: $color-blue;
+        }
+    }
 }
 
 .submit-bottom {
@@ -220,13 +249,11 @@ const submit = async () => {
     width: 100%;
 
     button {
-        height: 3rem;
-        line-height: 3rem;
-        background-color: #FF4D4F;
-        color: #fff;
-        border-radius: 6rem;
-        margin-top: 1rem;
-        vertical-align: middle;
+        background-color: #FF5D97;
+        width: 666rpx;
+        height: 92rpx;
+        border-radius: 100rpx;
+        border: none;
     }
 }
 </style>

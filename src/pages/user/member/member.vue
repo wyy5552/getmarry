@@ -58,14 +58,14 @@
                     手机号：{{ matchmakerInfo.phone }}
                 </view>
                 <view @click="copyStrHandler(matchmakerInfo.phone + '')">
-                    拷贝
+                    <image class="img" :src="`${baseUrl}/public/copy.png`" />
                 </view>
             </view>
             <view class="one-line">
                 <view>
                     微信：{{ matchmakerInfo.wechat }}</view>
                 <view @click="copyStrHandler(matchmakerInfo.wechat)">
-                    拷贝
+                    <image class="img" :src="`${baseUrl}/public/copy.png`" />
                 </view>
             </view>
 
@@ -82,6 +82,9 @@ import useUserStore from '@/store/modules/user/useUserStore';
 import { UserInfoType } from '@/store/modules/user/types';
 
 import userInfoOptions from '@/utils/userInfoOptions';
+
+
+const baseUrl = import.meta.env.VITE_APP_BASE_API;
 
 const { getEducationLabel, getAgeLabel } = userInfoOptions;
 const userStore = useUserStore();
@@ -150,7 +153,7 @@ const onClickPhotoHandler = () => {
                 header: {
                     token: userStore.token
                 },
-                url: 'http://localhost:3000/img/uploadHeadPic', //仅为示例，非真实的接口地址
+                url: baseUrl + '/img/uploadHeadPic', //仅为示例，非真实的接口地址
                 filePath: tempFilePaths[0],
                 name: 'file',
                 success: (uploadFileRes) => {
@@ -240,13 +243,17 @@ const callHandler = (phone) => {
         .one-line {
             display: flex;
             justify-content: space-between;
-            height: 2rem;
-            line-height: 3rem;
-            border-bottom: 0.1rem solid #f2f2f2;
+            height: 70rpx;
+            border-bottom: 2rpx solid #f2f2f2;
             align-items: center;
 
             &:last-child {
                 border-bottom: none;
+            }
+
+            .img {
+                width: 44rpx;
+                height: 44rpx;
             }
         }
 
