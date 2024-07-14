@@ -39,7 +39,7 @@ const get = <T extends any>(url: string, data: any = null) => {
   return request<T>(url, data, "GET");
 };
 const post = <T extends any>(url: string, data: any = null) => {
-  return request<T>(url, data, "POST");
+  return request<T>(url, data ?? {}, "POST");
 };
 export default {
   get,
