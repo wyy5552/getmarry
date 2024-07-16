@@ -2,7 +2,6 @@ import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import type { UserConfig } from "vite";
 import createVitePlugins from "./build/vite/plugins";
-import proxy from "./build/vite/proxy";
 
 // https://vitejs.dev/config/
 export default defineConfig((): UserConfig => {
@@ -20,14 +19,19 @@ export default defineConfig((): UserConfig => {
       port: 5173,
       host: true,
       open: true,
-      // proxy: {
-      //   // 选项写法
-      //   "/api": {
-      //     target: "http://localhost:3000",
-      //     changeOrigin: true,
-      //     rewrite: (path) => path.replace(/^\/api/, ""),
-      //   },
-      // },
+      proxy: {
+        // 选项写法
+        "/api": {
+          target: "http://localhost:3000",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ""),
+        },
+        "/public": {
+          // 将/public路径下的请求转发到http://localhost:3000
+          target: "http://localhost:3000/",
+          changeOrigin: true,
+        },
+      },
     },
     css: {
       preprocessorOptions: {
