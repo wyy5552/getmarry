@@ -33,7 +33,7 @@ const style = {
     overflow: hidden;
     background-image: var(--bg-img);
     background-size: cover;
-    // 图片锐化
+    margin-bottom: $margin-y;
 
     .img {
         width: 100%;
@@ -47,7 +47,7 @@ const style = {
         height: 120rpx;
         padding: 12rpx $margin-x;
         background-color: rgba($color: $color-red-2, $alpha: 0.7);
-
+        background-color: $color-yellow;
         .user-name {
             font-size: $font-size;
             font-weight: bold;

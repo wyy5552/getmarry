@@ -78,7 +78,6 @@ const loadMore = () => {
     if (res.data.list.length > 0) {
       form.value.pageNo++;
       dataList.value = dataList.value.concat(res.data.list);
-      dataList.value = [...dataList.value, ...dataList.value, ...dataList.value]
       if (res.data.total < form.value.pageSize) {
         loadMoreStatus.value = 'noMore';
       }
