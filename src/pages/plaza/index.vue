@@ -122,8 +122,9 @@ const onGetRecommendListHandler = () => {
   })
 }
 const clickGridHandler = (e: any) => {
+  userStore.optUserInfo = e;
   uni.navigateTo({
-    url: '/pages/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
+    url: '/pages/user-info/user-info'
   });
 }
 const girlList = ref<UserInfoType[]>([]);

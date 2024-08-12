@@ -100,32 +100,37 @@ const onClickItemBtnHandler = (item: ImageType, index: number) => {
 
 const updateImage = (fileTemp: ImageType, index: number) => {
     if (fileTemp.localUrl === '') {
-        return;
+        return Promise.reject();
     }
-    uni.uploadFile({
-        header: {
-            token: userStore.token
-        },
-        url: baseUrl + '/img/uploadAlbum', // 示例地址，请替换为实际接口地址
-        filePath: fileTemp.localUrl,
-        name: 'file',
-        success: (uploadFileRes) => {
-            console.log(`Image ${index + 1}:`, uploadFileRes.data);
-            // 上传成功后更新数组中的图片信息
-            picArr.value[index] = {
-                localUrl: '',
-                status: 'uploaded',
-                serverUrl: uploadFileRes.data,
-                key: uploadFileRes.data
-            };
-            userStore.getUserInfo();
+    return new Promise((res, rej) => {
+        uni.uploadFile({
+            header: {
+                token: userStore.token
+            },
+            url: baseUrl + '/img/uploadAlbum', // 示例地址，请替换为实际接口地址
+            filePath: fileTemp.localUrl,
+            name: 'file',
+            success: (uploadFileRes) => {
+                console.log(`Image ${index + 1}:`, uploadFileRes.data);
+                // 上传成功后更新数组中的图片信息
+                picArr.value[index] = {
+                    localUrl: '',
+                    status: 'uploaded',
+                    serverUrl: uploadFileRes.data,
+                    key: uploadFileRes.data
+                };
+                userStore.getUserInfo();
+                res(0);
+            }
+        });
+    })
 
-        }
-    });
 };
 
-const uploadImages = () => {
-    picArr.value.forEach(updateImage);
+const uploadImages = async () => {
+    for (let i = 0; i < picArr.value.length; i++) {
+        await updateImage(picArr.value[i],i);
+    }
 };
 watch(picArr, (newVal) => {
     console.log('picArr:', picArr.value);
