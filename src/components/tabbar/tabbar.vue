@@ -21,6 +21,7 @@ defineProps<{
 }>();
 
 const defaultTabs = [
+    { title: "广场", value: 'pyq', icon: "pyq", pagePath: "/pages/plaza/index" },
     { title: "列表", value: 'list', icon: "list", pagePath: "/pages/list/index" },
     { title: "我的", value: 'person', icon: "person", pagePath: "/pages/user/index" }
 ]

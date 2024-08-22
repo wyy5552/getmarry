@@ -100,7 +100,7 @@ const clickCancelVip = (e: any) => {
         title: '取消成功',
         icon: 'success'
       });
-      onGetRecommendListHandler();
+      onGetVipRecommendList();
       userStore.getUserInfo();
     }
   }).then(res => {
@@ -121,6 +121,15 @@ const onGetRecommendListHandler = () => {
     console.log(res);
   })
 }
+const onGetVipRecommendList = () => {
+  request.get<any>('plaza/getVipList', null).then((res) => {
+    if (res.code === 200) {
+      vipUserList.value = res.data;
+    }
+  }).then(res => {
+    console.log(res);
+  });
+}
 const clickGridHandler = (e: any) => {
   userStore.optUserInfo = e;
   uni.navigateTo({
@@ -130,17 +139,9 @@ const clickGridHandler = (e: any) => {
 const girlList = ref<UserInfoType[]>([]);
 
 onShow(() => {
-  request.get<any>('plaza/getVipList', null).then((res) => {
-    if (res.code === 200) {
-      vipUserList.value = res.data;
-    }
-  }).then(res => {
-    console.log(res);
-  });
+  onGetVipRecommendList();
   onGetRecommendListHandler();
   userStore.getUserInfo();
-
-
 }
 );
 </script>
