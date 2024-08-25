@@ -20,6 +20,7 @@
 import tabbar from '@/components/tabbar/tabbar.vue';
 import Member from './member/member.vue';
 import Matchmaker from './matchmaker/matchmaker.vue';
+import envConfig from '@/api/envConfig';
 
 import userUserStore from '@/store/modules/user/useUserStore';
 const userStore = userUserStore();
@@ -53,9 +54,11 @@ const onClickRegisterHandler = () => {
   });
 }
 
+const baseUrl = envConfig.baseUrl;
+
 // 定义css变量
 const style = {
-  '--bg-img': `url(${import.meta.env.VITE_APP_BASE_API + '/public/login-bg.png'})`
+  '--bg-img': `url(${baseUrl + '/public/login-bg.png'})`
 }
 </script>
 <style scoped lang="scss">

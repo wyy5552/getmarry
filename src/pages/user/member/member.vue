@@ -82,9 +82,11 @@ import useUserStore from '@/store/modules/user/useUserStore';
 import { UserInfoType } from '@/store/modules/user/types';
 
 import userInfoOptions from '@/utils/userInfoOptions';
+import envConfig from '@/api/envConfig';
+
+const baseUrl = envConfig.baseUrl;
 
 
-const baseUrl = import.meta.env.VITE_APP_BASE_API;
 
 const { getEducationLabel, getAgeLabel } = userInfoOptions;
 const userStore = useUserStore();

@@ -86,13 +86,14 @@ import { ref } from 'vue';
 import request from '@/api/request';
 import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
+import envConfig from '@/api/envConfig';
 
+const baseUrl = envConfig.baseUrl;
 const userStore = userUserStore();
 
 const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;
 const { optUserInfo } = storeToRefs(userStore);
 
-const baseUrl = import.meta.env.VITE_APP_BASE_API;
 
 onLoad((options: any) => {
     checkHasLiked();

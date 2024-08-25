@@ -17,8 +17,9 @@
 import { ref } from 'vue';
 import useUserStore from '@/store/modules/user/useUserStore';
 import request from '@/api/request';
+import envConfig from '@/api/envConfig';
 
-const baseUrl = import.meta.env.VITE_APP_BASE_API;
+const baseUrl = envConfig.baseUrl;
 
 const userStore = useUserStore();
 const picArr = ref([] as ImageType[]);

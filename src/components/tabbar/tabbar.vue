@@ -12,9 +12,11 @@
 <script setup lang="ts">
 
 import userUserStore from '@/store/modules/user/useUserStore';
+import envConfig from '@/api/envConfig';
+
+const baseUrl = envConfig.baseUrl;
 const userStore = userUserStore();
 const { role } = storeToRefs(userStore);
-const baseUrl = import.meta.env.VITE_APP_BASE_API;
 
 defineProps<{
     tabValue: string,

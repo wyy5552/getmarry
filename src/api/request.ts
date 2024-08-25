@@ -1,7 +1,7 @@
 import userUserStore from "@/store/modules/user/useUserStore";
+import envConfig from '@/api/envConfig';
 
-// 封装uni-app的网络请求
-export const baseUrl = import.meta.env.VITE_APP_BASE_API as string;
+const baseUrl = envConfig.baseUrl;
 
 type RspType<T extends any> = {
   code: number;
