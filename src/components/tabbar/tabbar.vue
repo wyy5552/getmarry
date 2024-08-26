@@ -14,7 +14,7 @@
 import userUserStore from '@/store/modules/user/useUserStore';
 import envConfig from '@/api/envConfig';
 
-const baseUrl = envConfig.baseUrl;
+const baseUrl = envConfig.assetUrl;
 const userStore = userUserStore();
 const { role } = storeToRefs(userStore);
 

@@ -19,7 +19,7 @@ import useUserStore from '@/store/modules/user/useUserStore';
 import request from '@/api/request';
 import envConfig from '@/api/envConfig';
 
-const baseUrl = envConfig.baseUrl;
+const baseUrl = envConfig.assetUrl;
 
 const userStore = useUserStore();
 const picArr = ref([] as ImageType[]);

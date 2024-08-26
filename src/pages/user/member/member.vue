@@ -58,14 +58,14 @@
                     手机号：{{ matchmakerInfo.phone }}
                 </view>
                 <view @click="copyStrHandler(matchmakerInfo.phone + '')">
-                    <image class="img" :src="`${baseUrl}/public/copy.png`" />
+                    <image class="img" :src="`${assetUrl}/public/copy.png`" />
                 </view>
             </view>
             <view class="one-line">
                 <view>
                     微信：{{ matchmakerInfo.wechat }}</view>
                 <view @click="copyStrHandler(matchmakerInfo.wechat)">
-                    <image class="img" :src="`${baseUrl}/public/copy.png`" />
+                    <image class="img" :src="`${assetUrl}/public/copy.png`" />
                 </view>
             </view>
 
@@ -85,6 +85,7 @@ import userInfoOptions from '@/utils/userInfoOptions';
 import envConfig from '@/api/envConfig';
 
 const baseUrl = envConfig.baseUrl;
+const assetUrl = envConfig.assetUrl;
 
 
 
@@ -155,7 +156,7 @@ const onClickPhotoHandler = () => {
                 header: {
                     token: userStore.token
                 },
-                url: baseUrl + '/img/uploadHeadPic', //仅为示例，非真实的接口地址
+                url: baseUrl + '/img/uploadHeadPic', //
                 filePath: tempFilePaths[0],
                 name: 'file',
                 success: (uploadFileRes) => {

@@ -54,7 +54,7 @@ const onClickRegisterHandler = () => {
   });
 }
 
-const baseUrl = envConfig.baseUrl;
+const baseUrl = envConfig.assetUrl;
 
 // 定义css变量
 const style = {

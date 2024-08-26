@@ -88,7 +88,7 @@ import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
 import envConfig from '@/api/envConfig';
 
-const baseUrl = envConfig.baseUrl;
+const baseUrl = envConfig.assetUrl;
 const userStore = userUserStore();
 
 const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;
