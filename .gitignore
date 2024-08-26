@@ -28,3 +28,4 @@ unpackage
 yarn.lock
 package-lock.json
 src/manifest.json
+manifest.json
