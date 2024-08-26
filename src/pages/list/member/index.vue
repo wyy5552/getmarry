@@ -85,8 +85,6 @@ const loadMore = () => {
   });
 };
 const clickGridHandler = (e: any) => {
-  console.log(e);
-  console.log(e);
   userStore.optUserInfo = e;
   uni.navigateTo({
     url: '/pages/user-info/user-info',

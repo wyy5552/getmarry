@@ -17,7 +17,9 @@ import { ref } from 'vue';
 import { UserInfoType } from '@/store/modules/user/types';
 import matchUserListCard from '../list/matchmaker/match-user-list-card.vue';
 import request from '@/api/request';
+import useUserStore from '@/store/modules/user/useUserStore';
 
+const userStore = useUserStore();
 const onClickMoreHandler = () => {
     if (loadMoreStatus.value === 'noMore') {
         uni.showToast({
@@ -54,11 +56,11 @@ const loadMore = () => {
     });
 };
 const clickGridHandler = (e: any) => {
-    console.log(e);
+    userStore.optUserInfo = e;
     uni.navigateTo({
-        url: '/pages/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
+        url: '/pages/user-info/user-info',
     });
-}
+};
 </script>
 <style scoped lang="scss">
 .header {

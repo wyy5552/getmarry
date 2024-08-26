@@ -121,7 +121,14 @@ const checkHasLiked = () => {
 /** 喜欢 */
 const favClick = async () => {
     try {
-        await request.post<any>('list/likeUser', { userId: optUserInfo.value.id, isLike: !isSelect.value });
+        const res = await request.post<any>('list/likeUser', { userId: optUserInfo.value.id, isLike: !isSelect.value });
+        if(res.code == 500){
+            uni.showToast({
+            title: res.message,
+            icon: 'none'
+        });
+            return;
+        }
         isSelect.value = !isSelect.value;
         uni.showToast({
             title: isSelect.value ? "收藏成功！" : "取消收藏！",

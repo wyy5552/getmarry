@@ -72,7 +72,7 @@ onLoad((options: any) => {
 /** 展示更多个人信息 */
 const onShowMoreHandler = () => {
     uni.navigateTo({
-        url: '/pages/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(otherUserInfo.value))
+        url: '/pages/user-info/user-info-more'
     });
 }
 const onPassHandler = () => {

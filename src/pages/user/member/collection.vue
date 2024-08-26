@@ -14,6 +14,10 @@
 import request from '@/api/request';
 import UserListCard from '@/pages/list/member/user-list-card.vue';
 import { UserInfoType } from '@/store/modules/user/types';
+import useUserStore from '@/store/modules/user/useUserStore';
+
+const userStore = useUserStore();
+
 
 const loadMoreStatus = ref('more');
 /** 搜索的筛选条件 */
@@ -48,12 +52,14 @@ onShow(() => {
     form.pageNo = 1;
     dataList.value = [];
     loadMore();
-})
+});
+
 const clickGridHandler = (e: any) => {
+    userStore.optUserInfo = e;
     uni.navigateTo({
-        url: '/pages/user-info/user-info?item=' + encodeURIComponent(JSON.stringify(e)),
+        url: '/pages/user-info/user-info',
     });
-}
+};
 </script>
 <style scoped lang="scss">
 :deep(.uni-list) {

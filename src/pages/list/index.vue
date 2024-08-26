@@ -26,9 +26,9 @@ import options from "@/utils/userInfoOptions"
 import request from '@/api/request';
 import tabbar from '@/components/tabbar/tabbar.vue';
 import UserListCard from './member/user-list-card.vue';
-import useUserStore from '@/store/modules/user/useUserStore';
 import { UserInfoType } from '@/store/modules/user/types';
 
+import useUserStore from '@/store/modules/user/useUserStore';
 const userStore = useUserStore();
 
 
@@ -84,8 +84,6 @@ const loadMore = () => {
     });
 };
 const clickGridHandler = (e: any) => {
-    console.log(e);
-    console.log(e);
     userStore.optUserInfo = e;
     uni.navigateTo({
         url: '/pages/user-info/user-info',

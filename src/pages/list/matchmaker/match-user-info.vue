@@ -128,7 +128,7 @@ const recommendUser = async () => {
 /** 展示更多个人信息 */
 const onShowMoreHandler = () => {
     uni.navigateTo({
-        url: '/pages/user-info/user-info-more?item=' + encodeURIComponent(JSON.stringify(optUserInfo.value))
+        url: '/pages/user-info/user-info-more'
     });
 }
 
