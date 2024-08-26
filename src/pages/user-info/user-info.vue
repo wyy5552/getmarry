@@ -56,7 +56,8 @@
             <view class="title">红娘点评</view>
             <view class="content"> {{ optUserInfo.matchmakerComment }}</view>
         </view>
-        <image class="img-card top-margin" v-for="item in photoAlbum" :src="item" mode="aspectFill" />
+        <image class="img-card top-margin" v-for="(item) in photoAlbum" :key="item" :src="item"
+            mode="aspectFill" />
         <view class="bottom-height"></view>
         <view class="bottom-tab">
             <view class="item" @click="onClickPhoneHandler">
@@ -122,11 +123,11 @@ const checkHasLiked = () => {
 const favClick = async () => {
     try {
         const res = await request.post<any>('list/likeUser', { userId: optUserInfo.value.id, isLike: !isSelect.value });
-        if(res.code == 500){
+        if (res.code == 500) {
             uni.showToast({
-            title: res.message,
-            icon: 'none'
-        });
+                title: res.message,
+                icon: 'none'
+            });
             return;
         }
         isSelect.value = !isSelect.value;
