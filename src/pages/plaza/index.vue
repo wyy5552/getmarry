@@ -1,11 +1,11 @@
 <template>
-  <view class="plaza-home">
+  <view class="plaza-home page1">
     <!--广告栏-->
-    <swiper class="swiper" circular :indicator-dots="true" :autoplay="true" :interval="2000" :duration="500">
+    <!-- <swiper class="swiper" circular :indicator-dots="true" :autoplay="true" :interval="2000" :duration="500">
       <swiper-item v-for="(item, index) in swiperList" :key="index">
         <image style="width: 100%; height: 200px; background-color: #eeeeee;" mode="scaleToFill" :src="item"></image>
       </swiper-item>
-    </swiper>
+    </swiper> -->
     <view class="plaza-content">
       <!--上榜人员-->
       <view class="card">
@@ -13,8 +13,8 @@
           <view class="left">置顶嘉宾</view>
           <view v-if="role == 0 || vipStatus == -1">
             <view v-if="vipStatus == 0" class="right" @click="clickAddVip">
-              我要上榜<uni-icons type="plusempty" size="30" color="white"></uni-icons></view>
-            <view v-else-if="vipStatus == 1" class="right2 ">
+              我要上榜<uni-icons type="plusempty" color="white"></uni-icons></view>
+            <view v-else-if="vipStatus == 1" class="right2 " @click="clickCancelVip">
               VIP申请中</view>
             <view v-else-if="vipStatus == 2" class="right3" @click="clickCancelVip">
               下榜</view>
@@ -30,8 +30,8 @@
       <view class="card">
         <view class="title">
           <view class="left">推荐异性</view>
-          <view class="right" @click="onGetRecommendListHandler">刷新<uni-icons type="refreshempty" size="30"
-              color="white"></uni-icons>
+          <view class="right" @click="onGetRecommendListHandler">刷新<uni-icons type="refreshempty"
+              class="icon-color"></uni-icons>
           </view>
         </view>
         <view class="girl-list-2 ">
@@ -92,6 +92,10 @@ const clickAddVip = (e: any) => {
     console.log(res);
   });
 }
+
+const clickCancelApplyHandler = (e: any) => {
+
+}
 const clickCancelVip = (e: any) => {
   console.log(e);
   request.post<any>('plaza/cancelVip', null).then((res) => {
@@ -112,10 +116,16 @@ const vipUserList = ref<UserInfoType[]>([]);
 // 创建对子组件的引用  
 const uToastRef = ref(null);
 //==================异性==================================
-const onGetRecommendListHandler = () => {
+const onGetRecommendListHandler = (e: any) => {
   request.post<any>('plaza/getRecommendList', null).then((res) => {
     if (res.code === 200) {
       girlList.value = res.data;
+      if (e !== "onShow") {
+        uni.showToast({
+          title: '刷新成功',
+          icon: 'success'
+        });
+      }
     }
   }).then(res => {
     console.log(res);
@@ -140,7 +150,7 @@ const girlList = ref<UserInfoType[]>([]);
 
 onShow(() => {
   onGetVipRecommendList();
-  onGetRecommendListHandler();
+  onGetRecommendListHandler("onShow");
   userStore.getUserInfo();
 }
 );
@@ -172,8 +182,12 @@ onShow(() => {
       justify-content: center;
       padding: 16rpx;
       font-size: $font-size;
-      height: 60rpx;
+      height: 50rpx;
       width: 200rpx;
+
+      :deep(.uni-icons) {
+        color: white !important;
+      }
     }
 
     .right2 {
@@ -185,7 +199,7 @@ onShow(() => {
       justify-content: center;
       padding: 16rpx;
       font-size: $font-size;
-      height: 60rpx;
+      height: 50rpx;
       width: 150rpx;
     }
 
@@ -198,7 +212,7 @@ onShow(() => {
       justify-content: center;
       padding: 16rpx;
       font-size: $font-size;
-      height: 60rpx;
+      height: 50rpx;
       width: 70rpx;
     }
 

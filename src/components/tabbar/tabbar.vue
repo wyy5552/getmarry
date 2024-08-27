@@ -2,8 +2,9 @@
     <view class="bottom-tab">
         <view v-for="(tab) in curTabConfig" :key="tab.value" class="tab-item"
             :class="{ 'active': tabValue === tab.value }" @tap="switchTab(tab.value)">
-            <image v-if="tabValue === tab.value" :src="`${baseUrl}/public/tabbar-${tab.icon}-red.svg`" />
-            <image v-else :src="`${baseUrl}/public/tabbar-${tab.icon}.svg`" />
+            <image class="pic-img" v-if="tabValue === tab.value"
+                :src="`${baseUrl}/public/tabbar-${tab.icon}-red.svg`" />
+            <image class="pic-img" v-else :src="`${baseUrl}/public/tabbar-${tab.icon}.svg`" />
             <text>{{ tab.title }}</text>
         </view>
     </view>
@@ -86,7 +87,7 @@ const switchTab = (value: string) => {
     flex-direction: column;
     align-items: center;
 
-    image {
+    .pic-img {
         width: 54rpx;
         height: 54rpx;
     }

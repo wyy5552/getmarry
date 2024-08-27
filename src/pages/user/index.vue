@@ -1,5 +1,5 @@
 <template>
-  <view class="user-container" :style="style">
+  <view class="user-container page1" :style="style">
     <Member v-if="loginStatus == 1 && role == 0">
     </Member>
     <Matchmaker v-if="loginStatus == 1 && role == 1">
@@ -66,6 +66,7 @@ const style = {
   width: 100%;
   height: 100vh;
   background-image: var(--bg-img);
+  padding-top: 50rpx;
 
   .btn-container {
     background-color: #FF6F6F00;

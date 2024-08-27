@@ -1,6 +1,6 @@
 <template>
     <view class="card-cont">
-        <image class="img-card top-margin" :src="photoAlbum[0] ?? ''" mode="aspectFill" />
+        <image class="img-card top-margin" :src="optUserInfo.userpic ?? ''" mode="aspectFill" />
         <view class="card ">
             <view class="title flex justify-between ">
                 <view>
@@ -14,38 +14,44 @@
                         mode="scaleToFill" />
                 </view>
             </view>
-            <view class="content">
-                <uni-tag type="warning" :text="optUserInfo.registeredArea"></uni-tag>
-                <uni-tag type="warning" :text="getEducationLabel(optUserInfo.education)"></uni-tag>
-                <uni-tag type="warning" :text="getAgeLabel(optUserInfo.birthday) + ''"></uni-tag>
-                <uni-tag type="warning" :text="optUserInfo.height + 'cm'"></uni-tag>
-                <uni-tag type="warning" :text="optUserInfo.industry"></uni-tag>
-                <uni-tag type="warning" :text="optUserInfo.monthlyIncome + '万'"></uni-tag>
-
+            <view class="tags-content">
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.registeredArea"></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="getEducationLabel(optUserInfo.education)"></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="getAgeLabel(optUserInfo.birthday) + ''"></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.height + 'cm'"></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.industry"></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.monthlyIncome + '万'"></uni-tag>
             </view>
         </view>
         <view class="card">
             <view class="title">基本资料</view>
-            <view class="content">
-                <uni-tag :text="getGenderLabel(optUserInfo.gender)" inverted></uni-tag>
-                <uni-tag :text="optUserInfo.weight + 'kg'" inverted></uni-tag>
-                <uni-tag :text="getHousingLabel(optUserInfo.housing)" inverted></uni-tag>
-                <uni-tag :text="getCarOwnershipLabel(optUserInfo.carOwnership)" inverted></uni-tag>
-                <uni-tag :text="getEducationLabel(optUserInfo.education)" inverted></uni-tag>
-                <uni-tag :text="optUserInfo.registeredArea" inverted></uni-tag>
-                <uni-tag :text="getMarriageTimeLabel(optUserInfo.expectedMarriageTime)" inverted></uni-tag>
+            <view class="tags-content">
+                <uni-tag class="content-tag" :text="getGenderLabel(optUserInfo.gender)" inverted></uni-tag>
+                <uni-tag class="content-tag" :text="optUserInfo.weight + 'kg'" inverted></uni-tag>
+                <uni-tag class="content-tag" :text="getHousingLabel(optUserInfo.housing)" inverted></uni-tag>
+                <uni-tag class="content-tag" :text="getCarOwnershipLabel(optUserInfo.carOwnership)" inverted></uni-tag>
+                <uni-tag class="content-tag" :text="getEducationLabel(optUserInfo.education)" inverted></uni-tag>
+                <uni-tag class="content-tag" :text="optUserInfo.registeredArea" inverted></uni-tag>
+                <uni-tag class="content-tag" :text="getMarriageTimeLabel(optUserInfo.expectedMarriageTime)"
+                    inverted></uni-tag>
                 <view class="border-red border opacity-80 text-red-5" @click="onShowMoreHandler">查看更多></view>
             </view>
         </view>
         <view class="card">
             <view class="title">择偶要求</view>
-            <view class="content">
-                <uni-tag type="warning" :text="optUserInfo.maritalStatusRequirement ?? '未婚'" inverted></uni-tag>
-                <uni-tag type="warning" :text="optUserInfo.ageRequirement ?? '上下三岁'" inverted></uni-tag>
-                <uni-tag type="warning" :text="optUserInfo.heightRequirement ?? '无身高要求'" inverted></uni-tag>
-                <uni-tag type="warning" :text="optUserInfo.incomeRequirement ?? '无收入要求'" inverted></uni-tag>
-                <uni-tag type="warning" :text="optUserInfo.areaRequirement ?? '地区不限'" inverted></uni-tag>
-                <uni-tag type="warning" :text="optUserInfo.otherRequirement ?? '看眼缘'" inverted></uni-tag>
+            <view class="tags-content">
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.maritalStatusRequirement ?? '未婚'"
+                    inverted></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.ageRequirement ?? '上下三岁'"
+                    inverted></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.heightRequirement ?? '无身高要求'"
+                    inverted></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.incomeRequirement ?? '无收入要求'"
+                    inverted></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.areaRequirement ?? '地区不限'"
+                    inverted></uni-tag>
+                <uni-tag class="content-tag" type="warning" :text="optUserInfo.otherRequirement ?? '看眼缘'"
+                    inverted></uni-tag>
             </view>
         </view>
         <view class="card">
@@ -56,12 +62,11 @@
             <view class="title">红娘点评</view>
             <view class="content"> {{ optUserInfo.matchmakerComment }}</view>
         </view>
-        <image class="img-card top-margin" v-for="(item) in photoAlbum" :key="item" :src="item"
-            mode="aspectFill" />
+        <image class="img-card top-margin" v-for="(item) in photoAlbum" :key="item" :src="item" mode="aspectFill" />
         <view class="bottom-height"></view>
         <view class="bottom-tab">
             <view class="item" @click="onClickPhoneHandler">
-                <uni-icons type="phone" size="30"></uni-icons>
+                <uni-icons type="phone"></uni-icons>
                 红娘电话
             </view>
             <uni-popup ref="popupRef" type="dialog">
@@ -71,7 +76,7 @@
                 </uni-popup-dialog>
             </uni-popup>
             <view class="item" @click="onClickWxHandler">
-                <uni-icons type="weixin" size="30"></uni-icons>
+                <uni-icons type="weixin"></uni-icons>
                 红娘微信
             </view>
             <uni-popup ref="popupWxRef" type="dialog">
@@ -182,6 +187,8 @@ const onConfirmHandler = async () => {
 
 <style scoped lang="scss">
 .card-cont {
+    background-color: $color-blue;
+
     .img-card {
         width: 690rpx;
         height: 690rpx;
@@ -205,17 +212,21 @@ const onConfirmHandler = async () => {
             }
         }
 
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-        }
-
-
         .top-content {
             display: flex;
             justify-content: space-between;
         }
+    }
+}
+
+.tags-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10rpx;
+
+    .content-tag {
+        margin-right: 10rpx;
+        margin-bottom: 20rpx;
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
     <view class="user-info-more-header card">
         <view class="img-container">
-            <image :src="item.userpic">
+            <image class="pic-img" :src="item.userpic">
             </image>
         </view>
 
@@ -49,7 +49,7 @@ defineProps<{
         overflow: hidden;
 
         // flex布局中，自身宽高不变化
-        image {
+        .pic-img {
             width: 120rpx;
             height: 120rpx;
         }

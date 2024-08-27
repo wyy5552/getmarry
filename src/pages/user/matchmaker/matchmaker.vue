@@ -2,7 +2,7 @@
     <view class="has-user-info">
         <view class="user-info-header">
             <view class="flex">
-                <image :src="userInfo.userpic" mode="scaleToFill" @click="onClickPhotoHandler" />
+                <image class="pic-img" :src="userInfo.userpic" mode="scaleToFill" @click="onClickPhotoHandler" />
                 <view class="h-full my-auto ml-1rem">
                     <view class="font-bold text-1rem">{{ userInfo.nickname + " · " + userInfo.name }}<text
                             class="text-#f29f9c" v-if="userInfo.gender == 0">♀</text><text class="text-#007aff"
@@ -62,8 +62,8 @@
                 <view>+</view>
             </view>
         </view>
-        <button type="primary" @click="onLogoutHandler">退出登录</button>
-        <button type="primary" @click="onLogoutHandler">注销账号</button>
+        <button class="logout-btn" type="primary" @click="onLogoutHandler">退出登录</button>
+        <button class="logout-btn" type="primary" @click="onLogoutHandler">注销账号</button>
     </view>
 </template>
 
@@ -149,7 +149,7 @@ const onAddPicHandler = (e: any) => {
 </script>
 <style lang="scss" scoped>
 .has-user-info {
-    button {
+    .logout-btn {
         box-shadow: 0 .3rem .8rem rgba(255, 111, 111, .4);
         background-color: #fff;
         background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, .6) 0%, #FF6F6F 100%);
@@ -170,7 +170,7 @@ const onAddPicHandler = (e: any) => {
         text-align: left;
         padding: 1rem 1rem;
 
-        image {
+        .pic-img {
             width: 6rem;
             height: 6rem;
             border-radius: 50%;
