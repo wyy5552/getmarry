@@ -188,9 +188,9 @@
   //   }
   // },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
-    "borderStyle": "black",
+    "color": "#ffffff",
+    "selectedColor": "#ffffff",
+    "borderStyle": "white",
     "backgroundColor": "#ffffff",
     "list": [
       {

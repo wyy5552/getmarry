@@ -97,7 +97,6 @@ const clickGridHandler = (e: any) => {
 .header {
   position: sticky;
   z-index: 100;
-  top: 30rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -140,6 +139,10 @@ const clickGridHandler = (e: any) => {
 :deep(.uni-list) {
   .uni-list--border-top {
     display: none;
+  }
+
+  .uni-list--border-bottom {
+    opacity: 0;
   }
 
   background-color: rgba(255, 111, 111, 0);

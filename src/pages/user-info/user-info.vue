@@ -8,9 +8,9 @@
                         class="text-#007aff" v-else>♂</text>
                 </view>
                 <view class="right">
-                    <image v-if="isSelect" @click="favClick" class="image" :src="`${baseUrl}/public/likes-red.svg`"
+                    <image v-if="isSelect" @click="favClick" class="image" :src="`${iconsUrl}/likes-red.svg`"
                         mode="scaleToFill" />
-                    <image v-else @click="favClick" class="image" :src="`${baseUrl}/public/likes.svg`"
+                    <image v-else @click="favClick" class="image" :src="`${iconsUrl}/likes.svg`"
                         mode="scaleToFill" />
                 </view>
             </view>
@@ -94,7 +94,7 @@ import userUserStore from '@/store/modules/user/useUserStore';
 import userInfoOptions from '@/utils/userInfoOptions';
 import envConfig from '@/api/envConfig';
 
-const baseUrl = envConfig.assetUrl;
+const iconsUrl = envConfig.iconsUrl;
 const userStore = userUserStore();
 
 const { getEducationLabel, getGenderLabel, getHousingLabel, getAgeLabel, getMarriageTimeLabel, getCarOwnershipLabel } = userInfoOptions;

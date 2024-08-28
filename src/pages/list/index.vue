@@ -1,24 +1,28 @@
 <template>
-    <view class="header">
-        <uni-data-select v-model="form.height" placeholder="身高" :localdata="options.filterOptions.height"
-            @change="onClickDropHandler" :clear="false"></uni-data-select>
-        <uni-data-select v-model="form.age" placeholder="年龄" :localdata="options.filterOptions.age"
-            @change="onClickDropHandler" :clear="false"></uni-data-select>
-        <uni-data-select v-model="form.housing" placeholder="房子" :localdata="options.filterOptions.housing"
-            @change="onClickDropHandler" :clear="false"></uni-data-select>
+    <view class="page1">
+        <view class="header">
+            <uni-data-select v-model="form.height" placeholder="身高" :localdata="options.filterOptions.height"
+                @change="onClickDropHandler" :clear="false"></uni-data-select>
+            <uni-data-select v-model="form.age" placeholder="年龄" :localdata="options.filterOptions.age"
+                @change="onClickDropHandler" :clear="false"></uni-data-select>
+            <uni-data-select v-model="form.housing" placeholder="房子" :localdata="options.filterOptions.housing"
+                @change="onClickDropHandler" :clear="false"></uni-data-select>
+        </view>
+
+        <uni-list>
+            <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
+                <template v-slot:body>
+                    <user-list-card :item="item" :key="item.id" @tap="clickGridHandler(item)">
+                    </user-list-card>
+                </template>
+            </uni-list-item>
+            <uni-load-more class="uni-load-more-bottom-cls" @clickLoadMore="onClickMoreHandler"
+                :status="loadMoreStatus"></uni-load-more>
+        </uni-list>
+        <tabbar tab-value="list">
+        </tabbar>
     </view>
 
-    <uni-list>
-        <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
-            <template v-slot:body>
-                <user-list-card :item="item" :key="item.id" @tap="clickGridHandler(item)">
-                </user-list-card>
-            </template>
-        </uni-list-item>
-        <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
-    </uni-list>
-    <tabbar tab-value="list">
-    </tabbar>
 </template>
 
 <script setup lang="ts">
@@ -125,6 +129,7 @@ const clickGridHandler = (e: any) => {
     border-radius: 100rpx;
     //加粗
     font-weight: bold;
+
     .uni-select__input-text {
         color: white !important;
     }
@@ -133,6 +138,11 @@ const clickGridHandler = (e: any) => {
 :deep(.uni-list) {
     .uni-list--border-top {
         display: none;
+    }
+
+    .uni-list--border-bottom,
+    .uni-load-more-bottom-cls {
+        opacity: 0;
     }
 
     background-color: rgba(255, 111, 111, 0);

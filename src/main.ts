@@ -7,7 +7,9 @@ import App from "@/App.vue";
 import { createPinia } from "pinia";
 // 引入状态管理
 import piniaPersist from "pinia-plugin-persist-uni";
-
+// #ifdef MP
+uni.hideTabBar();
+// #endif
 // #ifdef VUE3
 export function createApp() {
   const app = createSSRApp(App);

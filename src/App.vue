@@ -4,8 +4,8 @@ import { mpUpdate } from '@/utils/index';
 onLaunch(() => {
 
   console.log('App Launch');
-  uni.hideTabBar();
   // #ifdef MP
+  uni.hideTabBar();
   mpUpdate();
   // #endif
 });

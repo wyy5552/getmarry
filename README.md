@@ -10,6 +10,9 @@
 box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
 background-color: #e18e8ec9;
 
+375*812
+1px = 2rpx
+
 大字体
 1rem
 加粗

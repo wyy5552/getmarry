@@ -25,7 +25,16 @@ $container-width: 690rpx;
 
 
 .page1 {
-  background-color: #f9f9f9;
+  background-color: $color-blue;
+  // 背景从上到下渐变
+  background: linear-gradient(to bottom, $color-blue, $color-purple); 
+  /* 从上到下的渐变背景到透明 */
+  background: linear-gradient(180deg, $color-blue 0%, $color-purple 100%);
+  font-size: 28rpx;
+  min-height: 100vh;
+}
+.page2 {
+  background-color: $color-blue;
   font-size: 28rpx;
   min-height: 100vh;
 }

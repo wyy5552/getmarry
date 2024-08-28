@@ -90,7 +90,7 @@ export type UserInfoType = {
   /** 其他说明 */
   otherInfo: string;
   /** 是否是个人填写信息 */
-  isPersonalInfo: boolean;
+  isPersonalInfo: number;
   /** 用户的工作地区 */
   workArea: string;
   /** 用户的户籍地区 */
@@ -100,7 +100,7 @@ export type UserInfoType = {
   /** 用户的房产位置 */
   propertyLocation: string;
   /** 用户的期望结婚时间 */
-  expectedMarriageTime: string;
+  expectedMarriageTime: number;
   /** 用户的兄弟姐妹 */
   siblings: string;
   /** 用户的兴趣爱好 */

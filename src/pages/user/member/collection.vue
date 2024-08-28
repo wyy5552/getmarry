@@ -1,13 +1,15 @@
 <template>
-    <uni-list>
-        <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
-            <template v-slot:body>
-                <user-list-card :item="item" :key="item.id" @tap="clickGridHandler(item)">
-                </user-list-card>
-            </template>
-        </uni-list-item>
-        <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
-    </uni-list>
+    <view class="page2">
+        <uni-list>
+            <uni-list-item @tap="clickGridHandler(item)" v-for="(item, index) in dataList" :key="index">
+                <template v-slot:body>
+                    <user-list-card :item="item" :key="item.id" @tap="clickGridHandler(item)">
+                    </user-list-card>
+                </template>
+            </uni-list-item>
+            <uni-load-more @clickLoadMore="onClickMoreHandler" :status="loadMoreStatus"></uni-load-more>
+        </uni-list>
+    </view>
 </template>
 
 <script setup lang="ts">
@@ -65,6 +67,10 @@ const clickGridHandler = (e: any) => {
 :deep(.uni-list) {
     .uni-list--border-top {
         display: none;
+    }
+
+    .uni-list--border-bottom {
+        opacity: 0;
     }
 
     background-color: rgba(255, 111, 111, 0);

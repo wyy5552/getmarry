@@ -58,14 +58,14 @@
                     手机号：{{ matchmakerInfo.phone }}
                 </view>
                 <view @click="copyStrHandler(matchmakerInfo.phone + '')">
-                    <image class="img" :src="`${assetUrl}/public/copy.png`" />
+                    <image class="img" :src="`${iconsUrl}/copy.png`" />
                 </view>
             </view>
             <view class="one-line">
                 <view>
                     微信：{{ matchmakerInfo.wechat }}</view>
                 <view @click="copyStrHandler(matchmakerInfo.wechat)">
-                    <image class="img" :src="`${assetUrl}/public/copy.png`" />
+                    <image class="img" :src="`${iconsUrl}/copy.png`" />
                 </view>
             </view>
 
@@ -85,7 +85,7 @@ import userInfoOptions from '@/utils/userInfoOptions';
 import envConfig from '@/api/envConfig';
 
 const baseUrl = envConfig.baseUrl;
-const assetUrl = envConfig.assetUrl;
+const iconsUrl = envConfig.iconsUrl;
 
 
 
@@ -100,20 +100,17 @@ const msgObj = {
     cancel: "取消展示给别人？"
 }
 const clickMyCollectionHandler = (e: any) => {
-    console.log(e);
     uni.navigateTo({
         url: '/pages/user/member/collection'
     });
 }
 const clickEditHandler = (e: any) => {
-    console.log(e);
     uni.navigateTo({
         url: '/pages/user/member/edit',
     });
 }
 
 const onAddPicHandler = (e: any) => {
-    console.log(e);
     uni.navigateTo({
         url: '/pages/user/member/pic',
     });
@@ -222,13 +219,13 @@ const callHandler = (phone) => {
         padding: 1rem 1rem;
 
         .pic-img {
-            width: 6rem;
-            height: 6rem;
+            width: 216rpx;
+            height: 216rpx;
             border-radius: 50%;
             display: block;
             object-fit: cover;
-            border: white .4rem solid;
-            box-shadow: .3rem .5rem 1rem rgba(0, 0, 0, .06);
+            border: white 14rpx solid;
+            box-shadow: 10rpx 15rpx 20rpx rgba(0, 0, 0, .06);
         }
 
         .right {

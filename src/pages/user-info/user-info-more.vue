@@ -1,5 +1,5 @@
 <template>
-    <view class="user-info">
+    <view class="user-info page2">
         <view class="card">
             <view class="item">
                 <view>昵称</view>

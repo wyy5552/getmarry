@@ -1,15 +1,16 @@
 <template>
-    <button class="upload-image" @click="onClickPhotoHandler">
-        上传图片
-    </button>
+    <view class="img-add-container" @click="onClickPhotoHandler">
+        <image class="upload-image" :src="`${envConfig.iconsUrl}/add-album.png`" mode="scaleToFill" />
+        <text>添加照片~</text>
+    </view>
     <view>
         <view class="img-container" v-for="(item, index) in picArr" :key="index">
             <image :src="item.localUrl == '' ? item.serverUrl : item.localUrl" @click="replaceImage(index)"></image>
-            <button @click="onClickItemBtnHandler(item, index)" type="primary" size="mini">{{
+            <button class="img-btn" @click="onClickItemBtnHandler(item, index)" type="primary" size="mini">{{
         item.status === 'prepare' ? '更新' : '删除'
     }}</button>
         </view>
-        <button v-if="picArr.length > 0" @click="uploadImages">更新状态</button>
+        <button class="logout-btn" v-if="picArr.length > 0" type="primary" @click="uploadImages">全部更新</button>
     </view>
 </template>
 
@@ -130,7 +131,7 @@ const updateImage = (fileTemp: ImageType, index: number) => {
 
 const uploadImages = async () => {
     for (let i = 0; i < picArr.value.length; i++) {
-        await updateImage(picArr.value[i],i);
+        await updateImage(picArr.value[i], i);
     }
 };
 watch(picArr, (newVal) => {
@@ -140,16 +141,39 @@ watch(picArr, (newVal) => {
 });
 </script>
 
-<style>
+<style scoped lang="scss">
+.img-btn {
+    background-color: $color-blue;
+}
+
+.logout-btn {
+    box-shadow: 0 .3rem .8rem rgba(255, 111, 111, .4);
+    background-color: #fff;
+    background: -webkit-linear-gradient(315deg, rgba(255, 111, 111, .6) 0%, #FF6F6F 100%);
+    width: 80%;
+    border-radius: 10rem;
+    height: 3rem;
+    line-height: 3rem;
+    padding: 0 2.5rem;
+    font-size: 1.8rem;
+    vertical-align: middle;
+    margin: 1rem auto;
+    opacity: 0.3;
+}
+
+.img-add-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .upload-image {
-    width: 6rem;
-    height: 6rem;
+    width: 216rpx;
+    height: 216rpx;
     border-radius: 50%;
     display: block;
     object-fit: cover;
-    border: white .4rem solid;
-    box-shadow: .3rem .5rem 1rem rgba(0, 0, 0, .06);
-    margin-bottom: 1rem;
+    border: white 14rpx solid;
 }
 
 .img-container {

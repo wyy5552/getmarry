@@ -141,7 +141,42 @@ const { userInfo } = storeToRefs(userStore);
 
 const { sexOptions, maritalStatusOptions, educationOptions, professionOptions, marriageTimeOptions, housingOptions, carOwnershipOptions, personalInfoOptions } = userInfoOptions;
 // 获取本地用户信息
-const baseFormData = ref<UserInfoType>(JSON.parse(JSON.stringify(userInfo.value)));
+const defaultUserInfo: UserInfoType = {
+    wechat: '',
+    gender: 0,
+    nickname: '',
+    name: '',
+    height: 0,
+    weight: 0,
+    introduction: '',
+    birthday: '',
+    maritalStatus: 0,
+    children: '',
+    education: 1,
+    profession: 3,
+    expectedMarriageTime: 0,
+    housing: 0,
+    carOwnership: 0,
+    monthlyIncome: 0,
+    isPersonalInfo: 1,
+    workArea: '',
+    registeredArea: '',
+    propertyLocation: '',
+    siblings: '',
+    hobbies: '',
+    industry: '',
+    companyType: '',
+    otherInfo: ''
+} as UserInfoType;
+// 对于userInfo值为null的属性，使用默认值
+const temp = JSON.parse(JSON.stringify(userInfo.value)) as UserInfoType;
+Object.keys(defaultUserInfo).map(key => {
+    if(temp[key] != null){
+        defaultUserInfo[key] = temp[key];
+    }
+});
+const baseFormData = ref<UserInfoType>(defaultUserInfo);
+
 const formRef = ref();
 
 const rules = {
@@ -190,6 +225,7 @@ const rules = {
     }
 };
 onLoad(() => {
+
 });
 const submit = async () => {
     let res = await formRef.value.validate();

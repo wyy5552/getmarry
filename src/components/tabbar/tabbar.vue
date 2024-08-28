@@ -3,8 +3,8 @@
         <view v-for="(tab) in curTabConfig" :key="tab.value" class="tab-item"
             :class="{ 'active': tabValue === tab.value }" @tap="switchTab(tab.value)">
             <image class="pic-img" v-if="tabValue === tab.value"
-                :src="`${baseUrl}/public/tabbar-${tab.icon}-red.svg`" />
-            <image class="pic-img" v-else :src="`${baseUrl}/public/tabbar-${tab.icon}.svg`" />
+                :src="`${iconsUrl}/tabbar-${tab.icon}-red.svg`" />
+            <image class="pic-img" v-else :src="`${iconsUrl}/tabbar-${tab.icon}.svg`" />
             <text>{{ tab.title }}</text>
         </view>
     </view>
@@ -15,7 +15,7 @@
 import userUserStore from '@/store/modules/user/useUserStore';
 import envConfig from '@/api/envConfig';
 
-const baseUrl = envConfig.assetUrl;
+const iconsUrl = envConfig.iconsUrl;
 const userStore = userUserStore();
 const { role } = storeToRefs(userStore);
 

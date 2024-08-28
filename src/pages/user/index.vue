@@ -54,11 +54,11 @@ const onClickRegisterHandler = () => {
   });
 }
 
-const baseUrl = envConfig.assetUrl;
+const iconsUrl = envConfig.iconsUrl;
 
 // 定义css变量
 const style = {
-  '--bg-img': `url(${baseUrl + '/public/login-bg.png'})`
+  '--bg-img': `url(${iconsUrl + '/login-bg.png'})`
 }
 </script>
 <style scoped lang="scss">
