@@ -59,7 +59,7 @@
             <view class="content"> {{ optUserInfo.introduction }}</view>
         </view>
         <view class="card">
-            <view class="title">红娘点评</view>
+            <view class="title">小家家点评</view>
             <view class="content"> {{ optUserInfo.matchmakerComment }}</view>
         </view>
         <image class="img-card top-margin" v-for="(item) in photoAlbum" :key="item" :src="item" mode="aspectFill" />
@@ -67,17 +67,17 @@
         <view class="bottom-tab">
             <view class="item" @click="onClickPhoneHandler">
                 <uni-icons type="phone"></uni-icons>
-                红娘电话
+                小家家电话
             </view>
             <uni-popup ref="popupRef" type="dialog">
                 <uni-popup-dialog title="  " :duration="2000" :before-close="false" @confirm="onConfirmHandler">
-                    是否拨打红娘电话？
+                    是否拨打小家家电话？
                     {{ userStore.matchmakerInfo.phone }}
                 </uni-popup-dialog>
             </uni-popup>
             <view class="item" @click="onClickWxHandler">
                 <uni-icons type="weixin"></uni-icons>
-                红娘微信
+                小家家微信
             </view>
             <uni-popup ref="popupWxRef" type="dialog">
                 <uni-popup-dialog title=" 长按添加微信 " :duration="2000" :before-close="false" @confirm="onConfirmWxHandler">

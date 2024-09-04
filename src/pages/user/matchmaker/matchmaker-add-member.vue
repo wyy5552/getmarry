@@ -1,8 +1,8 @@
 <template>
     <view class="register-container">
         <uni-forms ref="formRef" :modelValue="baseFormData" :rules="rules">
-            <uni-forms-item label="手机号" required name="phone">
-                <uni-easyinput v-model="baseFormData.phone" placeholder="请输入手机号" />
+            <uni-forms-item label="小家家号" required name="phone">
+                <uni-easyinput v-model="baseFormData.phone" placeholder="请输入小家家号" />
             </uni-forms-item>
             <!-- 微信 -->
             <uni-forms-item required label="微信" name="wechat">
@@ -55,11 +55,11 @@ const rules = {
         rules: [
             {
                 required: true,
-                errorMessage: '请输入手机号',
+                errorMessage: '请输入小家家号',
             },
             {
                 pattern: /^1[3456789]\d{9}$/,
-                errorMessage: '手机号格式不正确',
+                errorMessage: '小家家号格式不正确',
             }
         ]
     },
@@ -98,7 +98,7 @@ const submit = async () => {
     try {
         let res = await formRef.value.validate();
         console.log('success', res);
-        // 添加红娘的id
+        // 添加小家家的id
         baseFormData.value.organizationId = userInfo.value.code;
         uni.showToast({
             title: '校验通过'

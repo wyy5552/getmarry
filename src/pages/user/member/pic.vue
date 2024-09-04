@@ -1,11 +1,12 @@
 <template>
     <view class="img-add-container" @click="onClickPhotoHandler">
         <image class="upload-image" :src="`${envConfig.iconsUrl}/add-album.png`" mode="scaleToFill" />
-        <text>添加照片~</text>
+        <text class="txt-color">添加照片~</text>
     </view>
     <view>
         <view class="img-container" v-for="(item, index) in picArr" :key="index">
-            <image :src="item.localUrl == '' ? item.serverUrl : item.localUrl" @click="replaceImage(index)"></image>
+            <image class="img-cls" :src="item.localUrl == '' ? item.serverUrl : item.localUrl"
+                @click="replaceImage(index)"></image>
             <button class="img-btn" @click="onClickItemBtnHandler(item, index)" type="primary" size="mini">{{
         item.status === 'prepare' ? '更新' : '删除'
     }}</button>
@@ -20,7 +21,7 @@ import useUserStore from '@/store/modules/user/useUserStore';
 import request from '@/api/request';
 import envConfig from '@/api/envConfig';
 
-const baseUrl = envConfig.assetUrl;
+const baseUrl = envConfig.baseUrl;
 
 const userStore = useUserStore();
 const picArr = ref([] as ImageType[]);
@@ -142,10 +143,6 @@ watch(picArr, (newVal) => {
 </script>
 
 <style scoped lang="scss">
-.img-btn {
-    background-color: $color-blue;
-}
-
 .logout-btn {
     box-shadow: 0 .3rem .8rem rgba(255, 111, 111, .4);
     background-color: #fff;
@@ -179,16 +176,29 @@ watch(picArr, (newVal) => {
 .img-container {
     position: relative;
     width: 100%;
-    padding: 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 10rpx;
+    margin-bottom: 20rpx;
+
+    .img-cls {
+        border-radius: 10rpx;
+    }
+
+    .img-btn {
+        background-color: $color-blue;
+        flex-shrink: 0; // 防止缩小
+        flex-grow: 0; // 防止扩展
+        flex-basis: 140rpx; // 初始宽度
+        margin-left: 20rpx;
+    }
 }
 
-.image-container button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    transform: translate(50%, 50%);
+
+
+.txt-color {
+    color: $color-purple;
+    padding-bottom: 20rpx;
 }
 </style>

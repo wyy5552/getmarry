@@ -62,7 +62,7 @@ export const personalInfoOptions = [
 /** 角色 */
 export const roleOptions = [
     { "text": "会员", "value": 0 },
-    { "text": "红娘", "value": 1 }
+    { "text": "小家家", "value": 1 }
 ]
 
 

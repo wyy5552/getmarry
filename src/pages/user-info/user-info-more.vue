@@ -92,7 +92,7 @@
                 <view>{{ optUserInfo.companyType }}</view>
             </view>
             <view class="item">
-                <view>红娘点评</view>
+                <view>小家家点评</view>
                 <view>{{ optUserInfo.matchmakerComment }}</view>
             </view>
         </view>

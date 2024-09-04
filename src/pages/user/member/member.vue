@@ -52,10 +52,10 @@
             </view>
         </view>
         <view class="card">
-            <view class="hn">我的红娘</view>
+            <view class="hn">我的小家家</view>
             <view class="one-line">
                 <view @click="callHandler(matchmakerInfo.phone)">
-                    手机号：{{ matchmakerInfo.phone }}
+                    小家家号：{{ matchmakerInfo.phone }}
                 </view>
                 <view @click="copyStrHandler(matchmakerInfo.phone + '')">
                     <image class="img" :src="`${iconsUrl}/copy.png`" />
@@ -116,9 +116,9 @@ const onAddPicHandler = (e: any) => {
     });
 }
 onMounted(async () => {
-    // 获取我的红娘
+    // 获取我的小家家
     const organizationId = userInfo.value.organizationId;
-    // 根据id获取红娘信息
+    // 根据id获取小家家信息
     const res = await request.post<UserInfoType>('member/getMatchmakerInfo', { organizationId });
     matchmakerInfo.value = res.data;
 })
@@ -176,7 +176,7 @@ const copyStrHandler = (str: string) => {
 
 const callHandler = (phone) => {
     uni.showModal({
-        content: '是否拨打红娘电话？',
+        content: '是否拨打小家家电话？',
         success: function (res) {
             if (res.confirm) {
                 uni.makePhoneCall({

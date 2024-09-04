@@ -37,7 +37,8 @@
 
             <!-- 用户生日 -->
             <uni-forms-item required label="生日" name="birthday">
-                <uni-datetime-picker type="date" :clear-icon="false" v-model="baseFormData.birthday" />
+                <uni-datetime-picker class="birth-cla" type="date" :clear-icon="false"
+                    v-model="baseFormData.birthday" />
             </uni-forms-item>
 
             <!-- 婚姻状况 -->
@@ -171,7 +172,7 @@ const defaultUserInfo: UserInfoType = {
 // 对于userInfo值为null的属性，使用默认值
 const temp = JSON.parse(JSON.stringify(userInfo.value)) as UserInfoType;
 Object.keys(defaultUserInfo).map(key => {
-    if(temp[key] != null){
+    if (temp[key] != null) {
         defaultUserInfo[key] = temp[key];
     }
 });
@@ -276,6 +277,18 @@ const submit = async () => {
         .uni-data-checklist .checklist-group .checklist-box.is--default.is-checked .checklist-text {
             color: $color-blue;
         }
+
+
+    }
+}
+
+:deep(.uni-date) {
+    height: 70rpx;
+
+    .uni-date-x .icon-calendar {
+        padding-left: 3px;
+        width: 20px;
+        height: 20px;
     }
 }
 

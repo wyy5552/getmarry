@@ -98,7 +98,6 @@ const clickGridHandler = (e: any) => {
 .header {
     position: sticky;
     z-index: 100;
-    top: 30rpx;
     display: flex;
     align-items: center;
     justify-content: space-between;

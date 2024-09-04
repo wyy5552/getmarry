@@ -49,7 +49,7 @@
             <view class="content"> {{ otherUserInfo.introduction }}</view>
         </view>
         <view class="card">
-            <view class="title">红娘点评</view>
+            <view class="title">小家家点评</view>
             <view class="content"> {{ otherUserInfo.matchmakerComment }}</view>
         </view>
     </view>

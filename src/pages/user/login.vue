@@ -2,7 +2,7 @@
     <view class="login-container card-cont">
         <uni-forms ref="loginRef" :modelValue="loginForm">
             <uni-forms-item>
-                <uni-easyinput v-model="loginForm.phone" placeholder="请输入手机号码" />
+                <uni-easyinput v-model="loginForm.phone" placeholder="请输入小家家号码" />
             </uni-forms-item>
             <uni-forms-item>
                 <uni-easyinput v-model="loginForm.passwordHash" placeholder="请输入密码" />

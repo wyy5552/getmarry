@@ -1,8 +1,8 @@
 <template>
     <view class="register-container card-cont">
         <uni-forms ref="formRef" :modelValue="baseFormData" :rules="customRules" @validate="onValidateHandler">
-            <uni-forms-item label="手机号" required name="phone">
-                <uni-easyinput v-model="baseFormData.phone" placeholder="请输入手机号" />
+            <uni-forms-item label="小家家号" required name="phone">
+                <uni-easyinput v-model="baseFormData.phone" placeholder="请输入小家家号" />
             </uni-forms-item>
             <uni-forms-item label="昵称" required name="nickname">
                 <uni-easyinput v-model="baseFormData.nickname" placeholder="请输入昵称" />
@@ -75,11 +75,11 @@ const customRules = {
         rules: [
             {
                 required: true,
-                errorMessage: '请输入手机号',
+                errorMessage: '请输入小家家号',
             },
             {
                 pattern: /^1[3456789]\d{9}$/,
-                errorMessage: '手机号格式不正确',
+                errorMessage: '小家家号格式不正确',
             }
         ]
     },
