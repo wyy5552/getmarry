@@ -30,7 +30,7 @@
         </view>
         <view class="card card2">
             <view class="one-line" @click="onClickShowToOtherHandler">
-                <view>是否展示给异性</view>
+                <view>是否展示给其他小家家</view>
                 <uni-popup ref="popupRef" type="dialog">
                     <uni-popup-dialog title="  " :content="popupMst" :duration="2000" :before-close="false"
                         @confirm="onConfirmHandler"></uni-popup-dialog>

@@ -26,10 +26,10 @@
           </user-vip-card>
         </view>
       </view>
-      <!--推荐异性-->
+      <!--推荐其他小家家-->
       <view class="card">
         <view class="title">
-          <view class="left">推荐异性</view>
+          <view class="left">推荐其他小家家</view>
           <view class="right" @click="onGetRecommendListHandler">刷新<uni-icons type="refreshempty"
               class="icon-color"></uni-icons>
           </view>
@@ -115,7 +115,7 @@ const vipUserList = ref<UserInfoType[]>([]);
 
 // 创建对子组件的引用  
 const uToastRef = ref(null);
-//==================异性==================================
+//==================其他小家家==================================
 const onGetRecommendListHandler = (e: any) => {
   request.post<any>('plaza/getRecommendList', null).then((res) => {
     if (res.code === 200) {
